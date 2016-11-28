@@ -8,22 +8,22 @@ namespace KBrimble.DirectLineTester.Assertions
 {
     public class MessageSetAssertions : IMessageAssertions
     {
-        readonly IEnumerable<Message> messageSet;
+        private readonly IEnumerable<Message> _messageSet;
 
-        public MessageSetAssertions(MessageSet messageSet)
-        {
-            this.messageSet = messageSet.Messages;
-        }
+        public MessageSetAssertions(MessageSet messageSet) : this(messageSet.Messages) {}
 
         public MessageSetAssertions(IEnumerable<Message> messageSet)
         {
-            this.messageSet = messageSet;
+            _messageSet = messageSet;
         }
 
         public IMessageAssertions BeFrom(string messageFrom)
         {
+            if (messageFrom == null)
+                throw new ArgumentNullException(nameof(messageFrom));
+
             var passedAssertion = false;
-            foreach (var message in messageSet)
+            foreach (var message in _messageSet)
             {
                 try
                 {
@@ -45,8 +45,11 @@ namespace KBrimble.DirectLineTester.Assertions
 
         public IMessageAssertions HaveTextMatching(string regex)
         {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+
             var passedAssertion = false;
-            foreach (var message in messageSet)
+            foreach (var message in _messageSet)
             {
                 try
                 {
@@ -66,18 +69,23 @@ namespace KBrimble.DirectLineTester.Assertions
             return this;
         }
 
-        public IMessageAssertions HaveTextMatching(string regex, string groupMatchRegex, out IEnumerable<string> matchedGroups)
+        public IMessageAssertions HaveTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+            if (groupMatchRegex == null)
+                throw new ArgumentNullException(nameof(groupMatchRegex));
+
             matchedGroups = null;
             var totalMatches = new List<string>();
             var passedAssertion = false;
-            foreach (var message in messageSet)
+            foreach (var message in _messageSet)
             {
                 try
                 {
-                    IEnumerable<string> matches;
+                    IList<string> matches;
                     message.Should().HaveTextMatching(regex, groupMatchRegex, out matches);
-                    if (matches.Any())
+                    if (matches != null && matches.Any())
                         totalMatches.AddRange(matches);
                 }
                 catch (MessageAssertionFailedException)
@@ -85,7 +93,6 @@ namespace KBrimble.DirectLineTester.Assertions
                     continue;
                 }
                 passedAssertion = true;
-                break;
             }
 
             if (!passedAssertion)
@@ -96,9 +103,9 @@ namespace KBrimble.DirectLineTester.Assertions
             return this;
         }
 
-        public IMessageAttachmentAssertions WithAttachment()
+        public IMessageAttachmentAssertions HaveAttachment()
         {
-            throw new NotImplementedException();
+            return new MessageSetAttachmentAssertions(_messageSet);
         }
     }
 }

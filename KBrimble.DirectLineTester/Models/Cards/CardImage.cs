@@ -1,4 +1,4 @@
-﻿namespace KBrimble.DirectLineTester
+﻿namespace KBrimble.DirectLineTester.Models.Cards
 {
     /// <summary>
     /// An image on a card

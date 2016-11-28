@@ -43,7 +43,7 @@ namespace KBrimble.DirectLineTester
 
         public async Task SendMessage(Message message)
         {
-            await _directLineClient.Conversations.PostMessageAsync(_conversation.ConversationId, message);
+            await _directLineClient.Conversations.PostMessageAsync(_conversation.ConversationId, message).ConfigureAwait(false);
         }
 
         public async Task<IEnumerable<Message>> GetMessagesFromHigherWatermark()

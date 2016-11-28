@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -48,7 +48,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Tester.cs" />
+    <Compile Include="AttachmentExtractor.cs" />
+    <Compile Include="Assertions\MessageAttachmentAssertions.cs" />
+    <Compile Include="Assertions\MessageSetAttachmentAssertions.cs" />
+    <Compile Include="Assertions\Cards\ThumbnailCardSetGroupAssertions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BotClient.cs" />
     <Compile Include="AssertionsEx.cs" />
@@ -57,23 +60,18 @@
     <Compile Include="Assertions\IMessageAssertions.cs" />
     <Compile Include="Assertions\MessageAssertions.cs" />
     <Compile Include="Assertions\MessageSetAssertions.cs" />
-    <Compile Include="Assertions\ThumbnailCardAssertions.cs" />
+    <Compile Include="Assertions\Cards\ThumbnailCardAssertions.cs" />
     <Compile Include="Exceptions\MessageAssertionFailedException.cs" />
     <Compile Include="Exceptions\ThumbnailCardAssertionFailedException.cs" />
     <Compile Include="Exceptions\MessageSetAssertionFailedException.cs" />
-    <Compile Include="Assertions\IThumbnailCardAssertions.cs" />
-    <Compile Include="Assertions\ThumbnailCardSetAssertions.cs" />
+    <Compile Include="Assertions\Cards\IThumbnailCardAssertions.cs" />
+    <Compile Include="Assertions\Cards\ThumbnailCardSetAssertions.cs" />
     <Compile Include="Assertions\IMessageAttachmentAssertions.cs" />
     <Compile Include="Models\Cards\CardImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Exceptions\" />
-    <Folder Include="Models\" />
-    <Folder Include="Models\Cards\" />
-    <Folder Include="Assertions\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -8,46 +9,47 @@ namespace KBrimble.DirectLineTester.Assertions
 {
     public class MessageAssertions : IMessageAssertions
     {
-        readonly Message message;
+        private readonly Message _message;
 
         public MessageAssertions(Message message)
         {
-            this.message = message;
+            _message = message;
         }
 
         public IMessageAssertions HaveTextMatching(string regex)
         {
-            var text = message.Text.ToLowerInvariant();
-            if (!Regex.IsMatch(text, regex, RegexOptions.IgnoreCase))
+            if (_message.Text == null || !Regex.IsMatch(_message.Text.ToLowerInvariant(), regex, RegexOptions.IgnoreCase))
                 throw new MessageAssertionFailedException();
             return this;
         }
 
-        public IMessageAssertions HaveTextMatching(string regex, string groupMatchRegex, out IEnumerable<string> matchedGroups)
+        public IMessageAssertions HaveTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             matchedGroups = null;
 
-            if (!Regex.IsMatch(message.Text.ToLowerInvariant(), regex, RegexOptions.IgnoreCase))
-                throw new MessageAssertionFailedException();
+            HaveTextMatching(regex);
 
-            var matches = Regex.Matches(message.Text.ToLowerInvariant(), groupMatchRegex).Cast<Match>();
+            var matches = Regex.Matches(_message.Text.ToLowerInvariant(), groupMatchRegex).Cast<Match>().ToList();
             if (matches.Any(m => m.Groups.Cast<Group>().Any()))
-                matchedGroups = matches.SelectMany(m => m.Groups.Cast<Group>()).Select(g => g.Value);
+                matchedGroups = matches.SelectMany(m => m.Groups.Cast<Group>()).Select(g => g.Value).ToList();
 
             return this;
         }
 
         public IMessageAssertions BeFrom(string messageFrom)
         {
-            if (message.FromProperty.ToLowerInvariant() != messageFrom.ToLowerInvariant())
+            if (messageFrom == null)
+                throw new ArgumentNullException(nameof(messageFrom));
+
+            if (!string.Equals(_message.FromProperty, messageFrom, StringComparison.InvariantCultureIgnoreCase))
                 throw new MessageAssertionFailedException();
 
             return this;
         }
 
-        public IMessageAttachmentAssertions WithAttachment()
+        public IMessageAttachmentAssertions HaveAttachment()
         {
-            return new MessageAttachementAssertions(message);
+            return new MessageAttachmentAssertions(_message);
         }
     }
 }

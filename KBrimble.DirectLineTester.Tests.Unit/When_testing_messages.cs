@@ -12,6 +12,32 @@ namespace KBrimble.DirectLineTester.Tests.Unit
     [TestFixture]
     public class When_testing_messages
     {
+        [Test]
+        public void HaveTextMatching_should_throw_ArgumentNullException_when_regex_is_null()
+        {
+            var message = new Message(text: "valid text");
+
+            var sut = new MessageAssertions(message);
+
+            Action act = () => sut.HaveTextMatching(null);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void HaveTextMatching_should_throw_ArgumentNullException_when_groupMatchRegex_is_null()
+        {
+            IList<string> matches;
+
+            var message = new Message(text: "valid text");
+
+            var sut = new MessageAssertions(message);
+
+            Action act = () => sut.HaveTextMatching(".*", null, out matches);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
         [TestCase("some text")]
         [TestCase("")]
         [TestCase("symbols ([*])?")]
@@ -70,7 +96,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit
         [Test]
         public void HaveTextMatching_should_not_output_matches_when_regex_does_not_match_text()
         {
-            IEnumerable<string> matches = null;
+            IList<string> matches = null;
 
             var message = new Message(text: "some text");
 
@@ -85,7 +111,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit
         [Test]
         public void HaveTextMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_text()
         {
-            IEnumerable<string> matches = null;
+            IList<string> matches;
 
             var message = new Message(text: "some text");
 
@@ -97,9 +123,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit
         }
 
         [Test]
-        public void HaveTextMatching_should_ouput_matches_when_groupMatchingRegex_does_match_text()
+        public void HaveTextMatching_should_output_matches_when_groupMatchingRegex_matches_text()
         {
-            IEnumerable<string> matches = null;
+            IList<string> matches;
 
             const string someText = "some text";
             var message = new Message(text: someText);
@@ -114,7 +140,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit
         [Test]
         public void HaveTextMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_several_times()
         {
-            IEnumerable<string> matches = null;
+            IList<string> matches;
 
             const string someText = "some text";
             var message = new Message(text: someText);
@@ -128,6 +154,32 @@ namespace KBrimble.DirectLineTester.Tests.Unit
             matches.Should().Contain(match1, match2);
         }
 
+
+        [Test]
+        public void HaveTextMatching_should_throw_MessageAssertionFailedException_when_text_is_null()
+        {
+            var message = new Message();
+
+            var sut = new MessageAssertions(message);
+
+            Action act = () => sut.HaveTextMatching("anything");
+
+            act.ShouldThrow<MessageAssertionFailedException>();
+        }
+
+        [Test]
+        public void HaveTextMatching_should_throw_MessageAssertionFailedException_when_trying_to_capture_groups_but_text_is_null()
+        {
+            IList<string> matches;
+            var message = new Message();
+
+            var sut = new MessageAssertions(message);
+
+            Action act = () => sut.HaveTextMatching("anything", "(.*)", out matches);
+
+            act.ShouldThrow<MessageAssertionFailedException>();
+        }
+
         [Test]
         public void BeFrom_should_throw_MessageAssertionFailedException_if_input_does_not_match_FromProperty_of_message()
         {
@@ -137,6 +189,18 @@ namespace KBrimble.DirectLineTester.Tests.Unit
             var sut = new MessageAssertions(message);
 
             Action act = () => sut.BeFrom("someoneElse");
+
+            act.ShouldThrow<MessageAssertionFailedException>();
+        }
+
+        [Test]
+        public void BeFrom_should_throw_MessageAssertionFailedException_if_FromProperty_of_message_is_null()
+        {
+            var message = new Message();
+
+            var sut = new MessageAssertions(message);
+
+            Action act = () => sut.BeFrom("");
 
             act.ShouldThrow<MessageAssertionFailedException>();
         }
@@ -165,6 +229,18 @@ namespace KBrimble.DirectLineTester.Tests.Unit
             Action act = () => sut.BeFrom(fromValue);
 
             act.ShouldNotThrow<MessageAssertionFailedException>();
+        }
+
+        [Test]
+        public void BeFrom_should_throw_ArgumentNullException_if_input_is_null()
+        {
+            var message = new Message(fromProperty: "fromMe");
+
+            var sut = new MessageAssertions(message);
+
+            Action act = () => sut.BeFrom(null);
+
+            act.ShouldThrow<ArgumentNullException>();
         }
     }
 }
