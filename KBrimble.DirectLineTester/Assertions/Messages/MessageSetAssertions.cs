@@ -4,6 +4,7 @@ using System.Linq;
 using KBrimble.DirectLineTester.Assertions.Attachments;
 using KBrimble.DirectLineTester.Exceptions;
 using Microsoft.Bot.Connector.DirectLine.Models;
+using static KBrimble.DirectLineTester.Assertions.SetHelpers;
 
 namespace KBrimble.DirectLineTester.Assertions.Messages
 {
@@ -49,23 +50,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            var passedAssertion = false;
-            foreach (var message in _messageSet)
-            {
-                try
-                {
-                    message.Should().HaveTextMatching(regex);
-                }
-                catch (MessageAssertionFailedException)
-                {
-                    continue;
-                }
-                passedAssertion = true;
-                break;
-            }
-
-            if (!passedAssertion)
-                throw new MessageSetAssertionFailedException();
+            TestSetForMatch(_messageSet, msg => msg.Should().HaveTextMatching(regex), typeof(MessageAssertionFailedException), new MessageSetAssertionFailedException());
 
             return this;
         }
@@ -77,30 +62,8 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = null;
-            var totalMatches = new List<string>();
-            var passedAssertion = false;
-            foreach (var message in _messageSet)
-            {
-                try
-                {
-                    IList<string> matches;
-                    message.Should().HaveTextMatching(regex, groupMatchRegex, out matches);
-                    if (matches != null && matches.Any())
-                        totalMatches.AddRange(matches);
-                }
-                catch (MessageAssertionFailedException)
-                {
-                    continue;
-                }
-                passedAssertion = true;
-            }
-
-            if (!passedAssertion)
-                throw new MessageSetAssertionFailedException();
-
-            if (totalMatches.Any())
-                matchedGroups = totalMatches;
+            TestWithGroups<Message> act = (Message msg, out IList<string> matches) => msg.Should().HaveTextMatching(regex, groupMatchRegex, out matches);
+            matchedGroups = TestSetForMatchAndReturnGroups(_messageSet, act, typeof(MessageAssertionFailedException), new MessageSetAssertionFailedException());
             return this;
         }
 

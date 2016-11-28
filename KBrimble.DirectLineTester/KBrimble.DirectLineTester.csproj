@@ -47,6 +47,7 @@
     <Compile Include="Assertions\Attachments\MessageAttachmentAssertions.cs" />
     <Compile Include="Assertions\Attachments\MessageSetAttachmentAssertions.cs" />
     <Compile Include="Assertions\Cards\GroupOfThumbnailCardSetAssertions.cs" />
+    <Compile Include="Exceptions\BotAssertionFailedException.cs" />
     <Compile Include="Exceptions\ThumbnailCardSetAssertionFailedException.cs" />
     <Compile Include="Exceptions\GroupOfThumbnailCardSetAssertionFailedException.cs" />
     <Compile Include="IBotClient.cs" />

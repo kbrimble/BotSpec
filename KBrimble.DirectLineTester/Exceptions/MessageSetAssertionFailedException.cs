@@ -1,7 +1,4 @@
-﻿using System;
-namespace KBrimble.DirectLineTester.Exceptions
+﻿namespace KBrimble.DirectLineTester.Exceptions
 {
-    public class MessageSetAssertionFailedException : Exception
-    {
-    }
+    public class MessageSetAssertionFailedException : BotAssertionFailedException {}
 }

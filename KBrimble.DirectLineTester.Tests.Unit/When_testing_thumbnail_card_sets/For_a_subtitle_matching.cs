@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using KBrimble.DirectLineTester.Assertions;
 using KBrimble.DirectLineTester.Assertions.Cards;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;

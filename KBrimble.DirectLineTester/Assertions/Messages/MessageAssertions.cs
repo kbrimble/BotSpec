@@ -1,8 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
-using KBrimble.DirectLineTester.Assertions;
 using KBrimble.DirectLineTester.Assertions.Attachments;
 using KBrimble.DirectLineTester.Exceptions;
 using Microsoft.Bot.Connector.DirectLine.Models;
@@ -26,14 +23,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
 
         public IMessageAssertions HaveTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
-            matchedGroups = null;
-
-            HaveTextMatching(regex);
-
-            var matches = Regex.Matches(_message.Text.ToLowerInvariant(), groupMatchRegex).Cast<Match>().ToList();
-            if (matches.Any(m => m.Groups.Cast<Group>().Any()))
-                matchedGroups = matches.SelectMany(m => m.Groups.Cast<Group>()).Select(g => g.Value).ToList();
-
+            matchedGroups = StringHelpers.TestForMatchAndReturnGroups(_message.Text, regex, groupMatchRegex, new MessageAssertionFailedException());
             return this;
         }
 

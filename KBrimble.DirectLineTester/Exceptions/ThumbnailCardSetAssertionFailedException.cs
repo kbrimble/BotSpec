@@ -1,6 +1,4 @@
-using System;
-
 namespace KBrimble.DirectLineTester.Exceptions
 {
-    public class ThumbnailCardSetAssertionFailedException : Exception { }
+    public class ThumbnailCardSetAssertionFailedException : BotAssertionFailedException { }
 }
