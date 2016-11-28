@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using KBrimble.DirectLineTester.Assertions;
+using KBrimble.DirectLineTester.Assertions.Attachments;
 using KBrimble.DirectLineTester.Exceptions;
 using Microsoft.Bot.Connector.DirectLine.Models;
 
-namespace KBrimble.DirectLineTester.Assertions
+namespace KBrimble.DirectLineTester.Assertions.Messages
 {
     public class MessageAssertions : IMessageAssertions
     {
@@ -18,8 +20,7 @@ namespace KBrimble.DirectLineTester.Assertions
 
         public IMessageAssertions HaveTextMatching(string regex)
         {
-            if (_message.Text == null || !Regex.IsMatch(_message.Text.ToLowerInvariant(), regex, RegexOptions.IgnoreCase))
-                throw new MessageAssertionFailedException();
+            StringHelpers.TestForMatch(_message.Text, regex, new MessageAssertionFailedException());
             return this;
         }
 

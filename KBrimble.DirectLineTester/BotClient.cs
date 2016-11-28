@@ -5,21 +5,12 @@ using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester
 {
-    interface IBotClient
+    internal class BotClient : IBotClient
     {
-        Task StartConversation();
-        Task SendMessage(string messageText);
-        Task SendMessage(Message message);
-        Task<IEnumerable<Message>> GetMessagesFromHigherWatermark();
-        Task<IEnumerable<Message>> GetMessagesFromLowerWatermark();
-    }
-
-    class BotClient : IBotClient
-    {
-        readonly IDirectLineClient _directLineClient;
-        Conversation _conversation;
-        string _higherWatermark;
-        string _lowerWatermark;
+        private readonly IDirectLineClient _directLineClient;
+        private Conversation _conversation;
+        private string _higherWatermark;
+        private string _lowerWatermark;
 
         public BotClient(string secretOrToken)
         {
@@ -59,7 +50,7 @@ namespace KBrimble.DirectLineTester
             return (await GetMessageSet(_lowerWatermark).ConfigureAwait(false)).Messages;
         }
 
-        async Task<MessageSet> GetMessageSet(string watermark)
+        private async Task<MessageSet> GetMessageSet(string watermark)
         {
             return await _directLineClient.Conversations.GetMessagesAsync(_conversation.ConversationId, watermark).ConfigureAwait(false);
         }

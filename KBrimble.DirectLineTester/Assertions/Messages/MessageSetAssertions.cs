@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using KBrimble.DirectLineTester.Assertions.Attachments;
 using KBrimble.DirectLineTester.Exceptions;
 using Microsoft.Bot.Connector.DirectLine.Models;
 
-namespace KBrimble.DirectLineTester.Assertions
+namespace KBrimble.DirectLineTester.Assertions.Messages
 {
     public class MessageSetAssertions : IMessageAssertions
     {

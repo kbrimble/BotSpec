@@ -5,13 +5,13 @@ using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
-    public class ThumbnailCardSetGroupAssertions : IThumbnailCardAssertions
+    public class GroupOfThumbnailCardSetAssertions : IThumbnailCardAssertions
     {
         private readonly IList<ThumbnailCardSetAssertions> _thumbnailCardSets;
 
-        public ThumbnailCardSetGroupAssertions(MessageSet messageSet) : this(messageSet.Messages) {}
+        public GroupOfThumbnailCardSetAssertions(MessageSet messageSet) : this(messageSet.Messages) {}
 
-        public ThumbnailCardSetGroupAssertions(IEnumerable<Message> messageSet)
+        public GroupOfThumbnailCardSetAssertions(IEnumerable<Message> messageSet)
         {
             _thumbnailCardSets = new List<ThumbnailCardSetAssertions>();
             foreach (var message in messageSet)
@@ -38,7 +38,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             }
 
             if (!assertionPassed)
-                throw new ThumbnailCardSetGroupAssertionFailedException();
+                throw new GroupOfThumbnailCardSetAssertionFailedException();
 
             return this;
         }
@@ -66,7 +66,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             }
 
             if (!passedAssertion)
-                throw new ThumbnailCardSetGroupAssertionFailedException();
+                throw new GroupOfThumbnailCardSetAssertionFailedException();
 
             if (totalMatches.Any())
                 matchedGroups = totalMatches;
@@ -92,7 +92,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             }
 
             if (!passedAssertion)
-                throw new ThumbnailCardSetGroupAssertionFailedException();
+                throw new GroupOfThumbnailCardSetAssertionFailedException();
 
             return this;
         }
@@ -120,7 +120,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             }
 
             if (!passedAssertion)
-                throw new ThumbnailCardSetGroupAssertionFailedException();
+                throw new GroupOfThumbnailCardSetAssertionFailedException();
 
             if (totalMatches.Any())
                 matchedGroups = totalMatches;
@@ -146,7 +146,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             }
 
             if (!passedAssertion)
-                throw new ThumbnailCardSetGroupAssertionFailedException();
+                throw new GroupOfThumbnailCardSetAssertionFailedException();
 
             return this;
         }
@@ -174,7 +174,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             }
 
             if (!passedAssertion)
-                throw new ThumbnailCardSetGroupAssertionFailedException();
+                throw new GroupOfThumbnailCardSetAssertionFailedException();
 
             if (totalMatches.Any())
                 matchedGroups = totalMatches;

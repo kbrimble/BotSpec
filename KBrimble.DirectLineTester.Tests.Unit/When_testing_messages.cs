@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
 using KBrimble.DirectLineTester.Assertions;
+using KBrimble.DirectLineTester.Assertions.Messages;
 using KBrimble.DirectLineTester.Exceptions;
 using Microsoft.Bot.Connector.DirectLine.Models;
 using NUnit.Framework;

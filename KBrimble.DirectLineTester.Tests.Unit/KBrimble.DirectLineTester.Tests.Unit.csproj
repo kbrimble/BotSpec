@@ -67,6 +67,7 @@
     <Compile Include="When_testing_thumbnail_card_sets\ThumbnailCardTestData.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 using KBrimble.DirectLineTester.Assertions.Cards;
 using Microsoft.Bot.Connector.DirectLine.Models;
 
-namespace KBrimble.DirectLineTester.Assertions
+namespace KBrimble.DirectLineTester.Assertions.Attachments
 {
     public class MessageAttachmentAssertions : IMessageAttachmentAssertions
     {

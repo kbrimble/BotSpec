@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using KBrimble.DirectLineTester.Assertions.Cards;
 using Microsoft.Bot.Connector.DirectLine.Models;
 
-namespace KBrimble.DirectLineTester.Assertions
+namespace KBrimble.DirectLineTester.Assertions.Attachments
 {
     public class MessageSetAttachmentAssertions : IMessageAttachmentAssertions
     {
@@ -20,7 +20,7 @@ namespace KBrimble.DirectLineTester.Assertions
 
         public IThumbnailCardAssertions OfTypeThumbnailCardThat()
         {
-            return new ThumbnailCardSetGroupAssertions(_messageSet);
+            return new GroupOfThumbnailCardSetAssertions(_messageSet);
         }
     }
 }
