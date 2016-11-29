@@ -6,8 +6,7 @@ using static KBrimble.DirectLineTester.Assertions.StringHelpers;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
-
-    public class ThumbnailCardAssertions : IThumbnailCardAssertions
+    public class ThumbnailCardAssertions : IThumbnailCardAssertions, IThrow<ThumbnailCardAssertionFailedException>
     {
         private readonly ThumbnailCard _thumbnailCard;
 
@@ -21,7 +20,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            TestForMatch(_thumbnailCard.Title, regex, new ThumbnailCardAssertionFailedException());
+            TestForMatch(_thumbnailCard.Title, regex, CreateEx(nameof(ThumbnailCard.Title), regex));
 
             return this;
         }
@@ -33,7 +32,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = TestForMatchAndReturnGroups(_thumbnailCard.Title, regex, groupMatchRegex, new ThumbnailCardAssertionFailedException());
+            matchedGroups = TestForMatchAndReturnGroups(_thumbnailCard.Title, regex, groupMatchRegex, CreateEx(nameof(ThumbnailCard.Title), regex));
 
             return this;
         }
@@ -43,7 +42,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            TestForMatch(_thumbnailCard.Subtitle, regex, new ThumbnailCardAssertionFailedException());
+            TestForMatch(_thumbnailCard.Subtitle, regex, CreateEx(nameof(ThumbnailCard.Subtitle), regex));
 
             return this;
         }
@@ -55,7 +54,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = TestForMatchAndReturnGroups(_thumbnailCard.Subtitle, regex, groupMatchRegex, new ThumbnailCardAssertionFailedException());
+            matchedGroups = TestForMatchAndReturnGroups(_thumbnailCard.Subtitle, regex, groupMatchRegex, CreateEx(nameof(ThumbnailCard.Subtitle), regex));
             return this;
         }
 
@@ -64,7 +63,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            TestForMatch(_thumbnailCard.Text, regex, new ThumbnailCardAssertionFailedException());
+            TestForMatch(_thumbnailCard.Text, regex, CreateEx(nameof(ThumbnailCard.Text), regex));
 
             return this;
         }
@@ -76,9 +75,15 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = TestForMatchAndReturnGroups(_thumbnailCard.Text, regex, groupMatchRegex, new ThumbnailCardAssertionFailedException());
+            matchedGroups = TestForMatchAndReturnGroups(_thumbnailCard.Text, regex, groupMatchRegex, CreateEx(nameof(ThumbnailCard.Text), regex));
 
             return this;
+        }
+
+        public ThumbnailCardAssertionFailedException CreateEx(string testedProperty, string regex)
+        {
+            var message = $"Expected thumbnail card to have property {testedProperty} to match {regex} but regex test failed.";
+            return new ThumbnailCardAssertionFailedException(message);
         }
     }
 }

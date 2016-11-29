@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using KBrimble.DirectLineTester.Assertions.Attachments;
 using KBrimble.DirectLineTester.Exceptions;
 using Microsoft.Bot.Connector.DirectLine.Models;
-using static KBrimble.DirectLineTester.Assertions.SetHelpers;
 
 namespace KBrimble.DirectLineTester.Assertions.Messages
 {
-    public class MessageSetAssertions : IMessageAssertions
+    public class MessageSetAssertions : IMessageAssertions, IThrow<MessageSetAssertionFailedException>
     {
         private readonly IEnumerable<Message> _messageSet;
+        private readonly SetHelpers<Message, MessageAssertionFailedException, MessageSetAssertionFailedException> _setHelpers;
 
         public MessageSetAssertions(MessageSet messageSet) : this(messageSet.Messages) {}
 
         public MessageSetAssertions(IEnumerable<Message> messageSet)
         {
+            _setHelpers = new SetHelpers<Message, MessageAssertionFailedException, MessageSetAssertionFailedException>();
             _messageSet = messageSet;
         }
 
@@ -23,23 +24,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             if (messageFrom == null)
                 throw new ArgumentNullException(nameof(messageFrom));
 
-            var passedAssertion = false;
-            foreach (var message in _messageSet)
-            {
-                try
-                {
-                    message.Should().BeFrom(messageFrom);
-                }
-                catch (MessageAssertionFailedException)
-                {
-                    continue;
-                }
-                passedAssertion = true;
-                break;
-            }
-
-            if (!passedAssertion)
-                throw new MessageSetAssertionFailedException();
+            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().BeFrom(messageFrom), CreateEx("Text", messageFrom));
 
             return this;
         }
@@ -49,7 +34,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            TestSetForMatch(_messageSet, msg => msg.Should().HaveTextMatching(regex), typeof(MessageAssertionFailedException), new MessageSetAssertionFailedException());
+            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().HaveTextMatching(regex), CreateEx("Text", regex));
 
             return this;
         }
@@ -61,8 +46,9 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            TestWithGroups<Message> act = (Message msg, out IList<string> matches) => msg.Should().HaveTextMatching(regex, groupMatchRegex, out matches);
-            matchedGroups = TestSetForMatchAndReturnGroups(_messageSet, act, typeof(MessageAssertionFailedException), new MessageSetAssertionFailedException());
+            SetHelpers<Message, MessageAssertionFailedException, MessageSetAssertionFailedException>.TestWithGroups act
+                = (Message item, out IList<string> matches) => item.Should().HaveTextMatching(regex, groupMatchRegex, out matches);
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_messageSet, act, CreateEx("Text", regex));
 
             return this;
         }
@@ -70,6 +56,12 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
         public IMessageAttachmentAssertions HaveAttachment()
         {
             return new MessageSetAttachmentAssertions(_messageSet);
+        }
+
+        public MessageSetAssertionFailedException CreateEx(string testedProperty, string regex)
+        {
+            var message = $"Expected one message in set to have property {testedProperty} to match {regex} but none did.";
+            return new MessageSetAssertionFailedException(message);
         }
     }
 }

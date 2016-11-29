@@ -6,7 +6,7 @@ using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Messages
 {
-    public class MessageAssertions : IMessageAssertions
+    public class MessageAssertions : IMessageAssertions, IThrow<MessageAssertionFailedException>
     {
         private readonly Message _message;
 
@@ -17,13 +17,13 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
 
         public IMessageAssertions HaveTextMatching(string regex)
         {
-            StringHelpers.TestForMatch(_message.Text, regex, new MessageAssertionFailedException());
+            StringHelpers.TestForMatch(_message.Text, regex, CreateEx(nameof(_message.Text), regex));
             return this;
         }
 
         public IMessageAssertions HaveTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
-            matchedGroups = StringHelpers.TestForMatchAndReturnGroups(_message.Text, regex, groupMatchRegex, new MessageAssertionFailedException());
+            matchedGroups = StringHelpers.TestForMatchAndReturnGroups(_message.Text, regex, groupMatchRegex, CreateEx(nameof(_message.Text), regex));
             return this;
         }
 
@@ -33,7 +33,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
                 throw new ArgumentNullException(nameof(messageFrom));
 
             if (!string.Equals(_message.FromProperty, messageFrom, StringComparison.InvariantCultureIgnoreCase))
-                throw new MessageAssertionFailedException();
+                throw CreateEx(nameof(_message.FromProperty), messageFrom);
 
             return this;
         }
@@ -41,6 +41,12 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
         public IMessageAttachmentAssertions HaveAttachment()
         {
             return new MessageAttachmentAssertions(_message);
+        }
+
+        public MessageAssertionFailedException CreateEx(string testedProperty, string regex)
+        {
+            var message = $"Expected message to have property {testedProperty} to match {regex} but regex test failed.";
+            return new MessageAssertionFailedException(message);
         }
     }
 }

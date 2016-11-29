@@ -5,11 +5,13 @@ using KBrimble.DirectLineTester.Exceptions;
 
 namespace KBrimble.DirectLineTester.Assertions
 {
-    internal static class SetHelpers
+    internal class SetHelpers<TSetItem, TExCatch, TExThrow> 
+        where TExCatch : BotAssertionFailedException 
+        where TExThrow : BotAssertionFailedException
     {
-        internal delegate void TestWithGroups<in TSetItem>(TSetItem item, out IList<string> groupMatches);
+        internal delegate void TestWithGroups(TSetItem item, out IList<string> groupMatches);
 
-        internal static void TestSetForMatch<TSetItem, TEx>(IEnumerable<TSetItem> set, Action<TSetItem> test, Type exceptionToCatch, TEx exceptionToThrow) where TEx : BotAssertionFailedException
+        internal void TestSetForMatch(IEnumerable<TSetItem> set, Action<TSetItem> test, TExThrow exceptionToThrow)
         {
             var passedAssertion = false;
             foreach (var item in set)
@@ -18,11 +20,9 @@ namespace KBrimble.DirectLineTester.Assertions
                 {
                     test(item);
                 }
-                catch (Exception e)
+                catch (TExCatch)
                 {
-                    if (e.GetType() == exceptionToCatch)
-                        continue;
-                    throw;
+                    continue;
                 }
                 passedAssertion = true;
                 break;
@@ -32,7 +32,7 @@ namespace KBrimble.DirectLineTester.Assertions
                 throw exceptionToThrow;
         }
 
-        internal static IList<string> TestSetForMatchAndReturnGroups<TSetItem, TEx>(IEnumerable<TSetItem> set, TestWithGroups<TSetItem> testWithGroups, Type exceptionToCatch, TEx exceptionToThrow) where TEx : BotAssertionFailedException
+        internal IList<string> TestSetForMatchAndReturnGroups(IEnumerable<TSetItem> set, TestWithGroups testWithGroups, TExThrow exceptionToThrow)
         {
             var totalMatches = new List<string>();
             var passedAssertion = false;
@@ -45,11 +45,9 @@ namespace KBrimble.DirectLineTester.Assertions
                     if (matches != null && matches.Any())
                         totalMatches.AddRange(matches);
                 }
-                catch (Exception e)
+                catch (TExCatch)
                 {
-                    if (e.GetType() == exceptionToCatch)
-                        continue;
-                    throw;
+                    continue;
                 }
                 passedAssertion = true;
             }

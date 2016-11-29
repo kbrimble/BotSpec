@@ -6,6 +6,21 @@
     public class CardImage
     {
         /// <summary>
+        /// Initializes a new instance of the CardImage class.
+        /// </summary>
+        public CardImage() { }
+
+        /// <summary>
+        /// Initializes a new instance of the CardImage class.
+        /// </summary>
+        public CardImage(string url = default(string), string alt = default(string), CardAction tap = default(CardAction))
+        {
+            Url = url;
+            Alt = alt;
+            Tap = tap;
+        }
+
+        /// <summary>
         /// URL Thumbnail image for major content property.
         /// </summary>
         public string Url { get; set; }

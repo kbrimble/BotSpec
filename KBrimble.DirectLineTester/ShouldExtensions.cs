@@ -12,9 +12,10 @@ namespace KBrimble.DirectLineTester
         public static IMessageAssertions Should(this IEnumerable<Message> messageSet) => new MessageSetAssertions(messageSet);
         public static IMessageAssertions Should(this MessageSet messageSet) => new MessageSetAssertions(messageSet);
         public static IMessageAssertions Should(this Message message) => new MessageAssertions(message);
-        public static IThumbnailCardAssertions Should(this ThumbnailCard thumbnailCard) => new ThumbnailCardAssertions(thumbnailCard);
         public static IMessageAttachmentAssertions ShouldHaveAttachment(this Message message) => new MessageAttachmentAssertions(message);
         public static IMessageAttachmentAssertions ShouldHaveAttachment(this MessageSet messageSet) => new MessageSetAttachmentAssertions(messageSet);
         public static IMessageAttachmentAssertions ShouldHaveAttachment(this IEnumerable<Message> messageSet) => new MessageSetAttachmentAssertions(messageSet);
+        public static IThumbnailCardAssertions That(this ThumbnailCard thumbnailCard) => new ThumbnailCardAssertions(thumbnailCard);
+        public static ICardImageAssertions That(this CardImage cardImage) => new CardImageAssertions(cardImage);
     }
 }
