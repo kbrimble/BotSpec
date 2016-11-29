@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using KBrimble.DirectLineTester.Assertions.Attachments;
 using KBrimble.DirectLineTester.Exceptions;
 using Microsoft.Bot.Connector.DirectLine.Models;
@@ -64,6 +63,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
 
             TestWithGroups<Message> act = (Message msg, out IList<string> matches) => msg.Should().HaveTextMatching(regex, groupMatchRegex, out matches);
             matchedGroups = TestSetForMatchAndReturnGroups(_messageSet, act, typeof(MessageAssertionFailedException), new MessageSetAssertionFailedException());
+
             return this;
         }
 

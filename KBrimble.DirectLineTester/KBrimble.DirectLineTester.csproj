@@ -42,6 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assertions\SetHelpers.cs" />
     <Compile Include="Assertions\StringHelpers.cs" />
     <Compile Include="AttachmentExtractor.cs" />
     <Compile Include="Assertions\Attachments\MessageAttachmentAssertions.cs" />

@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text.RegularExpressions;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
+using static KBrimble.DirectLineTester.Assertions.StringHelpers;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
@@ -22,8 +21,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            if (_thumbnailCard.Title == null || !Regex.IsMatch(_thumbnailCard.Title.ToLowerInvariant(), regex, RegexOptions.IgnoreCase))
-                throw new ThumbnailCardAssertionFailedException();
+            TestForMatch(_thumbnailCard.Title, regex, new ThumbnailCardAssertionFailedException());
 
             return this;
         }
@@ -35,13 +33,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = null;
-
-            HasTitleMatching(regex);
-
-            var matches = Regex.Matches(_thumbnailCard.Title, groupMatchRegex).Cast<Match>().ToList();
-            if (matches.Any(m => m.Groups.Cast<Group>().Any()))
-                matchedGroups = matches.SelectMany(m => m.Groups.Cast<Group>()).Select(g => g.Value).ToList();
+            matchedGroups = TestForMatchAndReturnGroups(_thumbnailCard.Title, regex, groupMatchRegex, new ThumbnailCardAssertionFailedException());
 
             return this;
         }
@@ -51,8 +43,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            if (_thumbnailCard.Subtitle == null || !Regex.IsMatch(_thumbnailCard.Subtitle.ToLowerInvariant(), regex, RegexOptions.IgnoreCase))
-                throw new ThumbnailCardAssertionFailedException();
+            TestForMatch(_thumbnailCard.Subtitle, regex, new ThumbnailCardAssertionFailedException());
 
             return this;
         }
@@ -64,14 +55,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = null;
-
-            HasSubtitleMatching(regex);
-
-            var matches = Regex.Matches(_thumbnailCard.Subtitle, groupMatchRegex).Cast<Match>().ToList();
-            if (matches.Any(m => m.Groups.Cast<Group>().Any()))
-                matchedGroups = matches.SelectMany(m => m.Groups.Cast<Group>()).Select(g => g.Value).ToList();
-
+            matchedGroups = TestForMatchAndReturnGroups(_thumbnailCard.Subtitle, regex, groupMatchRegex, new ThumbnailCardAssertionFailedException());
             return this;
         }
 
@@ -80,8 +64,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            if (_thumbnailCard.Text == null || !Regex.IsMatch(_thumbnailCard.Text.ToLowerInvariant(), regex, RegexOptions.IgnoreCase))
-                throw new ThumbnailCardAssertionFailedException();
+            TestForMatch(_thumbnailCard.Text, regex, new ThumbnailCardAssertionFailedException());
 
             return this;
         }
@@ -93,13 +76,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = null;
-
-            HasTextMatching(regex);
-
-            var matches = Regex.Matches(_thumbnailCard.Text, groupMatchRegex).Cast<Match>().ToList();
-            if (matches.Any(m => m.Groups.Cast<Group>().Any()))
-                matchedGroups = matches.SelectMany(m => m.Groups.Cast<Group>()).Select(g => g.Value).ToList();
+            matchedGroups = TestForMatchAndReturnGroups(_thumbnailCard.Text, regex, groupMatchRegex, new ThumbnailCardAssertionFailedException());
 
             return this;
         }
