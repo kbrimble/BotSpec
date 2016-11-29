@@ -5,9 +5,10 @@ using FluentAssertions;
 using KBrimble.DirectLineTester.Assertions.Cards;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
+using KBrimble.DirectLineTester.Tests.Unit.When_testing_thumbnail_card_sets;
 using NUnit.Framework;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_thumbnail_card_sets
+namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_card_image_sets
 {
     [TestFixture]
     public class For_a_subtitle_matching
@@ -15,7 +16,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_thumbnail_card_sets
         [TestCase("some text")]
         [TestCase("")]
         [TestCase("symbols ([*])?")]
-        public void HasSubtitleMatching_should_pass_if_regex_exactly_matches_message_Subtitle_of_one_card(string cardSubtitleAndRegex)
+        public void HasSubtitleMatching_should_pass_if_regex_exactly_matches_message_Subtitle(string cardSubtitleAndRegex)
         {
             var thumbnailCard = new ThumbnailCard(subtitle: cardSubtitleAndRegex);
 
@@ -28,7 +29,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_thumbnail_card_sets
 
         [TestCase("some text", "SOME TEXT")]
         [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
-        public void HasSubtitleMatching__should_pass_if_regex_exactly_matches_Subtitle_of_at_least_1_card_regardless_of_case(string cardSubtitle, string regex)
+        public void HasSubtitleMatching_should_pass_regardless_of_case(string cardSubtitle, string regex)
         {
             var thumbnailCard = new ThumbnailCard(subtitle: cardSubtitle);
 
@@ -56,7 +57,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_thumbnail_card_sets
         [TestCase("some text", "some text!")]
         [TestCase("some text", "^[j-z ]*$")]
         [TestCase("some text", "s{12}")]
-        public void HasSubtitleMatching_should_throw_ThumbnailCardSetAssertionFailedException_when_regex_matches_no_cards(string cardSubtitle, string regex)
+        public void HasSubtitleMatching_should_throw_ThumbnailCardAssertionFailedException_for_non_matching_regexes(string cardSubtitle, string regex)
         {
             var thumbnailCard = new ThumbnailCard(subtitle: cardSubtitle);
 
@@ -68,48 +69,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_thumbnail_card_sets
         }
 
         [Test]
-        public void HasSubtitleMatching_should_throw_ThumbnailCardSetAssertionFailedException_when_Subtitle_of_all_cards_is_null()
-        {
-            var cards = Enumerable.Range(1, 5).Select(_ => new ThumbnailCard()).ToList();
-
-            var sut = new ThumbnailCardSetAssertions(cards);
-
-            Action act = () => sut.HasSubtitleMatching(".*");
-
-            act.ShouldThrow<ThumbnailCardSetAssertionFailedException>();
-        }
-
-        [Test]
-        public void HasSubtitleMatching_should_throw_ThumbnailCardSetAssertionFailedException_when_trying_to_capture_groups_but_Subtitle_of_all_cards_is_null()
-        {
-            IList<string> matches;
-
-            var cards = Enumerable.Range(1, 5).Select(_ => new ThumbnailCard()).ToList();
-
-            var sut = new ThumbnailCardSetAssertions(cards);
-
-            Action act = () => sut.HasSubtitleMatching(".*", "(.*)", out matches);
-
-            act.ShouldThrow<ThumbnailCardSetAssertionFailedException>();
-        }
-
-        [Test]
-        public void HasSubtitleMatching_should_not_output_matches_when_regex_does_not_match_Subtitle_of_any_cards()
-        {
-            IList<string> matches = null;
-
-            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
-
-            var sut = new ThumbnailCardSetAssertions(cards);
-
-            Action act = () => sut.HasSubtitleMatching("non matching regex", "(some text)", out matches);
-
-            act.ShouldThrow<ThumbnailCardSetAssertionFailedException>();
-            matches.Should().BeNull();
-        }
-
-        [Test]
-        public void HasSubtitleMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_Subtitle_of_any_card()
+        public void HasSubtitleMatching_should_not_output_matches_when_regex_does_not_match_text()
         {
             IList<string> matches = null;
 
@@ -124,7 +84,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_thumbnail_card_sets
         }
 
         [Test]
-        public void HasSubtitleMatching_should_output_matches_when_groupMatchingRegex_matches_Subtitle_of_any_card()
+        public void HasSubtitleMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_text()
         {
             IList<string> matches;
 
@@ -138,19 +98,35 @@ namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_thumbnail_card_sets
         }
 
         [Test]
-        public void HasSubtitleMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_Subtitle_on_multiple_cards()
+        public void HasSubtitleMatching_should_output_matches_when_groupMatchingRegex_matches_text()
         {
             IList<string> matches;
 
-            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
-            cards.Add(new ThumbnailCard(subtitle: "some text"));
-            cards.Add(new ThumbnailCard(subtitle: "same text"));
+            const string someText = "some text";
+            var thumbnailCard = new ThumbnailCard(subtitle: someText);
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new ThumbnailCardAssertions(thumbnailCard);
 
-            sut.HasSubtitleMatching(".*", @"(s[oa]me) (text)", out matches);
+            sut.HasSubtitleMatching(someText, $"({someText})", out matches);
 
-            matches.Should().Contain("some", "same", "text");
+            matches.First().Should().Be(someText);
+        }
+
+        [Test]
+        public void HasSubtitleMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_several_times()
+        {
+            IList<string> matches;
+
+            const string someText = "some text";
+            var thumbnailCard = new ThumbnailCard(subtitle: someText);
+
+            var sut = new ThumbnailCardAssertions(thumbnailCard);
+
+            const string match1 = "some";
+            const string match2 = "text";
+            sut.HasSubtitleMatching(someText, $"({match1}) ({match2})", out matches);
+
+            matches.Should().Contain(match1, match2);
         }
 
         [Test]

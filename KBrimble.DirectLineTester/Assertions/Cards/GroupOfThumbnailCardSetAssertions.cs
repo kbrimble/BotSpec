@@ -9,17 +9,26 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
     public class GroupOfThumbnailCardSetAssertions : IThumbnailCardAssertions, IThrow<GroupOfThumbnailCardSetAssertionFailedException>
     {
         private readonly IList<ThumbnailCardSetAssertions> _thumbnailCardSets;
-        private SetHelpers<ThumbnailCardSetAssertions, ThumbnailCardSetAssertionFailedException, GroupOfThumbnailCardSetAssertionFailedException> _setHelpers;
+        private readonly SetHelpers<ThumbnailCardSetAssertions, ThumbnailCardSetAssertionFailedException, GroupOfThumbnailCardSetAssertionFailedException> _setHelpers;
 
         public GroupOfThumbnailCardSetAssertions(MessageSet messageSet) : this(messageSet.Messages) {}
 
-        public GroupOfThumbnailCardSetAssertions(IEnumerable<Message> messageSet)
+        public GroupOfThumbnailCardSetAssertions(IEnumerable<Message> messageSet) : this()
         {
             _thumbnailCardSets = new List<ThumbnailCardSetAssertions>();
             foreach (var message in messageSet)
             {
                 _thumbnailCardSets.Add(new ThumbnailCardSetAssertions(message));
             }
+        }
+
+        public GroupOfThumbnailCardSetAssertions(IList<ThumbnailCardSetAssertions> cardSets) : this()
+        {
+            _thumbnailCardSets = cardSets;
+        }
+
+        private GroupOfThumbnailCardSetAssertions()
+        {
             _setHelpers = new SetHelpers<ThumbnailCardSetAssertions, ThumbnailCardSetAssertionFailedException, GroupOfThumbnailCardSetAssertionFailedException>();
         }
 

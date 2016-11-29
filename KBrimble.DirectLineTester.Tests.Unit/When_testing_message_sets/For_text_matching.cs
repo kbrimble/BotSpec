@@ -58,8 +58,10 @@ namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_message_sets
             act.ShouldNotThrow<MessageSetAssertionFailedException>();
         }
 
-        [Test]
-        public void HaveTextMatching_should_throw_MessageSetAssertionFailedException_when_regex_matches_no_messages()
+        [TestCase("some text!")]
+        [TestCase("^[j-z ]*$")]
+        [TestCase("s{12}")]
+        public void HaveTextMatching_should_throw_MessageSetAssertionFailedException_when_regex_matches_no_messages(string regex)
         {
             var messages = CreateRandomMessages();
 
@@ -67,7 +69,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_message_sets
 
             var sut = new MessageSetAssertions(messageSet);
 
-            Action act = () => sut.HaveTextMatching("non matching regex");
+            Action act = () => sut.HaveTextMatching(regex);
 
             act.ShouldThrow<MessageSetAssertionFailedException>();
         }

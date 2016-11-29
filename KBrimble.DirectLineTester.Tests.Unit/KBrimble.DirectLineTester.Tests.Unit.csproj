@@ -62,6 +62,13 @@
     <Compile Include="When_testing_messages\For_text_matching.cs" />
     <Compile Include="When_testing_message_sets\For_from_matching.cs" />
     <Compile Include="When_testing_message_sets\For_text_matching.cs" />
+    <Compile Include="When_testing_card_image_sets\For_an_alt_matching.cs" />
+    <Compile Include="When_testing_card_image_sets\For_a_url_matching.cs" />
+    <Compile Include="When_testing_card_image_sets\CardImageTestData.cs" />
+    <Compile Include="When_testing_groups_of_thumbnail_card_sets\For_a_subtitle_matching.cs" />
+    <Compile Include="When_testing_groups_of_thumbnail_card_sets\For_a_title_matching.cs" />
+    <Compile Include="When_testing_groups_of_thumbnail_card_sets\For_text_matching.cs" />
+    <Compile Include="When_testing_groups_of_thumbnail_card_sets\ThumbnailCardSetTestData.cs" />
     <Compile Include="When_testing_thumbnail_card_sets\For_a_subtitle_matching.cs" />
     <Compile Include="When_testing_thumbnail_card_sets\For_a_title_matching.cs" />
     <Compile Include="When_testing_thumbnail_card_sets\For_text_matching.cs" />
