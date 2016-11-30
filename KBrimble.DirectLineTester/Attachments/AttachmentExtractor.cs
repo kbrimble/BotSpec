@@ -35,5 +35,20 @@ namespace KBrimble.DirectLineTester.Attachments
                 yield return card;
             }
         }
+
+        public IEnumerable<ThumbnailCard> ExtractThumbnailCardsFromMessageSet(MessageSet messageSet)
+        {
+            return ExtractThumbnailCardsFromMessageSet(messageSet.Messages);
+        }
+
+        public IEnumerable<ThumbnailCard> ExtractThumbnailCardsFromMessageSet(IEnumerable<Message> messageSet)
+        {
+            var cards = new List<ThumbnailCard>();
+            foreach (var message in messageSet)
+            {
+                cards.AddRange(ExtractThumbnailCardsFromMessage(message));
+            }
+            return cards;
+        }
     }
 }

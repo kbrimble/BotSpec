@@ -20,7 +20,7 @@ namespace KBrimble.DirectLineTester.Assertions.Attachments
 
         public IThumbnailCardAssertions OfTypeThumbnailCardThat()
         {
-            return new GroupOfThumbnailCardSetAssertions(_messageSet);
+            return new ThumbnailCardSetAssertions(_messageSet);
         }
     }
 }

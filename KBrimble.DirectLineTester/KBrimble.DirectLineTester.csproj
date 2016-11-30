@@ -55,7 +55,6 @@
     <Compile Include="Assertions\StringHelpers.cs" />
     <Compile Include="Assertions\Attachments\MessageAttachmentAssertions.cs" />
     <Compile Include="Assertions\Attachments\MessageSetAttachmentAssertions.cs" />
-    <Compile Include="Assertions\Cards\GroupOfThumbnailCardSetAssertions.cs" />
     <Compile Include="Exceptions\BotAssertionFailedException.cs" />
     <Compile Include="Exceptions\CardImageSetAssertionFailedException.cs" />
     <Compile Include="Exceptions\ThumbnailCardSetAssertionFailedException.cs" />
@@ -82,6 +81,9 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assertions\Cards" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
