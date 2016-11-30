@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
 
@@ -9,6 +10,11 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
     {
         private readonly IList<CardImage> _cardImages;
         private readonly SetHelpers<CardImage, CardImageAssertionFailedException, CardImageSetAssertionFailedException> _setHelpers;
+
+        public CardImageSetAssertions(IEnumerable<IHaveImages> hasCardImages)
+        {
+            _cardImages = hasCardImages.Select(x => x.Images).SelectMany(x => x).ToList();
+        }
 
         public CardImageSetAssertions(IList<CardImage> cardImages)
         {

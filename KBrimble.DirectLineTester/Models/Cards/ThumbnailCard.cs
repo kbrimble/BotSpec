@@ -5,7 +5,7 @@ namespace KBrimble.DirectLineTester.Models.Cards
     /// <summary>
     /// A thumbnail card (card with a single, small thumbnail image)
     /// </summary>
-    public class ThumbnailCard
+    public class ThumbnailCard : IHaveImages, IHaveButtons, IHaveTapAction
     {
         public const string ContentType = "application/vnd.microsoft.card.thumbnail";
 
@@ -37,19 +37,13 @@ namespace KBrimble.DirectLineTester.Models.Cards
         /// </summary>
         public string Text { get; set; }
 
-        /// <summary>
-        /// Array of images for the card
-        /// </summary>
-        public IList<CardImage> Images { get; set; }
-
-        /// <summary>
-        /// Set of actions applicable to the current card
-        /// </summary>
+        /// <inheritDoc/>
         public IList<CardAction> Buttons { get; set; }
 
-        /// <summary>
-        /// This action will be activated when user taps on the card itself
-        /// </summary>
+        /// <inheritDoc/>
         public CardAction Tap { get; set; }
+
+        /// <inheritDoc/>
+        public IList<CardImage> Images { get; set; }
     }
 }

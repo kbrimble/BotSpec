@@ -120,7 +120,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
         public ICardImageAssertions WithCardImageThat()
         {
-            throw new NotImplementedException();
+            return new CardImageSetAssertions(_thumbnailCards);
         }
     }
 }

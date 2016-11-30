@@ -92,7 +92,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
         }
     }
 
-    public interface IHaveCardImages
+    public interface ICanAssertCardImages
     {
         ICardImageAssertions WithCardImageThat();
     }
