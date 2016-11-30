@@ -12,79 +12,53 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_c
     [TestFixture]
     public class For_an_alt_matching
     {
-        [Test]
-        public void HasAltMatching_should_throw_ArgumentNullException_when_regex_is_null()
-        {
-            var cardImage = new CardImage(alt: "alt");
-
-            var sut = new CardImageAssertions(cardImage);
-
-            Action act = () => sut.HasAltMatching(null);
-
-            act.ShouldThrow<ArgumentNullException>();
-        }
-
-        [Test]
-        public void HasAltMatching_should_throw_ArgumentNullException_when_groupMatchRegex_is_null()
-        {
-            IList<string> matches;
-
-            var cardImage = new CardImage(alt: "alt");
-
-            var sut = new CardImageAssertions(cardImage);
-
-            Action act = () => sut.HasAltMatching(".*", null, out matches);
-
-            act.ShouldThrow<ArgumentNullException>();
-        }
-
         [TestCase("some text")]
         [TestCase("")]
         [TestCase("symbols ([*])?")]
-        public void HasAltMatching_should_pass_if_regex_exactly_matches_image_url(string urlAndRegex)
+        public void HasAltMatching_should_pass_if_regex_exactly_matches_message_Alt(string altAndRegex)
         {
-            var cardImage = new CardImage(alt: urlAndRegex);
+            var cardImage = new CardImage(alt: altAndRegex);
 
             var sut = new CardImageAssertions(cardImage);
 
-            Action act = () => sut.HasAltMatching(urlAndRegex);
+            Action act = () => sut.HasAltMatching(altAndRegex);
 
-            act.ShouldNotThrow<Exception>();
+            act.ShouldNotThrow<CardImageAssertionFailedException>();
         }
 
         [TestCase("some text", "SOME TEXT")]
-        [TestCase("SYMBOLS ([*])?", "symbols ([*])?")]
-        public void HasAltMatching_should_pass_regardless_of_case(string cardUrl, string regex)
+        [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
+        public void HasAltMatching_should_pass_regardless_of_case(string alt, string regex)
         {
-            var cardImage = new CardImage(alt: cardUrl);
+            var cardImage = new CardImage(alt: alt);
 
             var sut = new CardImageAssertions(cardImage);
 
             Action act = () => sut.HasAltMatching(regex);
 
-            act.ShouldNotThrow<Exception>();
+            act.ShouldNotThrow<CardImageAssertionFailedException>();
         }
 
         [TestCase("some text", "so.*xt")]
         [TestCase("some text", "[a-z ]*")]
         [TestCase("some text", "s(ome tex)t")]
-        public void HasAltMatching_should_pass_when_using_standard_regex_features(string cardUrl, string regex)
+        public void HasAltMatching_should_pass_when_using_standard_regex_features(string alt, string regex)
         {
-            var cardImage = new CardImage(alt: cardUrl);
+            var cardImage = new CardImage(alt: alt);
 
             var sut = new CardImageAssertions(cardImage);
 
             Action act = () => sut.HasAltMatching(regex);
 
-            act.ShouldNotThrow<Exception>();
+            act.ShouldNotThrow<CardImageAssertionFailedException>();
         }
 
         [TestCase("some text", "some text!")]
         [TestCase("some text", "^[j-z ]*$")]
         [TestCase("some text", "s{12}")]
-        public void HasAltMatching_should_throw_CardImageAssertionFailedException_for_non_matching_regexes(string cardUrl, string regex)
+        public void HasAltMatching_should_throw_CardImageAssertionFailedException_for_non_matching_regexes(string alt, string regex)
         {
-            var cardImage = new CardImage(alt: cardUrl);
+            var cardImage = new CardImage(alt: alt);
 
             var sut = new CardImageAssertions(cardImage);
 
@@ -147,8 +121,8 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_c
 
             var sut = new CardImageAssertions(cardImage);
 
-            var match1 = "some";
-            var match2 = "text";
+            const string match1 = "some";
+            const string match2 = "text";
             sut.HasAltMatching(someText, $"({match1}) ({match2})", out matches);
 
             matches.Should().Contain(match1, match2);
@@ -157,9 +131,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_c
         [Test]
         public void HasAltMatching_should_throw_CardImageAssertionFailedException_when_text_is_null()
         {
-            var cardImage = new CardImage();
+            var card = new CardImage();
 
-            var sut = new CardImageAssertions(cardImage);
+            var sut = new CardImageAssertions(card);
 
             Action act = () => sut.HasAltMatching("anything");
 
@@ -170,13 +144,53 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_c
         public void HasAltMatching_should_throw_CardImageAssertionFailedException_when_trying_to_capture_groups_but_text_is_null()
         {
             IList<string> matches;
-            var cardImage = new CardImage();
+            var card = new CardImage();
 
-            var sut = new CardImageAssertions(cardImage);
+            var sut = new CardImageAssertions(card);
 
             Action act = () => sut.HasAltMatching("anything", "(.*)", out matches);
 
             act.ShouldThrow<CardImageAssertionFailedException>();
+        }
+
+        [Test]
+        public void HasAltMatching_should_throw_ArgumentNullException_if_regex_is_null()
+        {
+            var card = new CardImage();
+
+            var sut = new CardImageAssertions(card);
+
+            Action act = () => sut.HasAltMatching(null);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void HasAltMatching_should_throw_ArgumentNullException_if_when_capturing_groups_regex_is_null()
+        {
+            IList<string> matches;
+
+            var card = new CardImage();
+
+            var sut = new CardImageAssertions(card);
+
+            Action act = () => sut.HasAltMatching(null, "(.*)", out matches);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void HasAltMatching_should_throw_ArgumentNullException_if_groupMatchRegex_is_null()
+        {
+            IList<string> matches;
+
+            var card = new CardImage();
+
+            var sut = new CardImageAssertions(card);
+
+            Action act = () => sut.HasAltMatching("(.*)", null, out matches);
+
+            act.ShouldThrow<ArgumentNullException>();
         }
     }
 }

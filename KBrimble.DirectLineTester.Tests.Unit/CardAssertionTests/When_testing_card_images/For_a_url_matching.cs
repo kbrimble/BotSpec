@@ -12,36 +12,10 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_c
     [TestFixture]
     public class For_a_url_matching
     {
-        [Test]
-        public void HasUrlMatching_should_throw_ArgumentNullException_when_regex_is_null()
-        {
-            var cardImage = new CardImage(url: "http://example.com");
-
-            var sut = new CardImageAssertions(cardImage);
-
-            Action act = () => sut.HasUrlMatching(null);
-
-            act.ShouldThrow<ArgumentNullException>();
-        }
-
-        [Test]
-        public void HasUrlMatching_should_throw_ArgumentNullException_when_groupMatchRegex_is_null()
-        {
-            IList<string> matches;
-
-            var cardImage = new CardImage(url: "http://example.com");
-
-            var sut = new CardImageAssertions(cardImage);
-
-            Action act = () => sut.HasUrlMatching(".*", null, out matches);
-
-            act.ShouldThrow<ArgumentNullException>();
-        }
-
         [TestCase("some text")]
         [TestCase("")]
         [TestCase("symbols ([*])?")]
-        public void HasUrlMatching_should_pass_if_regex_exactly_matches_image_url(string urlAndRegex)
+        public void HasUrlMatching_should_pass_if_regex_exactly_matches_message_Url(string urlAndRegex)
         {
             var cardImage = new CardImage(url: urlAndRegex);
 
@@ -49,42 +23,42 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_c
 
             Action act = () => sut.HasUrlMatching(urlAndRegex);
 
-            act.ShouldNotThrow<Exception>();
+            act.ShouldNotThrow<CardImageAssertionFailedException>();
         }
 
         [TestCase("some text", "SOME TEXT")]
-        [TestCase("SYMBOLS ([*])?", "symbols ([*])?")]
-        public void HasUrlMatching_should_pass_regardless_of_case(string cardUrl, string regex)
+        [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
+        public void HasUrlMatching_should_pass_regardless_of_case(string url, string regex)
         {
-            var cardImage = new CardImage(url: cardUrl);
+            var cardImage = new CardImage(url: url);
 
             var sut = new CardImageAssertions(cardImage);
 
             Action act = () => sut.HasUrlMatching(regex);
 
-            act.ShouldNotThrow<Exception>();
+            act.ShouldNotThrow<CardImageAssertionFailedException>();
         }
 
         [TestCase("some text", "so.*xt")]
         [TestCase("some text", "[a-z ]*")]
         [TestCase("some text", "s(ome tex)t")]
-        public void HasUrlMatching_should_pass_when_using_standard_regex_features(string cardUrl, string regex)
+        public void HasUrlMatching_should_pass_when_using_standard_regex_features(string url, string regex)
         {
-            var cardImage = new CardImage(url: cardUrl);
+            var cardImage = new CardImage(url: url);
 
             var sut = new CardImageAssertions(cardImage);
 
             Action act = () => sut.HasUrlMatching(regex);
 
-            act.ShouldNotThrow<Exception>();
+            act.ShouldNotThrow<CardImageAssertionFailedException>();
         }
 
         [TestCase("some text", "some text!")]
         [TestCase("some text", "^[j-z ]*$")]
         [TestCase("some text", "s{12}")]
-        public void HasUrlMatching_should_throw_CardImageAssertionFailedException_for_non_matching_regexes(string cardUrl, string regex)
+        public void HasUrlMatching_should_throw_CardImageAssertionFailedException_for_non_matching_regexes(string url, string regex)
         {
-            var cardImage = new CardImage(url: cardUrl);
+            var cardImage = new CardImage(url: url);
 
             var sut = new CardImageAssertions(cardImage);
 
@@ -147,20 +121,19 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_c
 
             var sut = new CardImageAssertions(cardImage);
 
-            var match1 = "some";
-            var match2 = "text";
+            const string match1 = "some";
+            const string match2 = "text";
             sut.HasUrlMatching(someText, $"({match1}) ({match2})", out matches);
 
             matches.Should().Contain(match1, match2);
         }
 
-
         [Test]
         public void HasUrlMatching_should_throw_CardImageAssertionFailedException_when_text_is_null()
         {
-            var cardImage = new CardImage();
+            var card = new CardImage();
 
-            var sut = new CardImageAssertions(cardImage);
+            var sut = new CardImageAssertions(card);
 
             Action act = () => sut.HasUrlMatching("anything");
 
@@ -171,13 +144,53 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_c
         public void HasUrlMatching_should_throw_CardImageAssertionFailedException_when_trying_to_capture_groups_but_text_is_null()
         {
             IList<string> matches;
-            var cardImage = new CardImage();
+            var card = new CardImage();
 
-            var sut = new CardImageAssertions(cardImage);
+            var sut = new CardImageAssertions(card);
 
             Action act = () => sut.HasUrlMatching("anything", "(.*)", out matches);
 
             act.ShouldThrow<CardImageAssertionFailedException>();
+        }
+
+        [Test]
+        public void HasUrlMatching_should_throw_ArgumentNullException_if_regex_is_null()
+        {
+            var card = new CardImage();
+
+            var sut = new CardImageAssertions(card);
+
+            Action act = () => sut.HasUrlMatching(null);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void HasUrlMatching_should_throw_ArgumentNullException_if_when_capturing_groups_regex_is_null()
+        {
+            IList<string> matches;
+
+            var card = new CardImage();
+
+            var sut = new CardImageAssertions(card);
+
+            Action act = () => sut.HasUrlMatching(null, "(.*)", out matches);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void HasUrlMatching_should_throw_ArgumentNullException_if_groupMatchRegex_is_null()
+        {
+            IList<string> matches;
+
+            var card = new CardImage();
+
+            var sut = new CardImageAssertions(card);
+
+            Action act = () => sut.HasUrlMatching("(.*)", null, out matches);
+
+            act.ShouldThrow<ArgumentNullException>();
         }
     }
 }

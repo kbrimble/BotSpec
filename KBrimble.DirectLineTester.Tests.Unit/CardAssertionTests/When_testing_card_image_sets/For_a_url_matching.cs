@@ -1,188 +1,213 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using FluentAssertions;
-//using KBrimble.DirectLineTester.Assertions.Cards;
-//using KBrimble.DirectLineTester.Exceptions;
-//using KBrimble.DirectLineTester.Models.Cards;
-//using KBrimble.DirectLineTester.Tests.Unit.When_testing_thumbnail_card_sets;
-//using NUnit.Framework;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using FluentAssertions;
+using KBrimble.DirectLineTester.Assertions.Cards;
+using KBrimble.DirectLineTester.Exceptions;
+using KBrimble.DirectLineTester.Models.Cards;
+using NUnit.Framework;
 
-//namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_card_image_sets
-//{
-//    [TestFixture]
-//    public class For_a_url_matching
-//    {
-//        [TestCase("some text")]
-//        [TestCase("")]
-//        [TestCase("symbols ([*])?")]
-//        public void HasTitleMatching_should_pass_if_regex_exactly_matches_message_Text_of_one_card(string cardTextAndRegex)
-//        {
-//            var cards = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: cardTextAndRegex);
+namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_card_image_sets
+{
+    [TestFixture]
+    public class For_a_url_matching
+    {
+        [TestCase("some text")]
+        [TestCase("")]
+        [TestCase("symbols ([*])?")]
+        public void HasUrlMatching_should_pass_if_regex_exactly_matches_message_Url_of_one_card(string cardUrlAndRegex)
+        {
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: cardUrlAndRegex);
 
-//            var sut = new CardImageSetAssertions(cards);
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            Action act = () => sut.HasTitleMatching(cardTextAndRegex);
+            Action act = () => sut.HasUrlMatching(cardUrlAndRegex);
 
-//            act.ShouldNotThrow<Exception>();
-//        }
+            act.ShouldNotThrow<CardImageSetAssertionFailedException>();
+        }
 
-//        [TestCase("some text", "SOME TEXT")]
-//        [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
-//        public void HasTitleMatching_should_pass_if_regex_exactly_matches_text_of_at_least_1_card_regardless_of_case(string cardText, string regex)
-//        {
-//            var cards = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: cardText);
+        [TestCase("some text", "SOME TEXT")]
+        [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
+        public void HasUrlMatching_should_pass_if_regex_exactly_matches_Url_of_at_least_1_card_regardless_of_case(string url, string regex)
+        {
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: url);
 
-//            var sut = new CardImageSetAssertions(cards);
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            Action act = () => sut.HasTitleMatching(regex);
+            Action act = () => sut.HasUrlMatching(regex);
 
-//            act.ShouldNotThrow<Exception>();
-//        }
+            act.ShouldNotThrow<CardImageSetAssertionFailedException>();
+        }
 
-//        [TestCase("some text", "so.*xt")]
-//        [TestCase("some text", "[a-z ]*")]
-//        [TestCase("some text", "s(ome tex)t")]
-//        public void HasTitleMatching_should_pass_when_using_standard_regex_features(string cardText, string regex)
-//        {
-//            var cards = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: cardText);
+        [TestCase("some text", "so.*xt")]
+        [TestCase("some text", "[a-z ]*")]
+        [TestCase("some text", "s(ome tex)t")]
+        public void HasUrlMatching_should_pass_when_using_standard_regex_features(string url, string regex)
+        {
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: url);
 
-//            var sut = new CardImageSetAssertions(cards);
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            Action act = () => sut.HasTitleMatching(regex);
+            Action act = () => sut.HasUrlMatching(regex);
 
-//            act.ShouldNotThrow<Exception>();
-//        }
+            act.ShouldNotThrow<CardImageSetAssertionFailedException>();
+        }
 
-//        [TestCase("some text!")]
-//        [TestCase("^[j-z ]*$")]
-//        [TestCase("s{12}")]
-//        public void HasTitleMatching_should_throw_ThumbnailCardSetAssertionFailedException_when_regex_matches_no_cards(string regex)
-//        {
-//            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+        [TestCase("some text!")]
+        [TestCase("^[j-z ]*$")]
+        [TestCase("s{12}")]
+        public void HasUrlMatching_should_throw_CardImageSetAssertionFailedException_when_regex_matches_no_cards(string regex)
+        {
+            var cardImages = CardImageTestData.CreateRandomCardImages();
 
-//            var sut = new CardImageSetAssertions(cards);
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            Action act = () => sut.HasTitleMatching(regex);
+            Action act = () => sut.HasUrlMatching(regex);
 
-//            act.ShouldThrow<ThumbnailCardSetAssertionFailedException>();
-//        }
+            act.ShouldThrow<CardImageSetAssertionFailedException>();
+        }
 
-//        [Test]
-//        public void HasTitleMatching_should_not_output_matches_when_regex_does_not_match_text_of_any_cards()
-//        {
-//            IList<string> matches = null;
+        [Test]
+        public void HasUrlMatching_should_throw_CardImageSetAssertionFailedException_when_Url_of_all_cards_is_null()
+        {
+            var cardImages = Enumerable.Range(1, 5).Select(_ => new CardImage()).ToList();
 
-//            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            var sut = new CardImageSetAssertions(cards);
+            Action act = () => sut.HasUrlMatching(".*");
 
-//            Action act = () => sut.HasTitleMatching("non matching regex", "(some text)", out matches);
+            act.ShouldThrow<CardImageSetAssertionFailedException>();
+        }
 
-//            act.ShouldThrow<ThumbnailCardSetAssertionFailedException>();
-//            matches.Should().BeNull();
-//        }
+        [Test]
+        public void HasUrlMatching_should_throw_CardImageSetAssertionFailedException_when_trying_to_capture_groups_but_Url_of_all_cards_is_null()
+        {
+            IList<string> matches;
 
-//        [Test]
-//        public void HasTitleMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_text_of_any_card()
-//        {
-//            IList<string> matches;
+            var cardImages = Enumerable.Range(1, 5).Select(_ => new CardImage()).ToList();
 
-//            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            var sut = new CardImageSetAssertions(cards);
+            Action act = () => sut.HasUrlMatching(".*", "(.*)", out matches);
 
-//            sut.HasTitleMatching(".*", "(non matching)", out matches);
+            act.ShouldThrow<CardImageSetAssertionFailedException>();
+        }
 
-//            matches.Should().BeNull();
-//        }
+        [Test]
+        public void HasUrlMatching_should_not_output_matches_when_regex_does_not_match_Url_of_any_cards()
+        {
+            IList<string> matches = null;
 
-//        [Test]
-//        public void HasTitleMatching_should_output_matches_when_groupMatchingRegex_matches_text_of_any_card()
-//        {
-//            IList<string> matches;
+            var cardImages = CardImageTestData.CreateRandomCardImages();
 
-//            const string someText = "some text";
-//            var cards = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: someText);
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            var sut = new CardImageSetAssertions(cards);
+            Action act = () => sut.HasUrlMatching("non matching regex", "(some text)", out matches);
 
-//            sut.HasTitleMatching(someText, $"({someText})", out matches);
+            act.ShouldThrow<CardImageSetAssertionFailedException>();
+            matches.Should().BeNull();
+        }
 
-//            matches.First().Should().Be(someText);
-//        }
+        [Test]
+        public void HasUrlMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_Url_of_any_card()
+        {
+            IList<string> matches;
 
-//        [Test]
-//        public void HasTitleMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_several_times_for_a_single_card()
-//        {
-//            IList<string> matches;
+            var cardImages = CardImageTestData.CreateRandomCardImages();
 
-//            const string someText = "some text";
-//            var cards = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: someText);
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            var sut = new CardImageSetAssertions(cards);
+            sut.HasUrlMatching(".*", "(non matching)", out matches);
 
-//            const string match1 = "some";
-//            const string match2 = "text";
-//            sut.HasTitleMatching(someText, $"({match1}) ({match2})", out matches);
+            matches.Should().BeNull();
+        }
 
-//            matches.Should().Contain(match1, match2);
-//        }
+        [Test]
+        public void HasUrlMatching_should_output_matches_when_groupMatchingRegex_matches_Url_of_any_card()
+        {
+            IList<string> matches;
 
-//        [Test]
-//        public void HasTitleMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_on_multiple_cards()
-//        {
-//            IList<string> matches;
+            const string someUrl = "some text";
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: someUrl);
 
-//            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
-//            cards.Add(new ThumbnailCard(title: "some text"));
-//            cards.Add(new ThumbnailCard(title: "same text"));
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            var sut = new CardImageSetAssertions(cards);
+            sut.HasUrlMatching(someUrl, $"({someUrl})", out matches);
 
-//            sut.HasTitleMatching(".*", @"(s[oa]me) (text)", out matches);
+            matches.First().Should().Be(someUrl);
+        }
 
-//            matches.Should().Contain("some", "same", "text");
-//        }
+        [Test]
+        public void HasUrlMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_Url_several_times_for_a_single_card()
+        {
+            IList<string> matches;
 
-//        [Test]
-//        public void HasTitleMatching_should_throw_ArgumentNullException_if_regex_is_null()
-//        {
-//            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+            const string someUrl = "some text";
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: someUrl);
 
-//            var sut = new CardImageSetAssertions(cards);
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            Action act = () => sut.HasTitleMatching(null);
+            const string match1 = "some";
+            const string match2 = "text";
+            sut.HasUrlMatching(someUrl, $"({match1}) ({match2})", out matches);
 
-//            act.ShouldThrow<ArgumentNullException>();
-//        }
+            matches.Should().Contain(match1, match2);
+        }
 
-//        [Test]
-//        public void HasTitleMatching_should_throw_ArgumentNullException_if_when_capturing_groups_regex_is_null()
-//        {
-//            IList<string> matches;
+        [Test]
+        public void HasUrlMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_Url_on_multiple_cards()
+        {
+            IList<string> matches;
 
-//            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+            var cardImages = CardImageTestData.CreateRandomCardImages();
+            cardImages.Add(new CardImage(url: "some text"));
+            cardImages.Add(new CardImage(url: "same text"));
 
-//            var sut = new CardImageSetAssertions(cards);
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            Action act = () => sut.HasTitleMatching(null, "(.*)", out matches);
+            sut.HasUrlMatching(".*", @"(s[oa]me) (text)", out matches);
 
-//            act.ShouldThrow<ArgumentNullException>();
-//        }
+            matches.Should().Contain("some", "same", "text");
+        }
 
-//        [Test]
-//        public void HasTitleMatching_should_throw_ArgumentNullException_if_groupMatchRegex_is_null()
-//        {
-//            IList<string> matches;
+        [Test]
+        public void HasUrlMatching_should_throw_ArgumentNullException_if_regex_is_null()
+        {
+            var cardImages = CardImageTestData.CreateRandomCardImages();
 
-//            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+            var sut = new CardImageSetAssertions(cardImages);
 
-//            var sut = new CardImageSetAssertions(cards);
+            Action act = () => sut.HasUrlMatching(null);
 
-//            Action act = () => sut.HasTitleMatching("(.*)", null, out matches);
+            act.ShouldThrow<ArgumentNullException>();
+        }
 
-//            act.ShouldThrow<ArgumentNullException>();
-//        }
-//    }
-//}
+        [Test]
+        public void HasUrlMatching_should_throw_ArgumentNullException_when_capturing_groups_if_regex_is_null()
+        {
+            IList<string> matches;
+
+            var cardImages = CardImageTestData.CreateRandomCardImages();
+
+            var sut = new CardImageSetAssertions(cardImages);
+
+            Action act = () => sut.HasUrlMatching(null, "(.*)", out matches);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void HasUrlMatching_should_throw_ArgumentNullException_if_groupMatchRegex_is_null()
+        {
+            IList<string> matches;
+
+            var cardImages = CardImageTestData.CreateRandomCardImages();
+
+            var sut = new CardImageSetAssertions(cardImages);
+
+            Action act = () => sut.HasUrlMatching("(.*)", null, out matches);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+    }
+}
