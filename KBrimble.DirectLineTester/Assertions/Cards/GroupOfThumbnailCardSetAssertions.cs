@@ -109,5 +109,10 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             var message = $"Expected at least one thumbnail card in any set to have property {testedProperty} to match {regex} but none did.";
             return new GroupOfThumbnailCardSetAssertionFailedException(message);
         }
+
+        public ICardImageAssertions WithCardImageThat()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

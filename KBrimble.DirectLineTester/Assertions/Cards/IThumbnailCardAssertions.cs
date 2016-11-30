@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
-    public interface IThumbnailCardAssertions
+    public interface IThumbnailCardAssertions : IHaveCardImages
     {
         IThumbnailCardAssertions HasTitleMatching(string regex);
         IThumbnailCardAssertions HasTitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);

@@ -7,7 +7,7 @@ using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
 using NUnit.Framework;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_thumbnail_cards
+namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_thumbnail_cards
 {
     [TestFixture]
     public class For_text_matching

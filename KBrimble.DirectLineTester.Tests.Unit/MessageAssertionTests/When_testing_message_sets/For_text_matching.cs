@@ -7,7 +7,7 @@ using KBrimble.DirectLineTester.Exceptions;
 using Microsoft.Bot.Connector.DirectLine.Models;
 using NUnit.Framework;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_message_sets
+namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testing_message_sets
 {
     [TestFixture]
     public class For_text_matching

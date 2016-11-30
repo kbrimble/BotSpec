@@ -1,4 +1,5 @@
 using KBrimble.DirectLineTester.Assertions.Cards;
+using KBrimble.DirectLineTester.Attachments;
 using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Attachments
@@ -14,7 +15,8 @@ namespace KBrimble.DirectLineTester.Assertions.Attachments
 
         public IThumbnailCardAssertions OfTypeThumbnailCardThat()
         {
-            var thumbnailCards = AttachmentExtractor.ExtractThumbnailCardsFromMessage(_message);
+            var attachmentExtractor = new AttachmentExtractor(AttachmentRetreiverFactory.DefaultAttachmentRetreiver());
+            var thumbnailCards = attachmentExtractor.ExtractThumbnailCardsFromMessage(_message);
 
             return new ThumbnailCardSetAssertions(thumbnailCards);
         }

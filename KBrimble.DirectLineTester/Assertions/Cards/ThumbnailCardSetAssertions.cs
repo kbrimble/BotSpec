@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using KBrimble.DirectLineTester.Attachments;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
 using Microsoft.Bot.Connector.DirectLine.Models;
@@ -13,7 +14,8 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
         public ThumbnailCardSetAssertions(Message message) : this()
         {
-            _thumbnailCards = AttachmentExtractor.ExtractThumbnailCardsFromMessage(message);
+            var attachmentExtractor = new AttachmentExtractor(AttachmentRetreiverFactory.DefaultAttachmentRetreiver());
+            _thumbnailCards = attachmentExtractor.ExtractThumbnailCardsFromMessage(message);
         }
 
         public ThumbnailCardSetAssertions(IEnumerable<ThumbnailCard> thumbnailCards) : this()
@@ -102,6 +104,11 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
         {
             var message = $"Expected at least one thumbnail card in set to have property {testedProperty} to match {regex} but none did.";
             return new ThumbnailCardSetAssertionFailedException(message);
+        }
+
+        public ICardImageAssertions WithCardImageThat()
+        {
+            throw new NotImplementedException();
         }
     }
 }

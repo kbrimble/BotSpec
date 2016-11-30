@@ -2,7 +2,7 @@
 using KBrimble.DirectLineTester.Assertions.Cards;
 using KBrimble.DirectLineTester.Models.Cards;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.When_testing_groups_of_thumbnail_card_sets
+namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_groups_of_thumbnail_card_sets
 {
     public class ThumbnailCardSetTestData
     {

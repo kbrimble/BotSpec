@@ -43,13 +43,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assertions\Cards\CardImageSetAssertions.cs" />
+    <Compile Include="Attachments\AttachmentExtractor.cs" />
+    <Compile Include="Attachments\AttachmentRetreiver.cs" />
+    <Compile Include="Attachments\AttachmentRetreiverFactory.cs" />
+    <Compile Include="Attachments\IAttachmentRetreiver.cs" />
     <Compile Include="Exceptions\CardImageAssertionFailedException.cs" />
     <Compile Include="Assertions\Cards\CardImageAssertions.cs" />
     <Compile Include="Assertions\Cards\ICardImageAssertions.cs" />
     <Compile Include="Assertions\IThrow.cs" />
     <Compile Include="Assertions\SetHelpers.cs" />
     <Compile Include="Assertions\StringHelpers.cs" />
-    <Compile Include="AttachmentExtractor.cs" />
     <Compile Include="Assertions\Attachments\MessageAttachmentAssertions.cs" />
     <Compile Include="Assertions\Attachments\MessageSetAttachmentAssertions.cs" />
     <Compile Include="Assertions\Cards\GroupOfThumbnailCardSetAssertions.cs" />
@@ -58,6 +61,7 @@
     <Compile Include="Exceptions\ThumbnailCardSetAssertionFailedException.cs" />
     <Compile Include="Exceptions\GroupOfThumbnailCardSetAssertionFailedException.cs" />
     <Compile Include="IBotClient.cs" />
+    <Compile Include="Models\Cards\HeroCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BotClient.cs" />
     <Compile Include="ShouldExtensions.cs" />
@@ -79,6 +83,5 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

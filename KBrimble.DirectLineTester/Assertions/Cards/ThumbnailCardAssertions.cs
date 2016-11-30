@@ -85,5 +85,15 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             var message = $"Expected thumbnail card to have property {testedProperty} to match {regex} but regex test failed.";
             return new ThumbnailCardAssertionFailedException(message);
         }
+
+        public ICardImageAssertions WithCardImageThat()
+        {
+            return new CardImageSetAssertions(_thumbnailCard.Images);
+        }
+    }
+
+    public interface IHaveCardImages
+    {
+        ICardImageAssertions WithCardImageThat();
     }
 }
