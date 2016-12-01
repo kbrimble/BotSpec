@@ -35,6 +35,26 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             return this;
         }
 
+        public IMessageAssertions HaveIdMatching(string regex)
+        {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+
+            StringHelpers.TestForMatch(_message.Id, regex, CreateEx(nameof(_message.Id), regex));
+            return this;
+        }
+
+        public IMessageAssertions HaveIdMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+            if (groupMatchRegex == null)
+                throw new ArgumentNullException(nameof(groupMatchRegex));
+
+            matchedGroups = StringHelpers.TestForMatchAndReturnGroups(_message.Id, regex, groupMatchRegex, CreateEx(nameof(_message.Id), regex));
+            return this;
+        }
+
         public IMessageAssertions HaveFromMatching(string regex)
         {
             if (regex == null)

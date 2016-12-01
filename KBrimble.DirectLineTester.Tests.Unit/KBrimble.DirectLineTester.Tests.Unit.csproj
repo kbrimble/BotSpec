@@ -80,8 +80,10 @@
     <Compile Include="CardAssertionTests\When_testing_thumbnail_card_sets\For_text_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_thumbnail_card_sets\ThumbnailCardTestData.cs" />
     <Compile Include="MessageAssertionTests\When_testing_messages\For_from_matching.cs" />
+    <Compile Include="MessageAssertionTests\When_testing_messages\For_id_matching.cs" />
     <Compile Include="MessageAssertionTests\When_testing_messages\For_text_matching.cs" />
     <Compile Include="MessageAssertionTests\When_testing_message_sets\For_from_matching.cs" />
+    <Compile Include="MessageAssertionTests\When_testing_message_sets\For_id_matching.cs" />
     <Compile Include="MessageAssertionTests\When_testing_message_sets\For_text_matching.cs" />
     <Compile Include="MessageAssertionTests\When_testing_message_sets\MessageTestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

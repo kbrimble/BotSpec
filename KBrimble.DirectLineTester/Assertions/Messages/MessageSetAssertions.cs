@@ -68,6 +68,30 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             return this;
         }
 
+        public IMessageAssertions HaveIdMatching(string regex)
+        {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+
+            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().HaveIdMatching(regex), CreateEx(nameof(Message.Id), regex));
+
+            return this;
+        }
+
+        public IMessageAssertions HaveIdMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+            if (groupMatchRegex == null)
+                throw new ArgumentNullException(nameof(groupMatchRegex));
+
+            SetHelpers<Message, MessageAssertionFailedException, MessageSetAssertionFailedException>.TestWithGroups act
+                = (Message item, out IList<string> matches) => item.Should().HaveIdMatching(regex, groupMatchRegex, out matches);
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_messageSet, act, CreateEx(nameof(Message.Id), regex));
+
+            return this;
+        }
+
         public IMessageAttachmentAssertions HaveAttachment()
         {
             return new MessageSetAttachmentAssertions(_messageSet);
