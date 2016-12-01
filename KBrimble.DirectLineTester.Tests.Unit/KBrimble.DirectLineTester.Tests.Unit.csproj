@@ -83,6 +83,7 @@
     <Compile Include="MessageAssertionTests\When_testing_messages\For_text_matching.cs" />
     <Compile Include="MessageAssertionTests\When_testing_message_sets\For_from_matching.cs" />
     <Compile Include="MessageAssertionTests\When_testing_message_sets\For_text_matching.cs" />
+    <Compile Include="MessageAssertionTests\When_testing_message_sets\MessageTestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AttachmentExtractorTests\When_extracting_thumbnail_cards.cs" />
   </ItemGroup>

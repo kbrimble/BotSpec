@@ -19,14 +19,29 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             _messageSet = messageSet;
         }
 
-        public IMessageAssertions BeFrom(string messageFrom)
+        public IMessageAssertions HaveFromMatching(string regex)
         {
-            if (messageFrom == null)
-                throw new ArgumentNullException(nameof(messageFrom));
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().BeFrom(messageFrom), CreateEx("Text", messageFrom));
+            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().HaveFromMatching(regex), CreateEx(nameof(Message.FromProperty), regex));
 
             return this;
+        }
+
+        public IMessageAssertions HaveFromMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+            if (groupMatchRegex == null)
+                throw new ArgumentNullException(nameof(groupMatchRegex));
+
+            SetHelpers<Message, MessageAssertionFailedException, MessageSetAssertionFailedException>.TestWithGroups act
+                = (Message item, out IList<string> matches) => item.Should().HaveFromMatching(regex, groupMatchRegex, out matches);
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_messageSet, act, CreateEx(nameof(Message.FromProperty), regex));
+
+            return this;
+
         }
 
         public IMessageAssertions HaveTextMatching(string regex)
@@ -34,7 +49,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().HaveTextMatching(regex), CreateEx("Text", regex));
+            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().HaveTextMatching(regex), CreateEx(nameof(Message.Text), regex));
 
             return this;
         }
@@ -48,7 +63,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
 
             SetHelpers<Message, MessageAssertionFailedException, MessageSetAssertionFailedException>.TestWithGroups act
                 = (Message item, out IList<string> matches) => item.Should().HaveTextMatching(regex, groupMatchRegex, out matches);
-            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_messageSet, act, CreateEx("Text", regex));
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_messageSet, act, CreateEx(nameof(Message.Text), regex));
 
             return this;
         }

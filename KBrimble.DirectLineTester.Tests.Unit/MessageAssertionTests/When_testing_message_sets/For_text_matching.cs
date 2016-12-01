@@ -12,30 +12,27 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
     [TestFixture]
     public class For_text_matching
     {
-        [Test]
-        public void HaveTextMatching_should_pass_if_regex_exactly_matches_text_of_at_least_1_message()
+        [TestCase("some text")]
+        [TestCase("")]
+        [TestCase("symbols ([*])?")]
+        public void HaveTextMatching_should_pass_if_regex_exactly_matches_message_Text_of_one_message(string textAndRegex)
         {
-            const string messageTextAndRegex = "some text";
-            var messages = CreateMessageSetWithOneMessageThatHasSetText(messageTextAndRegex);
+            var messages = MessageTestData.CreateMessageSetWithOneMessageThatHasSetProperties(text: textAndRegex);
 
-            var messageSet = new MessageSet(messages, "0");
+            var sut = new MessageSetAssertions(messages);
 
-            var sut = new MessageSetAssertions(messageSet);
-
-            Action act = () => sut.HaveTextMatching(messageTextAndRegex);
+            Action act = () => sut.HaveTextMatching(textAndRegex);
 
             act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text", "SOME TEXT")]
-        [TestCase("SYMBOLS ([*])?", "symbols ([*])?")]
-        public void HaveTextMatching_should_pass_if_regex_exactly_matches_text_of_at_least_1_message_regardless_of_case(string messageText, string regex)
+        [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
+        public void HaveTextMatching_should_pass_if_regex_exactly_matches_Text_of_at_least_1_message_regardless_of_case(string text, string regex)
         {
-            var messages = CreateMessageSetWithOneMessageThatHasSetText(messageText);
+            var messages = MessageTestData.CreateMessageSetWithOneMessageThatHasSetProperties(text: text);
 
-            var messageSet = new MessageSet(messages, "0");
-
-            var sut = new MessageSetAssertions(messageSet);
+            var sut = new MessageSetAssertions(messages);
 
             Action act = () => sut.HaveTextMatching(regex);
 
@@ -45,13 +42,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         [TestCase("some text", "so.*xt")]
         [TestCase("some text", "[a-z ]*")]
         [TestCase("some text", "s(ome tex)t")]
-        public void HaveTextMatching_should_pass_when_using_standard_regex_features(string messageText, string regex)
+        public void HaveTextMatching_should_pass_when_using_standard_regex_features(string text, string regex)
         {
-            var messages = CreateMessageSetWithOneMessageThatHasSetText(messageText);
+            var messages = MessageTestData.CreateMessageSetWithOneMessageThatHasSetProperties(text: text);
 
-            var messageSet = new MessageSet(messages, "0");
-
-            var sut = new MessageSetAssertions(messageSet);
+            var sut = new MessageSetAssertions(messages);
 
             Action act = () => sut.HaveTextMatching(regex);
 
@@ -63,11 +58,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         [TestCase("s{12}")]
         public void HaveTextMatching_should_throw_MessageSetAssertionFailedException_when_regex_matches_no_messages(string regex)
         {
-            var messages = CreateRandomMessages();
+            var messages = MessageTestData.CreateRandomMessages();
 
-            var messageSet = new MessageSet(messages, "0");
-
-            var sut = new MessageSetAssertions(messageSet);
+            var sut = new MessageSetAssertions(messages);
 
             Action act = () => sut.HaveTextMatching(regex);
 
@@ -75,13 +68,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         }
 
         [Test]
-        public void HaveTextMatching_should_throw_MessageSetAssertionFailedException_when_text_of_all_messages_is_null()
+        public void HaveTextMatching_should_throw_MessageSetAssertionFailedException_when_Text_of_all_messages_is_null()
         {
             var messages = Enumerable.Range(1, 5).Select(_ => new Message()).ToList();
 
-            var messageSet = new MessageSet(messages, "0");
-
-            var sut = new MessageSetAssertions(messageSet);
+            var sut = new MessageSetAssertions(messages);
 
             Action act = () => sut.HaveTextMatching(".*");
 
@@ -89,15 +80,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         }
 
         [Test]
-        public void HaveTextMatching_should_throw_MessageSetAssertionFailedException_when_trying_to_capture_groups_but_text_is_null()
+        public void HaveTextMatching_should_throw_MessageSetAssertionFailedException_when_trying_to_capture_groups_but_Text_of_all_messages_is_null()
         {
             IList<string> matches;
 
             var messages = Enumerable.Range(1, 5).Select(_ => new Message()).ToList();
 
-            var messageSet = new MessageSet(messages, "0");
-
-            var sut = new MessageSetAssertions(messageSet);
+            var sut = new MessageSetAssertions(messages);
 
             Action act = () => sut.HaveTextMatching(".*", "(.*)", out matches);
 
@@ -105,15 +94,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         }
 
         [Test]
-        public void HaveTextMatching_should_not_output_matches_when_regex_does_not_match_text_of_any_messages()
+        public void HaveTextMatching_should_not_output_matches_when_regex_does_not_match_Text_of_any_messages()
         {
             IList<string> matches = null;
 
-            var messages = CreateRandomMessages();
+            var messages = MessageTestData.CreateRandomMessages();
 
-            var messageSet = new MessageSet(messages, "0");
-
-            var sut = new MessageSetAssertions(messageSet);
+            var sut = new MessageSetAssertions(messages);
 
             Action act = () => sut.HaveTextMatching("non matching regex", "(some text)", out matches);
 
@@ -122,15 +109,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         }
 
         [Test]
-        public void HaveTextMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_text_of_any_messages()
+        public void HaveTextMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_Text_of_any_message()
         {
             IList<string> matches;
 
-            var messages = CreateRandomMessages();
+            var messages = MessageTestData.CreateRandomMessages();
 
-            var messageSet = new MessageSet(messages, "0");
-
-            var sut = new MessageSetAssertions(messageSet);
+            var sut = new MessageSetAssertions(messages);
 
             sut.HaveTextMatching(".*", "(non matching)", out matches);
 
@@ -138,16 +123,14 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         }
 
         [Test]
-        public void HaveTextMatching_should_output_matches_when_groupMatchingRegex_matches_text_of_any_message()
+        public void HaveTextMatching_should_output_matches_when_groupMatchingRegex_matches_Text_of_any_message()
         {
             IList<string> matches;
 
             const string someText = "some text";
-            var messages = CreateMessageSetWithOneMessageThatHasSetText(someText);
+            var messages = MessageTestData.CreateMessageSetWithOneMessageThatHasSetProperties(text: someText);
 
-            var messageSet = new MessageSet(messages, "0");
-
-            var sut = new MessageSetAssertions(messageSet);
+            var sut = new MessageSetAssertions(messages);
 
             sut.HaveTextMatching(someText, $"({someText})", out matches);
 
@@ -155,36 +138,32 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         }
 
         [Test]
-        public void HaveTextMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_several_times_for_a_single_message()
+        public void HaveTextMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_Text_several_times_for_a_single_message()
         {
             IList<string> matches;
 
             const string someText = "some text";
-            var messages = CreateMessageSetWithOneMessageThatHasSetText(someText);
+            var messages = MessageTestData.CreateMessageSetWithOneMessageThatHasSetProperties(text: someText);
 
-            var messageSet = new MessageSet(messages, "0");
+            var sut = new MessageSetAssertions(messages);
 
-            var sut = new MessageSetAssertions(messageSet);
-
-            var match1 = "some";
-            var match2 = "text";
+            const string match1 = "some";
+            const string match2 = "text";
             sut.HaveTextMatching(someText, $"({match1}) ({match2})", out matches);
 
             matches.Should().Contain(match1, match2);
         }
 
         [Test]
-        public void HaveTextMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_on_multiple_messages()
+        public void HaveTextMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_Text_on_multiple_messages()
         {
             IList<string> matches;
 
-            var messages = CreateRandomMessages();
+            var messages = MessageTestData.CreateRandomMessages();
             messages.Add(new Message(text: "some text"));
             messages.Add(new Message(text: "same text"));
 
-            var messageSet = new MessageSet(messages, "0");
-
-            var sut = new MessageSetAssertions(messageSet);
+            var sut = new MessageSetAssertions(messages);
 
             sut.HaveTextMatching(".*", @"(s[oa]me) (text)", out matches);
 
@@ -194,13 +173,25 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         [Test]
         public void HaveTextMatching_should_throw_ArgumentNullException_if_regex_is_null()
         {
-            var messages = Enumerable.Range(1, 5).Select(i => new Message(text: $"text{i}")).ToList();
+            var messages = MessageTestData.CreateRandomMessages();
 
-            var messageSet = new MessageSet(messages, "0");
-
-            var sut = new MessageSetAssertions(messageSet);
+            var sut = new MessageSetAssertions(messages);
 
             Action act = () => sut.HaveTextMatching(null);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void HaveTextMatching_should_throw_ArgumentNullException_when_capturing_groups_if_regex_is_null()
+        {
+            IList<string> matches;
+
+            var messages = MessageTestData.CreateRandomMessages();
+
+            var sut = new MessageSetAssertions(messages);
+
+            Action act = () => sut.HaveTextMatching(null, "(.*)", out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }
@@ -210,30 +201,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         {
             IList<string> matches;
 
-            var messages = Enumerable.Range(1, 5).Select(i => new Message(text: $"text{i}")).ToList();
+            var messages = MessageTestData.CreateRandomMessages();
 
-            var messageSet = new MessageSet(messages, "0");
+            var sut = new MessageSetAssertions(messages);
 
-            var sut = new MessageSetAssertions(messageSet);
-
-            Action act = () => sut.HaveTextMatching(".*", null, out matches);
+            Action act = () => sut.HaveTextMatching("(.*)", null, out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }
-
-        private static List<Message> CreateMessageSetWithOneMessageThatHasSetText(string messageText)
-        {
-            var matchingMessage = new Message(text: messageText);
-            var messages = CreateRandomMessages();
-            messages.Add(matchingMessage);
-            return messages;
-        }
-
-        private static List<Message> CreateRandomMessages()
-        {
-            var messages = Enumerable.Range(1, 5).Select(i => new Message(text: $"text {i}")).ToList();
-            return messages;
-        }
-
     }
 }

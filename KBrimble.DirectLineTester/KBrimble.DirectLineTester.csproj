@@ -49,7 +49,7 @@
     <Compile Include="Assertions\Cards\ICanAssertCardImages.cs" />
     <Compile Include="Assertions\Cards\ICanAssertTapActions.cs" />
     <Compile Include="Assertions\Cards\CardComponents\ICardActionAssertions.cs" />
-    <Compile Include="Assertions\Messages\IHaveMessageAttachments.cs" />
+    <Compile Include="Assertions\Messages\ICanAssertMessageAttachments.cs" />
     <Compile Include="Attachments\AttachmentExtractor.cs" />
     <Compile Include="Attachments\AttachmentRetreiver.cs" />
     <Compile Include="Attachments\AttachmentRetreiverFactory.cs" />

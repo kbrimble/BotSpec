@@ -17,24 +17,42 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
 
         public IMessageAssertions HaveTextMatching(string regex)
         {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+
             StringHelpers.TestForMatch(_message.Text, regex, CreateEx(nameof(_message.Text), regex));
             return this;
         }
 
         public IMessageAssertions HaveTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+            if (groupMatchRegex == null)
+                throw new ArgumentNullException(nameof(groupMatchRegex));
+
             matchedGroups = StringHelpers.TestForMatchAndReturnGroups(_message.Text, regex, groupMatchRegex, CreateEx(nameof(_message.Text), regex));
             return this;
         }
 
-        public IMessageAssertions BeFrom(string messageFrom)
+        public IMessageAssertions HaveFromMatching(string regex)
         {
-            if (messageFrom == null)
-                throw new ArgumentNullException(nameof(messageFrom));
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+                
+            StringHelpers.TestForMatch(_message.FromProperty, regex, CreateEx(nameof(_message.FromProperty), regex));
 
-            if (!string.Equals(_message.FromProperty, messageFrom, StringComparison.InvariantCultureIgnoreCase))
-                throw CreateEx(nameof(_message.FromProperty), messageFrom);
+            return this;
+        }
 
+        public IMessageAssertions HaveFromMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+            if (groupMatchRegex == null)
+                throw new ArgumentNullException(nameof(groupMatchRegex));
+
+            matchedGroups = StringHelpers.TestForMatchAndReturnGroups(_message.FromProperty, regex, groupMatchRegex, CreateEx(nameof(_message.FromProperty), regex));
             return this;
         }
 
