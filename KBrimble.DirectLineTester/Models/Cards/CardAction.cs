@@ -6,6 +6,22 @@
     public class CardAction
     {
         /// <summary>
+        /// Initializes a new instance of the CardAction class.
+        /// </summary>
+        public CardAction() { }
+
+        /// <summary>
+        /// Initializes a new instance of the CardAction class.
+        /// </summary>
+        public CardAction(string type = default(string), string title = default(string), string image = default(string), string value = default(string))
+        {
+            Type = type;
+            Title = title;
+            Image = image;
+            Value = value;
+        }
+
+        /// <summary>
         /// Defines the type of action implemented by this button.
         /// </summary>
         public string Type { get; set; }

@@ -91,9 +91,4 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return new CardImageSetAssertions(_thumbnailCard.Images);
         }
     }
-
-    public interface ICanAssertCardImages
-    {
-        ICardImageAssertions WithCardImageThat();
-    }
 }

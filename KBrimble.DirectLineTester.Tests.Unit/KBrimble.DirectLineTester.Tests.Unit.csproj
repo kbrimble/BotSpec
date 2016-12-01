@@ -58,6 +58,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CardAssertionTests\When_testing_card_actions\For_an_image_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_card_actions\For_a_title_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_card_actions\For_a_type_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_card_actions\For_a_value_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_card_images\For_an_alt_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_card_images\For_a_url_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_card_image_sets\CardImageTestData.cs" />
@@ -88,10 +92,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="AttachmentExtractorTests\" />
-    <Folder Include="CardAssertionTests" />
-    <Folder Include="MessageAssertionTests" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

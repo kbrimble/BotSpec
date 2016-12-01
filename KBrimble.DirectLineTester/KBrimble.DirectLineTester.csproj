@@ -42,11 +42,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assertions\Cards\CardActionAssertions.cs" />
     <Compile Include="Assertions\Cards\CardImageSetAssertions.cs" />
+    <Compile Include="Assertions\Cards\ICanAssertCardImages.cs" />
+    <Compile Include="Assertions\CommonAssertions.cs" />
     <Compile Include="Attachments\AttachmentExtractor.cs" />
     <Compile Include="Attachments\AttachmentRetreiver.cs" />
     <Compile Include="Attachments\AttachmentRetreiverFactory.cs" />
     <Compile Include="Attachments\IAttachmentRetreiver.cs" />
+    <Compile Include="Exceptions\CardActionAssertionFailedException.cs" />
+    <Compile Include="Exceptions\CardActionSetAssertionFailedException.cs" />
     <Compile Include="Exceptions\CardImageAssertionFailedException.cs" />
     <Compile Include="Assertions\Cards\CardImageAssertions.cs" />
     <Compile Include="Assertions\Cards\ICardImageAssertions.cs" />
@@ -84,9 +89,6 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assertions\Cards" />
-    <Folder Include="Exceptions" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -34,22 +34,48 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
         public ICardImageAssertions HasUrlMatching(string regex, string groupMatchRegex, out IList<string> groupMatches)
         {
-            throw new NotImplementedException();
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+            if (groupMatchRegex == null)
+                throw new ArgumentNullException(nameof(groupMatchRegex));
+
+            SetHelpers<CardImage, CardImageAssertionFailedException, CardImageSetAssertionFailedException>.TestWithGroups act =
+                (CardImage item, out IList<string> matches) => item.That().HasUrlMatching(regex, groupMatchRegex, out matches);
+
+            groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(_cardImages, act, CreateEx(nameof(CardImage.Url), regex));
+
+            return this;
         }
 
         public ICardImageAssertions HasAltMatching(string regex)
         {
-            throw new NotImplementedException();
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+
+            _setHelpers.TestSetForMatch(_cardImages, cardImage => cardImage.That().HasAltMatching(regex), CreateEx(nameof(CardImage.Url), regex));
+
+            return this;
         }
 
         public ICardImageAssertions HasAltMatching(string regex, string groupMatchRegex, out IList<string> groupMatches)
         {
-            throw new NotImplementedException();
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+            if (groupMatchRegex == null)
+                throw new ArgumentNullException(nameof(groupMatchRegex));
+
+            SetHelpers<CardImage, CardImageAssertionFailedException, CardImageSetAssertionFailedException>.TestWithGroups act =
+                (CardImage item, out IList<string> matches) => item.That().HasAltMatching(regex, groupMatchRegex, out matches);
+
+            groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(_cardImages, act, CreateEx(nameof(CardImage.Url), regex));
+
+            return this;
         }
 
         public CardImageSetAssertionFailedException CreateEx(string testedProperty, string regex)
         {
-            throw new NotImplementedException();
+            var message = $"Expected a card image to have property {testedProperty} matching {regex} but found none.";
+            return new CardImageSetAssertionFailedException(message);
         }
     }
 }
