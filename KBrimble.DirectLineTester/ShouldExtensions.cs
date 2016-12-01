@@ -17,5 +17,6 @@ namespace KBrimble.DirectLineTester
         public static IMessageAttachmentAssertions ShouldHaveAttachment(this IEnumerable<Message> messageSet) => new MessageSetAttachmentAssertions(messageSet);
         public static IThumbnailCardAssertions That(this ThumbnailCard thumbnailCard) => new ThumbnailCardAssertions(thumbnailCard);
         public static ICardImageAssertions That(this CardImage cardImage) => new CardImageAssertions(cardImage);
+        public static ICardActionAssertions That(this CardAction cardAction) => new CardActionAssertions(cardAction);
     }
 }
