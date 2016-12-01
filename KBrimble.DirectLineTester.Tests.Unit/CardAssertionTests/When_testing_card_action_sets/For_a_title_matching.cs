@@ -5,9 +5,10 @@ using FluentAssertions;
 using KBrimble.DirectLineTester.Assertions.Cards;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
+using KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_card_image_sets;
 using NUnit.Framework;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_thumbnail_card_sets
+namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_card_action_sets
 {
     [TestFixture]
     public class For_a_title_matching
@@ -17,9 +18,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         [TestCase("symbols ([*])?")]
         public void HasTitleMatching_should_pass_if_regex_exactly_matches_message_Title_of_one_card(string cardTitleAndRegex)
         {
-            var cards = ThumbnailCardTestData.CreateThumbnailCardSetWithOneCardThatHasSetProperties(title: cardTitleAndRegex);
+            var cardActions = CardActionTestData.CreateCardActionSetWithOneMessageThatHasSetProperties(title: cardTitleAndRegex);
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             Action act = () => sut.HasTitleMatching(cardTitleAndRegex);
 
@@ -28,11 +29,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
 
         [TestCase("some text", "SOME TEXT")]
         [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
-        public void HasTitleMatching_should_pass_if_regex_exactly_matches_Title_of_at_least_1_card_regardless_of_case(string cardTitle, string regex)
+        public void HasTitleMatching_should_pass_if_regex_exactly_matches_Title_of_at_least_1_card_regardless_of_case(string title, string regex)
         {
-            var cards = ThumbnailCardTestData.CreateThumbnailCardSetWithOneCardThatHasSetProperties(title: cardTitle);
+            var cardActions = CardActionTestData.CreateCardActionSetWithOneMessageThatHasSetProperties(title: title);
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             Action act = () => sut.HasTitleMatching(regex);
 
@@ -42,11 +43,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         [TestCase("some text", "so.*xt")]
         [TestCase("some text", "[a-z ]*")]
         [TestCase("some text", "s(ome tex)t")]
-        public void HasTitleMatching_should_pass_when_using_standard_regex_features(string cardTitle, string regex)
+        public void HasTitleMatching_should_pass_when_using_standard_regex_features(string title, string regex)
         {
-            var cards = ThumbnailCardTestData.CreateThumbnailCardSetWithOneCardThatHasSetProperties(title: cardTitle);
+            var cardActions = CardActionTestData.CreateCardActionSetWithOneMessageThatHasSetProperties(title: title);
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             Action act = () => sut.HasTitleMatching(regex);
 
@@ -56,41 +57,41 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         [TestCase("some text!")]
         [TestCase("^[j-z ]*$")]
         [TestCase("s{12}")]
-        public void HasTitleMatching_should_throw_ThumbnailCardSetAssertionFailedException_when_regex_matches_no_cards(string regex)
+        public void HasTitleMatching_should_throw_CardActionSetAssertionFailedException_when_regex_matches_no_cards(string regex)
         {
-            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+            var cardActions = CardActionTestData.CreateRandomCardActions();
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             Action act = () => sut.HasTitleMatching(regex);
 
-            act.ShouldThrow<ThumbnailCardSetAssertionFailedException>();
+            act.ShouldThrow<CardActionSetAssertionFailedException>();
         }
 
         [Test]
-        public void HasTitleMatching_should_throw_ThumbnailCardSetAssertionFailedException_when_Title_of_all_cards_is_null()
+        public void HasTitleMatching_should_throw_CardActionSetAssertionFailedException_when_Title_of_all_cards_is_null()
         {
-            var cards = Enumerable.Range(1, 5).Select(_ => new ThumbnailCard()).ToList();
+            var cardActions = Enumerable.Range(1, 5).Select(_ => new CardAction()).ToList();
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             Action act = () => sut.HasTitleMatching(".*");
 
-            act.ShouldThrow<ThumbnailCardSetAssertionFailedException>();
+            act.ShouldThrow<CardActionSetAssertionFailedException>();
         }
 
         [Test]
-        public void HasTitleMatching_should_throw_ThumbnailCardSetAssertionFailedException_when_trying_to_capture_groups_but_Title_of_all_cards_is_null()
+        public void HasTitleMatching_should_throw_CardActionSetAssertionFailedException_when_trying_to_capture_groups_but_Title_of_all_cards_is_null()
         {
             IList<string> matches;
 
-            var cards = Enumerable.Range(1, 5).Select(_ => new ThumbnailCard()).ToList();
+            var cardActions = Enumerable.Range(1, 5).Select(_ => new CardAction()).ToList();
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             Action act = () => sut.HasTitleMatching(".*", "(.*)", out matches);
 
-            act.ShouldThrow<ThumbnailCardSetAssertionFailedException>();
+            act.ShouldThrow<CardActionSetAssertionFailedException>();
         }
 
         [Test]
@@ -98,13 +99,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         {
             IList<string> matches = null;
 
-            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+            var cardActions = CardActionTestData.CreateRandomCardActions();
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             Action act = () => sut.HasTitleMatching("non matching regex", "(some text)", out matches);
 
-            act.ShouldThrow<ThumbnailCardSetAssertionFailedException>();
+            act.ShouldThrow<CardActionSetAssertionFailedException>();
             matches.Should().BeNull();
         }
 
@@ -113,9 +114,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         {
             IList<string> matches;
 
-            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+            var cardActions = CardActionTestData.CreateRandomCardActions();
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             sut.HasTitleMatching(".*", "(non matching)", out matches);
 
@@ -128,9 +129,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
             IList<string> matches;
 
             const string someTitle = "some text";
-            var cards = ThumbnailCardTestData.CreateThumbnailCardSetWithOneCardThatHasSetProperties(title: someTitle);
+            var cardActions = CardActionTestData.CreateCardActionSetWithOneMessageThatHasSetProperties(title: someTitle);
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             sut.HasTitleMatching(someTitle, $"({someTitle})", out matches);
 
@@ -143,9 +144,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
             IList<string> matches;
 
             const string someTitle = "some text";
-            var cards = ThumbnailCardTestData.CreateThumbnailCardSetWithOneCardThatHasSetProperties(title: someTitle);
+            var cardActions = CardActionTestData.CreateCardActionSetWithOneMessageThatHasSetProperties(title: someTitle);
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             const string match1 = "some";
             const string match2 = "text";
@@ -159,11 +160,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         {
             IList<string> matches;
 
-            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
-            cards.Add(new ThumbnailCard(title: "some text"));
-            cards.Add(new ThumbnailCard(title: "same text"));
+            var cardActions = CardActionTestData.CreateRandomCardActions();
+            cardActions.Add(new CardAction(title: "some text"));
+            cardActions.Add(new CardAction(title: "same text"));
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             sut.HasTitleMatching(".*", @"(s[oa]me) (text)", out matches);
 
@@ -173,9 +174,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         [Test]
         public void HasTitleMatching_should_throw_ArgumentNullException_if_regex_is_null()
         {
-            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+            var cardActions = CardActionTestData.CreateRandomCardActions();
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             Action act = () => sut.HasTitleMatching(null);
 
@@ -183,13 +184,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         }
 
         [Test]
-        public void HasTitleMatching_should_throw_ArgumentNullException_if_when_capturing_groups_regex_is_null()
+        public void HasTitleMatching_should_throw_ArgumentNullException_when_capturing_groups_if_regex_is_null()
         {
             IList<string> matches;
 
-            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+            var cardActions = CardActionTestData.CreateRandomCardActions();
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             Action act = () => sut.HasTitleMatching(null, "(.*)", out matches);
 
@@ -201,9 +202,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         {
             IList<string> matches;
 
-            var cards = ThumbnailCardTestData.CreateRandomThumbnailCards();
+            var cardActions = CardActionTestData.CreateRandomCardActions();
 
-            var sut = new ThumbnailCardSetAssertions(cards);
+            var sut = new CardActionSetAssertions(cardActions);
 
             Action act = () => sut.HasTitleMatching("(.*)", null, out matches);
 

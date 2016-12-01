@@ -25,7 +25,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             Action act = () => sut.BeFrom(beFrom);
 
-            act.ShouldNotThrow<MessageSetAssertionFailedException>();
+            act.ShouldNotThrow<Exception>();
         }
 
         [Test]

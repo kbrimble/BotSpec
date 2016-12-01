@@ -45,7 +45,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             Action act = () => sut.BeFrom("fromMe");
 
-            act.ShouldNotThrow<MessageAssertionFailedException>();
+            act.ShouldNotThrow<Exception>();
         }
 
         [Test]
@@ -58,7 +58,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             Action act = () => sut.BeFrom(fromValue);
 
-            act.ShouldNotThrow<MessageAssertionFailedException>();
+            act.ShouldNotThrow<Exception>();
         }
 
         [Test]

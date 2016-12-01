@@ -62,11 +62,16 @@
     <Compile Include="CardAssertionTests\When_testing_card_actions\For_a_title_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_card_actions\For_a_type_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_card_actions\For_a_value_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_card_action_sets\For_an_image_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_card_action_sets\For_a_type_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_card_action_sets\For_a_value_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_card_images\For_an_alt_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_card_images\For_a_url_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_card_image_sets\CardImageTestData.cs" />
     <Compile Include="CardAssertionTests\When_testing_card_image_sets\For_an_alt_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_card_image_sets\For_a_url_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_card_action_sets\CardActionTestData.cs" />
+    <Compile Include="CardAssertionTests\When_testing_card_action_sets\For_a_title_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_thumbnail_cards\For_a_subtitle_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_thumbnail_cards\For_a_title_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_thumbnail_cards\For_text_matching.cs" />

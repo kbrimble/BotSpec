@@ -43,9 +43,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assertions\Cards\CardActionAssertions.cs" />
+    <Compile Include="Assertions\Cards\CardActionSetAssertions.cs" />
     <Compile Include="Assertions\Cards\CardImageSetAssertions.cs" />
     <Compile Include="Assertions\Cards\ICanAssertCardImages.cs" />
-    <Compile Include="Assertions\CommonAssertions.cs" />
+    <Compile Include="Assertions\Cards\ICardActionAssertions.cs" />
+    <Compile Include="Assertions\Messages\IHaveMessageAttachments.cs" />
     <Compile Include="Attachments\AttachmentExtractor.cs" />
     <Compile Include="Attachments\AttachmentRetreiver.cs" />
     <Compile Include="Attachments\AttachmentRetreiverFactory.cs" />

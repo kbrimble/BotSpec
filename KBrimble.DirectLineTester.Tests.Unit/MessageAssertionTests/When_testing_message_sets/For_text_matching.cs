@@ -24,7 +24,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             Action act = () => sut.HaveTextMatching(messageTextAndRegex);
 
-            act.ShouldNotThrow<MessageSetAssertionFailedException>();
+            act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text", "SOME TEXT")]
@@ -39,7 +39,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             Action act = () => sut.HaveTextMatching(regex);
 
-            act.ShouldNotThrow<MessageSetAssertionFailedException>();
+            act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text", "so.*xt")]
@@ -55,7 +55,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             Action act = () => sut.HaveTextMatching(regex);
 
-            act.ShouldNotThrow<MessageSetAssertionFailedException>();
+            act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text!")]

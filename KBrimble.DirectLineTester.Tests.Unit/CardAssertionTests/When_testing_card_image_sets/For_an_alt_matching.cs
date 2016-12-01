@@ -23,7 +23,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_c
 
             Action act = () => sut.HasAltMatching(cardAltAndRegex);
 
-            act.ShouldNotThrow<CardImageSetAssertionFailedException>();
+            act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text", "SOME TEXT")]
@@ -36,7 +36,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_c
 
             Action act = () => sut.HasAltMatching(regex);
 
-            act.ShouldNotThrow<CardImageSetAssertionFailedException>();
+            act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text", "so.*xt")]
@@ -50,7 +50,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_c
 
             Action act = () => sut.HasAltMatching(regex);
 
-            act.ShouldNotThrow<CardImageSetAssertionFailedException>();
+            act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text!")]
