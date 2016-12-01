@@ -4,7 +4,7 @@ using System.Linq;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
 
-namespace KBrimble.DirectLineTester.Assertions.Cards
+namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
     public class CardImageSetAssertions : ICardImageAssertions, IThrow<CardImageSetAssertionFailedException>
     {

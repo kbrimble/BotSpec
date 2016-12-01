@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace KBrimble.DirectLineTester.Assertions.Cards
+namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
     public interface ICardImageAssertions
     {

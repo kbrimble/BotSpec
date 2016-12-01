@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using KBrimble.DirectLineTester.Assertions.Cards.CardComponents;
 using KBrimble.DirectLineTester.Attachments;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
@@ -121,6 +122,16 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
         public ICardImageAssertions WithCardImageThat()
         {
             return new CardImageSetAssertions(_thumbnailCards);
+        }
+
+        public ICardActionAssertions WithButtonsThat()
+        {
+            return new CardActionSetAssertions(_thumbnailCards as IEnumerable<IHaveButtons>);
+        }
+
+        public ICardActionAssertions WithTapActionThat()
+        {
+            return new CardActionSetAssertions(_thumbnailCards as IEnumerable<IHaveTapAction>);
         }
     }
 }

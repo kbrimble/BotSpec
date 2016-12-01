@@ -42,11 +42,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assertions\Cards\CardActionAssertions.cs" />
-    <Compile Include="Assertions\Cards\CardActionSetAssertions.cs" />
-    <Compile Include="Assertions\Cards\CardImageSetAssertions.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\CardActionAssertions.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\CardActionSetAssertions.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\CardImageSetAssertions.cs" />
+    <Compile Include="Assertions\Cards\ICanAssertButtons.cs" />
     <Compile Include="Assertions\Cards\ICanAssertCardImages.cs" />
-    <Compile Include="Assertions\Cards\ICardActionAssertions.cs" />
+    <Compile Include="Assertions\Cards\ICanAssertTapActions.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\ICardActionAssertions.cs" />
     <Compile Include="Assertions\Messages\IHaveMessageAttachments.cs" />
     <Compile Include="Attachments\AttachmentExtractor.cs" />
     <Compile Include="Attachments\AttachmentRetreiver.cs" />
@@ -55,8 +57,8 @@
     <Compile Include="Exceptions\CardActionAssertionFailedException.cs" />
     <Compile Include="Exceptions\CardActionSetAssertionFailedException.cs" />
     <Compile Include="Exceptions\CardImageAssertionFailedException.cs" />
-    <Compile Include="Assertions\Cards\CardImageAssertions.cs" />
-    <Compile Include="Assertions\Cards\ICardImageAssertions.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\CardImageAssertions.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\ICardImageAssertions.cs" />
     <Compile Include="Assertions\IThrow.cs" />
     <Compile Include="Assertions\SetHelpers.cs" />
     <Compile Include="Assertions\StringHelpers.cs" />

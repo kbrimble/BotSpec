@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using FluentAssertions;
-using KBrimble.DirectLineTester.Assertions.Cards;
+using KBrimble.DirectLineTester.Assertions.Cards.CardComponents;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
 using NUnit.Framework;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_card_actions
+namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentAssertionTests.When_testing_card_actions
 {
     [TestFixture]
     public class For_a_type_matching

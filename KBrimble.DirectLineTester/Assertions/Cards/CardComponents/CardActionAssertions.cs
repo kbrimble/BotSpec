@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
 
-namespace KBrimble.DirectLineTester.Assertions.Cards
+namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
     public class CardActionAssertions : ICardActionAssertions, IThrow<CardActionAssertionFailedException>
     {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using KBrimble.DirectLineTester.Assertions.Attachments;
 using KBrimble.DirectLineTester.Assertions.Cards;
+using KBrimble.DirectLineTester.Assertions.Cards.CardComponents;
 using KBrimble.DirectLineTester.Assertions.Messages;
 using KBrimble.DirectLineTester.Models.Cards;
 using Microsoft.Bot.Connector.DirectLine.Models;

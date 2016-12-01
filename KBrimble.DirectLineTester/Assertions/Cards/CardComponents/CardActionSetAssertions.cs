@@ -1,19 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
 
-namespace KBrimble.DirectLineTester.Assertions.Cards
+namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
     public class CardActionSetAssertions : ICardActionAssertions, IThrow<CardActionSetAssertionFailedException>
     {
         private readonly IList<CardAction> _cardActions;
-        private SetHelpers<CardAction, CardActionAssertionFailedException, CardActionSetAssertionFailedException> _setHelpers;
+        private readonly SetHelpers<CardAction, CardActionAssertionFailedException, CardActionSetAssertionFailedException> _setHelpers;
 
         public CardActionSetAssertions(IList<CardAction> cardActions)
         {
             _cardActions = cardActions;
             _setHelpers = new SetHelpers<CardAction, CardActionAssertionFailedException, CardActionSetAssertionFailedException>();
+        }
+
+        public CardActionSetAssertions(IEnumerable<IHaveTapAction> hasTapActions)
+        {
+            _cardActions = hasTapActions.Select(x => x.Tap).ToList();
+        }
+
+        public CardActionSetAssertions(IEnumerable<IHaveButtons> hasButtons)
+        {
+            _cardActions = hasButtons.Select(x => x.Buttons).SelectMany(x => x).ToList();
         }
 
         public ICardActionAssertions HasTitleMatching(string regex)
