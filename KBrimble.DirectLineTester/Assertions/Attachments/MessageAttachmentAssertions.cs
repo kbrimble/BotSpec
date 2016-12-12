@@ -15,7 +15,7 @@ namespace KBrimble.DirectLineTester.Assertions.Attachments
 
         public IThumbnailCardAssertions OfTypeThumbnailCardThat()
         {
-            var attachmentExtractor = new AttachmentExtractor(AttachmentRetreiverFactory.DefaultAttachmentRetreiver());
+            var attachmentExtractor = new AttachmentExtractor(AttachmentRetrieverFactory.DefaultAttachmentRetriever());
             var thumbnailCards = attachmentExtractor.ExtractThumbnailCardsFromMessage(_message);
 
             return new ThumbnailCardSetAssertions(thumbnailCards);

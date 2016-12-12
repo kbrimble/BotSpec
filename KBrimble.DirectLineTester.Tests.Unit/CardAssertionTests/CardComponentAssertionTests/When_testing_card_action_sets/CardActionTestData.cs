@@ -5,11 +5,22 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 {
     public class CardActionTestData
     {
-        internal static IList<CardAction> CreateCardActionSetWithOneMessageThatHasSetProperties(string type = default(string), string title = default(string), string image = default(string), string value = default(string))
+        internal static IList<CardAction> CreateCardActionSetWithOneActionThatHasSetProperties(string type = default(string), string title = default(string), string image = default(string), string value = default(string))
         {
             var matchingCardAction = new CardAction(type, title, image, value);
             var cards = CreateRandomCardActions();
             cards.Add(matchingCardAction);
+            return cards;
+        }
+
+        internal static IList<CardAction> CreateCardActionSetWithAllActionsWithSetProperties(string type = default(string), string title = default(string), string image = default(string), string value = default(string))
+        {
+            var cards = new List<CardAction>();
+            for (var i = 0; i < 5; i++)
+            {
+                var matchingCardAction = new CardAction(type, title, image, value);
+                cards.Add(matchingCardAction);
+            }
             return cards;
         }
 
@@ -18,7 +29,8 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
             var cardActions = new List<CardAction>();
             for (var i = 0; i < 5; i++)
             {
-                cardActions.Add(new CardAction($"type{i}", $"title{i}", $"image{i}", $"value{i}"));
+                var type = CardActionType.AllTypes[i % CardActionType.AllTypes.Length];
+                cardActions.Add(new CardAction(type.Value, $"title{i}", $"image{i}", $"value{i}"));
             }
             return cardActions;
         }

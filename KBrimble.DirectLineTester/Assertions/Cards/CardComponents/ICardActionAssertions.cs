@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
@@ -8,9 +9,8 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
         ICardActionAssertions HasTitleMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches);
         ICardActionAssertions HasValueMatching(string regex);
         ICardActionAssertions HasValueMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches);
-        ICardActionAssertions HasTypeMatching(string regex);
-        ICardActionAssertions HasTypeMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches);
         ICardActionAssertions HasImageMatching(string regex);
         ICardActionAssertions HasImageMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches);
+        ICardActionAssertions HasType(CardActionType type);
     }
 }

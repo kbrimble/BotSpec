@@ -51,8 +51,8 @@
     <Compile Include="Assertions\Cards\CardComponents\ICardActionAssertions.cs" />
     <Compile Include="Assertions\Messages\ICanAssertMessageAttachments.cs" />
     <Compile Include="Attachments\AttachmentExtractor.cs" />
-    <Compile Include="Attachments\AttachmentRetreiver.cs" />
-    <Compile Include="Attachments\AttachmentRetreiverFactory.cs" />
+    <Compile Include="Attachments\AttachmentRetriever.cs" />
+    <Compile Include="Attachments\AttachmentRetrieverFactory.cs" />
     <Compile Include="Attachments\IAttachmentRetreiver.cs" />
     <Compile Include="Exceptions\CardActionAssertionFailedException.cs" />
     <Compile Include="Exceptions\CardActionSetAssertionFailedException.cs" />
@@ -68,6 +68,9 @@
     <Compile Include="Exceptions\CardImageSetAssertionFailedException.cs" />
     <Compile Include="Exceptions\ThumbnailCardSetAssertionFailedException.cs" />
     <Compile Include="IBotClient.cs" />
+    <Compile Include="DirectLineTester.cs" />
+    <Compile Include="DirectLineTesterSettings.cs" />
+    <Compile Include="Models\Cards\CardActionType.cs" />
     <Compile Include="Models\Cards\HeroCard.cs" />
     <Compile Include="Models\Cards\IHaveButtons.cs" />
     <Compile Include="Models\Cards\IHaveImages.cs" />

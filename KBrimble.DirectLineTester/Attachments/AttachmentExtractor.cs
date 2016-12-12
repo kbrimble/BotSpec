@@ -9,18 +9,18 @@ namespace KBrimble.DirectLineTester.Attachments
 {
     public class AttachmentExtractor
     {
-        private readonly IAttachmentRetreiver _attachmentRetreiver;
+        private readonly IAttachmentRetreiver _attachmentRetriever;
 
-        public AttachmentExtractor(IAttachmentRetreiver attachmentRetreiver)
+        public AttachmentExtractor(IAttachmentRetreiver attachmentRetriever)
         {
-            _attachmentRetreiver = attachmentRetreiver;
+            _attachmentRetriever = attachmentRetriever;
         }
 
         public IEnumerable<ThumbnailCard> ExtractThumbnailCardsFromMessage(Message message)
         {
             var thumbnailCardAttachments = message.Attachments.Where(att => att.ContentType == ThumbnailCard.ContentType);
             var urls = thumbnailCardAttachments.Select(tca => tca.Url).ToArray();
-            var jsonResponses = _attachmentRetreiver.GetAttachmentsFromUrls(urls);
+            var jsonResponses = _attachmentRetriever.GetAttachmentsFromUrls(urls);
             foreach (var json in jsonResponses)
             {
                 ThumbnailCard card;

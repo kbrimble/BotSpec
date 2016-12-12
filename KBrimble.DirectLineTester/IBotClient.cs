@@ -4,7 +4,7 @@ using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester
 {
-    internal interface IBotClient
+    public interface IBotClient
     {
         Task StartConversation();
         Task SendMessage(string messageText);

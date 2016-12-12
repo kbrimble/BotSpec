@@ -17,7 +17,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("symbols ([*])?")]
         public void HasTitleMatching_should_pass_if_regex_exactly_matches_message_Title_of_one_card(string cardTitleAndRegex)
         {
-            var cardActions = CardActionTestData.CreateCardActionSetWithOneMessageThatHasSetProperties(title: cardTitleAndRegex);
+            var cardActions = CardActionTestData.CreateCardActionSetWithOneActionThatHasSetProperties(title: cardTitleAndRegex);
 
             var sut = new CardActionSetAssertions(cardActions);
 
@@ -30,7 +30,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
         public void HasTitleMatching_should_pass_if_regex_exactly_matches_Title_of_at_least_1_card_regardless_of_case(string title, string regex)
         {
-            var cardActions = CardActionTestData.CreateCardActionSetWithOneMessageThatHasSetProperties(title: title);
+            var cardActions = CardActionTestData.CreateCardActionSetWithOneActionThatHasSetProperties(title: title);
 
             var sut = new CardActionSetAssertions(cardActions);
 
@@ -44,7 +44,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("some text", "s(ome tex)t")]
         public void HasTitleMatching_should_pass_when_using_standard_regex_features(string title, string regex)
         {
-            var cardActions = CardActionTestData.CreateCardActionSetWithOneMessageThatHasSetProperties(title: title);
+            var cardActions = CardActionTestData.CreateCardActionSetWithOneActionThatHasSetProperties(title: title);
 
             var sut = new CardActionSetAssertions(cardActions);
 
@@ -128,7 +128,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
             IList<string> matches;
 
             const string someTitle = "some text";
-            var cardActions = CardActionTestData.CreateCardActionSetWithOneMessageThatHasSetProperties(title: someTitle);
+            var cardActions = CardActionTestData.CreateCardActionSetWithOneActionThatHasSetProperties(title: someTitle);
 
             var sut = new CardActionSetAssertions(cardActions);
 
@@ -143,7 +143,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
             IList<string> matches;
 
             const string someTitle = "some text";
-            var cardActions = CardActionTestData.CreateCardActionSetWithOneMessageThatHasSetProperties(title: someTitle);
+            var cardActions = CardActionTestData.CreateCardActionSetWithOneActionThatHasSetProperties(title: someTitle);
 
             var sut = new CardActionSetAssertions(cardActions);
 

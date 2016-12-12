@@ -60,7 +60,7 @@
   <ItemGroup>
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_actions\For_an_image_matching.cs" />
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_actions\For_a_title_matching.cs" />
-    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_actions\For_a_type_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_actions\For_a_type.cs" />
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_actions\For_a_value_matching.cs" />
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_action_sets\For_an_image_matching.cs" />
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_action_sets\For_a_type_matching.cs" />

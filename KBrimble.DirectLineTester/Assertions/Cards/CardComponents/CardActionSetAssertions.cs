@@ -77,31 +77,6 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardActionAssertions HasTypeMatching(string regex)
-        {
-            if (regex == null)
-                throw new ArgumentNullException(nameof(regex));
-
-            _setHelpers.TestSetForMatch(_cardActions, action => action.That().HasTypeMatching(regex), CreateEx(nameof(CardAction.Type), regex));
-
-            return this;
-        }
-
-        public ICardActionAssertions HasTypeMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
-        {
-            if (regex == null)
-                throw new ArgumentNullException(nameof(regex));
-            if (groupMatchingRegex == null)
-                throw new ArgumentNullException(nameof(groupMatchingRegex));
-
-            SetHelpers<CardAction, CardActionAssertionFailedException, CardActionSetAssertionFailedException>.TestWithGroups act
-                = (CardAction item, out IList<string> matches) => item.That().HasTypeMatching(regex, groupMatchingRegex, out matches);
-
-            groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(_cardActions, act, CreateEx(nameof(CardAction.Title), regex));
-
-            return this;
-        }
-
         public ICardActionAssertions HasImageMatching(string regex)
         {
             if (regex == null)
@@ -123,6 +98,16 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
                 = (CardAction item, out IList<string> matches) => item.That().HasImageMatching(regex, groupMatchingRegex, out matches);
 
             groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(_cardActions, act, CreateEx(nameof(CardAction.Title), regex));
+
+            return this;
+        }
+
+        public ICardActionAssertions HasType(CardActionType type)
+        {
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
+
+            _setHelpers.TestSetForMatch(_cardActions, action => action.That().HasType(type), CreateEx(nameof(CardAction.Type), type.Value));
 
             return this;
         }

@@ -58,24 +58,12 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardActionAssertions HasTypeMatching(string regex)
+        public ICardActionAssertions HasType(CardActionType type)
         {
-            if (regex == null)
-                throw new ArgumentNullException(nameof(regex));
+            if (type == null)
+                throw new ArgumentNullException(nameof(type));
 
-            StringHelpers.TestForMatch(_cardAction.Type, regex, CreateEx(nameof(_cardAction.Type), regex));
-
-            return this;
-        }
-
-        public ICardActionAssertions HasTypeMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
-        {
-            if (regex == null)
-                throw new ArgumentNullException(nameof(regex));
-            if (groupMatchingRegex == null)
-                throw new ArgumentNullException(nameof(groupMatchingRegex));
-
-            groupMatches = StringHelpers.TestForMatchAndReturnGroups(_cardAction.Type, regex, groupMatchingRegex, CreateEx(nameof(_cardAction.Type), regex));
+            StringHelpers.TestForMatch(_cardAction.Type, type.Value, CreateEx(nameof(_cardAction.Type), type.Value));
 
             return this;
         }
