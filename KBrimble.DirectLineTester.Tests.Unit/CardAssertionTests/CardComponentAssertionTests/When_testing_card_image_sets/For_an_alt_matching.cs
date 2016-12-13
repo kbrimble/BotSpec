@@ -5,6 +5,7 @@ using FluentAssertions;
 using KBrimble.DirectLineTester.Assertions.Cards.CardComponents;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
+using KBrimble.DirectLineTester.Tests.Unit.TestData;
 using NUnit.Framework;
 
 namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentAssertionTests.When_testing_card_image_sets
@@ -17,7 +18,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("symbols ([*])?")]
         public void HasAltMatching_should_pass_if_regex_exactly_matches_message_Alt_of_one_card(string cardAltAndRegex)
         {
-            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(alt: cardAltAndRegex);
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneImageThatHasSetProperties(alt: cardAltAndRegex);
 
             var sut = new CardImageSetAssertions(cardImages);
 
@@ -30,7 +31,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
         public void HasAltMatching_should_pass_if_regex_exactly_matches_Alt_of_at_least_1_card_regardless_of_case(string alt, string regex)
         {
-            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(alt: alt);
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneImageThatHasSetProperties(alt: alt);
 
             var sut = new CardImageSetAssertions(cardImages);
 
@@ -44,7 +45,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("some text", "s(ome tex)t")]
         public void HasAltMatching_should_pass_when_using_standard_regex_features(string alt, string regex)
         {
-            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(alt: alt);
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneImageThatHasSetProperties(alt: alt);
 
             var sut = new CardImageSetAssertions(cardImages);
 
@@ -128,7 +129,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
             IList<string> matches;
 
             const string someAlt = "some text";
-            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(alt: someAlt);
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneImageThatHasSetProperties(alt: someAlt);
 
             var sut = new CardImageSetAssertions(cardImages);
 
@@ -143,7 +144,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
             IList<string> matches;
 
             const string someAlt = "some text";
-            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(alt: someAlt);
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneImageThatHasSetProperties(alt: someAlt);
 
             var sut = new CardImageSetAssertions(cardImages);
 

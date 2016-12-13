@@ -11,6 +11,9 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 
         public CardActionAssertions(CardAction cardAction)
         {
+            if (cardAction == null)
+                throw new ArgumentNullException(nameof(cardAction));
+
             _cardAction = cardAction;
         }
 

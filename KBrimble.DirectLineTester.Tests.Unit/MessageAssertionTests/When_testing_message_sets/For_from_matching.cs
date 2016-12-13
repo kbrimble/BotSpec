@@ -4,6 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using KBrimble.DirectLineTester.Assertions.Messages;
 using KBrimble.DirectLineTester.Exceptions;
+using KBrimble.DirectLineTester.Tests.Unit.TestData;
 using Microsoft.Bot.Connector.DirectLine.Models;
 using NUnit.Framework;
 

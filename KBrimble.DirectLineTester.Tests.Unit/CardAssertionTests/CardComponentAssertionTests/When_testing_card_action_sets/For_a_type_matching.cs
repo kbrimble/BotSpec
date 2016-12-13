@@ -3,6 +3,7 @@ using FluentAssertions;
 using KBrimble.DirectLineTester.Assertions.Cards.CardComponents;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
+using KBrimble.DirectLineTester.Tests.Unit.TestData;
 using NUnit.Framework;
 
 namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentAssertionTests.When_testing_card_action_sets

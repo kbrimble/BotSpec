@@ -11,6 +11,9 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 
         public CardImageAssertions(CardImage cardImage)
         {
+            if (cardImage == null)
+                throw new ArgumentNullException(nameof(cardImage));
+
             _cardImage = cardImage;
         }
 

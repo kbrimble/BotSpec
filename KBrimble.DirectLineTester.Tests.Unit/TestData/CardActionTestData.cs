@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using KBrimble.DirectLineTester.Models.Cards;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentAssertionTests.When_testing_card_action_sets
+namespace KBrimble.DirectLineTester.Tests.Unit.TestData
 {
     public class CardActionTestData
     {

@@ -5,6 +5,7 @@ using FluentAssertions;
 using KBrimble.DirectLineTester.Assertions.Cards;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
+using KBrimble.DirectLineTester.Tests.Unit.TestData;
 using NUnit.Framework;
 
 namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_thumbnail_card_sets

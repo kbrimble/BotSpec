@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.Bot.Connector.DirectLine.Models;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testing_message_sets
+namespace KBrimble.DirectLineTester.Tests.Unit.TestData
 {
     public class MessageTestData
     {

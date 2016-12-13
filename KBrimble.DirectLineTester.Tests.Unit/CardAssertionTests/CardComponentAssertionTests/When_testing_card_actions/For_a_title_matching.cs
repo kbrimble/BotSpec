@@ -94,7 +94,8 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         }
 
         [Test]
-        public void HasTitleMatching_should_not_output_matches_when_regex_does_not_match_text()
+        public void HasTitleMatching_should_not_output_matches_when_regex_does_not_match_title()
+
         {
             IList<string> matches = null;
 
@@ -109,7 +110,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         }
 
         [Test]
-        public void HasTitleMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_text()
+        public void HasTitleMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_title()
         {
             IList<string> matches;
 
@@ -123,7 +124,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         }
 
         [Test]
-        public void HasTitleMatching_should_output_matches_when_groupMatchingRegex_matches_text()
+        public void HasTitleMatching_should_output_matches_when_groupMatchingRegex_matches_title()
         {
             IList<string> matches;
 
@@ -138,7 +139,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         }
 
         [Test]
-        public void HasTitleMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_several_times()
+        public void HasTitleMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_title_several_times()
         {
             IList<string> matches;
 
@@ -155,7 +156,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         }
 
         [Test]
-        public void HasTitleMatching_should_throw_CardActionAssertionFailedException_when_text_is_null()
+        public void HasTitleMatching_should_throw_CardActionAssertionFailedException_when_title_is_null()
         {
             var cardAction = new CardAction();
 
@@ -167,7 +168,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         }
 
         [Test]
-        public void HasTitleMatching_should_throw_CardActionAssertionFailedException_when_trying_to_capture_groups_but_text_is_null()
+        public void HasTitleMatching_should_throw_CardActionAssertionFailedException_when_trying_to_capture_groups_but_title_is_null()
         {
             IList<string> matches;
             var cardAction = new CardAction();

@@ -5,6 +5,7 @@ using FluentAssertions;
 using KBrimble.DirectLineTester.Assertions.Cards.CardComponents;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
+using KBrimble.DirectLineTester.Tests.Unit.TestData;
 using NUnit.Framework;
 
 namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentAssertionTests.When_testing_card_image_sets
@@ -17,7 +18,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("symbols ([*])?")]
         public void HasUrlMatching_should_pass_if_regex_exactly_matches_message_Url_of_one_card(string cardUrlAndRegex)
         {
-            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: cardUrlAndRegex);
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneImageThatHasSetProperties(url: cardUrlAndRegex);
 
             var sut = new CardImageSetAssertions(cardImages);
 
@@ -30,7 +31,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
         public void HasUrlMatching_should_pass_if_regex_exactly_matches_Url_of_at_least_1_card_regardless_of_case(string url, string regex)
         {
-            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: url);
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneImageThatHasSetProperties(url: url);
 
             var sut = new CardImageSetAssertions(cardImages);
 
@@ -44,7 +45,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("some text", "s(ome tex)t")]
         public void HasUrlMatching_should_pass_when_using_standard_regex_features(string url, string regex)
         {
-            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: url);
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneImageThatHasSetProperties(url: url);
 
             var sut = new CardImageSetAssertions(cardImages);
 
@@ -128,7 +129,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
             IList<string> matches;
 
             const string someUrl = "some text";
-            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: someUrl);
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneImageThatHasSetProperties(url: someUrl);
 
             var sut = new CardImageSetAssertions(cardImages);
 
@@ -143,7 +144,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
             IList<string> matches;
 
             const string someUrl = "some text";
-            var cardImages = CardImageTestData.CreateCardImageSetWithOneMessageThatHasSetProperties(url: someUrl);
+            var cardImages = CardImageTestData.CreateCardImageSetWithOneImageThatHasSetProperties(url: someUrl);
 
             var sut = new CardImageSetAssertions(cardImages);
 
