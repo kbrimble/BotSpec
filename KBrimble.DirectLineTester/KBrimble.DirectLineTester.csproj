@@ -46,6 +46,8 @@
     <Compile Include="Assertions\Cards\CardComponents\CardActionSetAssertions.cs" />
     <Compile Include="Assertions\Cards\CardComponents\CardImageSetAssertions.cs" />
     <Compile Include="Assertions\Cards\HeroCardAssertions.cs" />
+    <Compile Include="Exceptions\HeroCardSetAssertionFailedException.cs" />
+    <Compile Include="Assertions\Cards\HeroCardSetAssertions.cs" />
     <Compile Include="Assertions\Cards\ICanAssertButtons.cs" />
     <Compile Include="Assertions\Cards\ICanAssertCardImages.cs" />
     <Compile Include="Assertions\Cards\ICanAssertTapActions.cs" />

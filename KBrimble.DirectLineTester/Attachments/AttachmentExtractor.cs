@@ -50,5 +50,40 @@ namespace KBrimble.DirectLineTester.Attachments
             }
             return cards;
         }
+
+        public IEnumerable<HeroCard> ExtractHeroCardsFromMessageSet(MessageSet messageSet)
+        {
+            return ExtractHeroCardsFromMessageSet(messageSet.Messages);
+        }
+
+        public IEnumerable<HeroCard> ExtractHeroCardsFromMessageSet(IEnumerable<Message> messageSet)
+        {
+            var cards = new List<HeroCard>();
+            foreach (var message in messageSet)
+            {
+                cards.AddRange(ExtractHeroCardsFromMessage(message));
+            }
+            return cards;
+        }
+
+        public IEnumerable<HeroCard> ExtractHeroCardsFromMessage(Message message)
+        {
+            var heroCardAttachments = message.Attachments.Where(att => att.ContentType == HeroCard.ContentType);
+            var urls = heroCardAttachments.Select(tca => tca.Url).ToArray();
+            var jsonResponses = _attachmentRetriever.GetAttachmentsFromUrls(urls);
+            foreach (var json in jsonResponses)
+            {
+                HeroCard card;
+                try
+                {
+                    card = JsonConvert.DeserializeObject<HeroCard>(json);
+                }
+                catch (Exception)
+                {
+                    continue;
+                }
+                yield return card;
+            }
+        }
     }
 }

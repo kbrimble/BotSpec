@@ -83,17 +83,17 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
         public ICardActionAssertions WithButtonsThat()
         {
-            throw new System.NotImplementedException();
+            return new CardActionSetAssertions(_heroCard.Buttons);
         }
 
         public ICardImageAssertions WithCardImageThat()
         {
-            throw new System.NotImplementedException();
+            return new CardImageSetAssertions(_heroCard.Images);
         }
 
         public ICardActionAssertions WithTapActionThat()
         {
-            throw new System.NotImplementedException();
+            return new CardActionAssertions(_heroCard.Tap);
         }
 
         public HeroCardAssertionFailedException CreateEx(string testedProperty, string regex)

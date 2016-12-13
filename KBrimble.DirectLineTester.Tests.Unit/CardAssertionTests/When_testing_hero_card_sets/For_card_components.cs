@@ -5,7 +5,7 @@ using KBrimble.DirectLineTester.Models.Cards;
 using KBrimble.DirectLineTester.Tests.Unit.TestData;
 using NUnit.Framework;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_thumbnail_cards
+namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_hero_card_sets
 {
     [TestFixture]
     public class For_card_components
@@ -14,9 +14,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         public void WithButtonsThat_should_return_CardActionSetAssertions()
         {
             var buttons = CardActionTestData.CreateRandomCardActions();
-            var thumbnailCard = new ThumbnailCard(buttons: buttons);
+            var thumbnailCards = HeroCardTestData.CreateHeroCardSetWithOneCardThatHasSetProperties(buttons: buttons);
 
-            var sut = new ThumbnailCardAssertions(thumbnailCard);
+            var sut = new HeroCardSetAssertions(thumbnailCards);
 
             sut.WithButtonsThat().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }
@@ -25,9 +25,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         public void WithCardImageThat_should_return_CardImageAssertions()
         {
             var cardImages = CardImageTestData.CreateRandomCardImages();
-            var thumbnailCard = new ThumbnailCard(images: cardImages);
+            var thumbnailCards = HeroCardTestData.CreateHeroCardSetWithOneCardThatHasSetProperties(images: cardImages);
 
-            var sut = new ThumbnailCardAssertions(thumbnailCard);
+            var sut = new HeroCardSetAssertions(thumbnailCards);
 
             sut.WithCardImageThat().Should().BeAssignableTo<CardImageSetAssertions>().And.NotBeNull();
         }
@@ -36,11 +36,12 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
         public void WithTapActionThat_should_return_CardActionAssertions()
         {
             var tap = new CardAction();
-            var thumbnailCard = new ThumbnailCard(tap: tap);
+            var thumbnailCards = HeroCardTestData.CreateHeroCardSetWithOneCardThatHasSetProperties(tap: tap);
 
-            var sut = new ThumbnailCardAssertions(thumbnailCard);
+            var sut = new HeroCardSetAssertions(thumbnailCards);
 
-            sut.WithTapActionThat().Should().BeAssignableTo<CardActionAssertions>().And.NotBeNull();
+            sut.WithTapActionThat().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }
     }
+
 }

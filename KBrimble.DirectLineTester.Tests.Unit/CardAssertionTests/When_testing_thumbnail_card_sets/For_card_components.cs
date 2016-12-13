@@ -18,7 +18,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
 
             var sut = new ThumbnailCardSetAssertions(thumbnailCards);
 
-            sut.WithButtonsThat().Should().BeAssignableTo<CardActionSetAssertions>();
+            sut.WithButtonsThat().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }
 
         [Test]
@@ -29,7 +29,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
 
             var sut = new ThumbnailCardSetAssertions(thumbnailCards);
 
-            sut.WithCardImageThat().Should().BeAssignableTo<CardImageSetAssertions>();
+            sut.WithCardImageThat().Should().BeAssignableTo<CardImageSetAssertions>().And.NotBeNull();
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
 
             var sut = new ThumbnailCardSetAssertions(thumbnailCards);
 
-            sut.WithTapActionThat().Should().BeAssignableTo<CardActionSetAssertions>();
+            sut.WithTapActionThat().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }
     }
 
