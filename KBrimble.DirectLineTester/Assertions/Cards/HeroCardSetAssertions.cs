@@ -8,10 +8,10 @@ using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
-    public class HeroCardSetAssertions : IHeroCardAssertions, IThrow<HeroCardSetAssertionFailedException>
+    public class HeroCardSetAssertions : IHeroCardAssertions, IThrow<HeroCardAssertionFailedException>
     {
         private readonly IEnumerable<HeroCard> _heroCards;
-        private readonly SetHelpers<HeroCard, HeroCardAssertionFailedException, HeroCardSetAssertionFailedException> _setHelpers;
+        private readonly SetHelpers<HeroCard, HeroCardAssertionFailedException> _setHelpers;
 
         public HeroCardSetAssertions(MessageSet messageSet) : this()
         {
@@ -38,7 +38,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
         private HeroCardSetAssertions()
         {
-            _setHelpers = new SetHelpers<HeroCard, HeroCardAssertionFailedException, HeroCardSetAssertionFailedException>();
+            _setHelpers = new SetHelpers<HeroCard, HeroCardAssertionFailedException>();
         }
 
         public IHeroCardAssertions HasSubtitleMatching(string regex)
@@ -58,7 +58,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            SetHelpers<HeroCard, HeroCardAssertionFailedException, HeroCardSetAssertionFailedException>.TestWithGroups act
+            SetHelpers<HeroCard, HeroCardAssertionFailedException>.TestWithGroups act
                 = (HeroCard card, out IList<string> matches) => card.That().HasSubtitleMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_heroCards, act, CreateEx(nameof(HeroCard.Subtitle), regex));
 
@@ -82,7 +82,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            SetHelpers<HeroCard, HeroCardAssertionFailedException, HeroCardSetAssertionFailedException>.TestWithGroups act
+            SetHelpers<HeroCard, HeroCardAssertionFailedException>.TestWithGroups act
                 = (HeroCard card, out IList<string> matches) => card.That().HasTextMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_heroCards, act, CreateEx(nameof(HeroCard.Text), regex));
 
@@ -106,17 +106,17 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            SetHelpers<HeroCard, HeroCardAssertionFailedException, HeroCardSetAssertionFailedException>.TestWithGroups act
+            SetHelpers<HeroCard, HeroCardAssertionFailedException>.TestWithGroups act
                 = (HeroCard card, out IList<string> matches) => card.That().HasTitleMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_heroCards, act, CreateEx(nameof(HeroCard.Title), regex));
 
             return this;
         }
 
-        public HeroCardSetAssertionFailedException CreateEx(string testedProperty, string regex)
+        public HeroCardAssertionFailedException CreateEx(string testedProperty, string regex)
         {
             var message = $"Expected at least one hero card in set to have property {testedProperty} to match {regex} but none did.";
-            return new HeroCardSetAssertionFailedException(message);
+            return new HeroCardAssertionFailedException(message);
         }
 
         public ICardImageAssertions WithCardImageThat()

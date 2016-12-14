@@ -6,4 +6,9 @@ namespace KBrimble.DirectLineTester.Exceptions
     {
         protected BotAssertionFailedException(string message) : base(message) { }
     }
+
+    public class FactAssertionFailedException : BotAssertionFailedException
+    {
+        public FactAssertionFailedException(string message) : base(message) {}
+    }
 }

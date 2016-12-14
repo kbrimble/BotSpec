@@ -5,13 +5,12 @@ using KBrimble.DirectLineTester.Exceptions;
 
 namespace KBrimble.DirectLineTester.Assertions
 {
-    internal class SetHelpers<TSetItem, TExCatch, TExThrow> 
-        where TExCatch : BotAssertionFailedException 
-        where TExThrow : BotAssertionFailedException
+    internal class SetHelpers<TSetItem, TEx> 
+        where TEx : BotAssertionFailedException
     {
         internal delegate void TestWithGroups(TSetItem item, out IList<string> groupMatches);
 
-        internal void TestSetForMatch(IEnumerable<TSetItem> set, Action<TSetItem> test, TExThrow exceptionToThrow)
+        internal void TestSetForMatch(IEnumerable<TSetItem> set, Action<TSetItem> test, TEx exceptionToThrow)
         {
             var passedAssertion = false;
             foreach (var item in set)
@@ -20,7 +19,7 @@ namespace KBrimble.DirectLineTester.Assertions
                 {
                     test(item);
                 }
-                catch (TExCatch)
+                catch (TEx)
                 {
                     continue;
                 }
@@ -32,7 +31,7 @@ namespace KBrimble.DirectLineTester.Assertions
                 throw exceptionToThrow;
         }
 
-        internal IList<string> TestSetForMatchAndReturnGroups(IEnumerable<TSetItem> set, TestWithGroups testWithGroups, TExThrow exceptionToThrow)
+        internal IList<string> TestSetForMatchAndReturnGroups(IEnumerable<TSetItem> set, TestWithGroups testWithGroups, TEx exceptionToThrow)
         {
             var totalMatches = new List<string>();
             var passedAssertion = false;
@@ -45,7 +44,7 @@ namespace KBrimble.DirectLineTester.Assertions
                     if (matches != null && matches.Any())
                         totalMatches.AddRange(matches);
                 }
-                catch (TExCatch)
+                catch (TEx)
                 {
                     continue;
                 }

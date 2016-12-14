@@ -57,7 +57,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("some text!")]
         [TestCase("^[j-z ]*$")]
         [TestCase("s{12}")]
-        public void HasImageMatching_should_throw_CardActionSetAssertionFailedException_when_regex_matches_no_cards(string regex)
+        public void HasImageMatching_should_throw_CardActionAssertionFailedException_when_regex_matches_no_cards(string regex)
         {
             var cardActions = CardActionTestData.CreateRandomCardActions();
 
@@ -65,11 +65,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             Action act = () => sut.HasImageMatching(regex);
 
-            act.ShouldThrow<CardActionSetAssertionFailedException>();
+            act.ShouldThrow<CardActionAssertionFailedException>();
         }
 
         [Test]
-        public void HasImageMatching_should_throw_CardActionSetAssertionFailedException_when_Image_of_all_cards_is_null()
+        public void HasImageMatching_should_throw_CardActionAssertionFailedException_when_Image_of_all_cards_is_null()
         {
             var cardActions = Enumerable.Range(1, 5).Select(_ => new CardAction()).ToList();
 
@@ -77,11 +77,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             Action act = () => sut.HasImageMatching(".*");
 
-            act.ShouldThrow<CardActionSetAssertionFailedException>();
+            act.ShouldThrow<CardActionAssertionFailedException>();
         }
 
         [Test]
-        public void HasImageMatching_should_throw_CardActionSetAssertionFailedException_when_trying_to_capture_groups_but_Image_of_all_cards_is_null()
+        public void HasImageMatching_should_throw_CardActionAssertionFailedException_when_trying_to_capture_groups_but_Image_of_all_cards_is_null()
         {
             IList<string> matches;
 
@@ -91,7 +91,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             Action act = () => sut.HasImageMatching(".*", "(.*)", out matches);
 
-            act.ShouldThrow<CardActionSetAssertionFailedException>();
+            act.ShouldThrow<CardActionAssertionFailedException>();
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             Action act = () => sut.HasImageMatching("non matching regex", "(some text)", out matches);
 
-            act.ShouldThrow<CardActionSetAssertionFailedException>();
+            act.ShouldThrow<CardActionAssertionFailedException>();
             matches.Should().BeNull();
         }
 

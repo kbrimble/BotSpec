@@ -6,10 +6,10 @@ using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
-    public class CardActionSetAssertions : ICardActionAssertions, IThrow<CardActionSetAssertionFailedException>
+    public class CardActionSetAssertions : ICardActionAssertions, IThrow<CardActionAssertionFailedException>
     {
         public readonly IList<CardAction> CardActions;
-        private readonly SetHelpers<CardAction, CardActionAssertionFailedException, CardActionSetAssertionFailedException> _setHelpers;
+        private readonly SetHelpers<CardAction, CardActionAssertionFailedException> _setHelpers;
 
         public CardActionSetAssertions(IList<CardAction> cardActions)
         {
@@ -17,7 +17,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
                 throw new ArgumentNullException(nameof(cardActions));
 
             CardActions = cardActions.Where(x => x != null).ToList();
-            _setHelpers = new SetHelpers<CardAction, CardActionAssertionFailedException, CardActionSetAssertionFailedException>();
+            _setHelpers = new SetHelpers<CardAction, CardActionAssertionFailedException>();
         }
 
         public CardActionSetAssertions(IEnumerable<IHaveTapAction> hasTapActions)
@@ -53,7 +53,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             if (groupMatchingRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchingRegex));
 
-            SetHelpers<CardAction, CardActionAssertionFailedException, CardActionSetAssertionFailedException>.TestWithGroups act
+            SetHelpers<CardAction, CardActionAssertionFailedException>.TestWithGroups act
                 = (CardAction item, out IList<string> matches) => item.That().HasTitleMatching(regex, groupMatchingRegex, out matches);
 
             groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(CardActions, act, CreateEx(nameof(CardAction.Title), regex));
@@ -78,7 +78,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             if (groupMatchingRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchingRegex));
 
-            SetHelpers<CardAction, CardActionAssertionFailedException, CardActionSetAssertionFailedException>.TestWithGroups act
+            SetHelpers<CardAction, CardActionAssertionFailedException>.TestWithGroups act
                 = (CardAction item, out IList<string> matches) => item.That().HasValueMatching(regex, groupMatchingRegex, out matches);
 
             groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(CardActions, act, CreateEx(nameof(CardAction.Title), regex));
@@ -103,7 +103,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             if (groupMatchingRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchingRegex));
 
-            SetHelpers<CardAction, CardActionAssertionFailedException, CardActionSetAssertionFailedException>.TestWithGroups act
+            SetHelpers<CardAction, CardActionAssertionFailedException>.TestWithGroups act
                 = (CardAction item, out IList<string> matches) => item.That().HasImageMatching(regex, groupMatchingRegex, out matches);
 
             groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(CardActions, act, CreateEx(nameof(CardAction.Title), regex));
@@ -121,10 +121,10 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public CardActionSetAssertionFailedException CreateEx(string testedProperty, string regex)
+        public CardActionAssertionFailedException CreateEx(string testedProperty, string regex)
         {
             var message = $"Expected at least one card action to have property {testedProperty} matching {regex} but none did.";
-            return new CardActionSetAssertionFailedException(message);
+            return new CardActionAssertionFailedException(message);
         }
     }
 }

@@ -6,10 +6,10 @@ using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
-    public class CardImageSetAssertions : ICardImageAssertions, IThrow<CardImageSetAssertionFailedException>
+    public class CardImageSetAssertions : ICardImageAssertions, IThrow<CardImageAssertionFailedException>
     {
         public readonly IList<CardImage> CardImages;
-        private readonly SetHelpers<CardImage, CardImageAssertionFailedException, CardImageSetAssertionFailedException> _setHelpers;
+        private readonly SetHelpers<CardImage, CardImageAssertionFailedException> _setHelpers;
 
         public CardImageSetAssertions(IEnumerable<IHaveImages> hasCardImages)
         {
@@ -19,7 +19,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
         public CardImageSetAssertions(IList<CardImage> cardImages)
         {
             CardImages = cardImages.Where(x => x != null).ToList();
-            _setHelpers = new SetHelpers<CardImage, CardImageAssertionFailedException, CardImageSetAssertionFailedException>();
+            _setHelpers = new SetHelpers<CardImage, CardImageAssertionFailedException>();
         }
 
         public ICardImageAssertions HasUrlMatching(string regex)
@@ -39,7 +39,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            SetHelpers<CardImage, CardImageAssertionFailedException, CardImageSetAssertionFailedException>.TestWithGroups act =
+            SetHelpers<CardImage, CardImageAssertionFailedException>.TestWithGroups act =
                 (CardImage item, out IList<string> matches) => item.That().HasUrlMatching(regex, groupMatchRegex, out matches);
 
             groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(CardImages, act, CreateEx(nameof(CardImage.Url), regex));
@@ -64,7 +64,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            SetHelpers<CardImage, CardImageAssertionFailedException, CardImageSetAssertionFailedException>.TestWithGroups act =
+            SetHelpers<CardImage, CardImageAssertionFailedException>.TestWithGroups act =
                 (CardImage item, out IList<string> matches) => item.That().HasAltMatching(regex, groupMatchRegex, out matches);
 
             groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(CardImages, act, CreateEx(nameof(CardImage.Url), regex));
@@ -72,10 +72,10 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public CardImageSetAssertionFailedException CreateEx(string testedProperty, string regex)
+        public CardImageAssertionFailedException CreateEx(string testedProperty, string regex)
         {
             var message = $"Expected a card image to have property {testedProperty} matching {regex} but found none.";
-            return new CardImageSetAssertionFailedException(message);
+            return new CardImageAssertionFailedException(message);
         }
     }
 }

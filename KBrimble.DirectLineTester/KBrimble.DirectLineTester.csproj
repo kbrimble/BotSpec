@@ -46,7 +46,7 @@
     <Compile Include="Assertions\Cards\CardComponents\CardActionSetAssertions.cs" />
     <Compile Include="Assertions\Cards\CardComponents\CardImageSetAssertions.cs" />
     <Compile Include="Assertions\Cards\HeroCardAssertions.cs" />
-    <Compile Include="Exceptions\HeroCardSetAssertionFailedException.cs" />
+    <Compile Include="Assertions\Cards\ReceiptCardAssertions.cs" />
     <Compile Include="Assertions\Cards\HeroCardSetAssertions.cs" />
     <Compile Include="Assertions\Cards\ICanAssertButtons.cs" />
     <Compile Include="Assertions\Cards\ICanAssertCardImages.cs" />
@@ -59,7 +59,6 @@
     <Compile Include="Attachments\AttachmentRetrieverFactory.cs" />
     <Compile Include="Attachments\IAttachmentRetreiver.cs" />
     <Compile Include="Exceptions\CardActionAssertionFailedException.cs" />
-    <Compile Include="Exceptions\CardActionSetAssertionFailedException.cs" />
     <Compile Include="Exceptions\CardImageAssertionFailedException.cs" />
     <Compile Include="Assertions\Cards\CardComponents\CardImageAssertions.cs" />
     <Compile Include="Assertions\Cards\CardComponents\ICardImageAssertions.cs" />
@@ -69,17 +68,20 @@
     <Compile Include="Assertions\Attachments\MessageAttachmentAssertions.cs" />
     <Compile Include="Assertions\Attachments\MessageSetAttachmentAssertions.cs" />
     <Compile Include="Exceptions\BotAssertionFailedException.cs" />
-    <Compile Include="Exceptions\CardImageSetAssertionFailedException.cs" />
     <Compile Include="Exceptions\HeroCardAssertionFailedException.cs" />
-    <Compile Include="Exceptions\ThumbnailCardSetAssertionFailedException.cs" />
     <Compile Include="IBotClient.cs" />
     <Compile Include="DirectLineTester.cs" />
     <Compile Include="DirectLineTesterSettings.cs" />
     <Compile Include="Models\Cards\CardActionType.cs" />
+    <Compile Include="Models\Cards\Fact.cs" />
     <Compile Include="Models\Cards\HeroCard.cs" />
+    <Compile Include="Models\Cards\IHaveAnImage.cs" />
     <Compile Include="Models\Cards\IHaveButtons.cs" />
+    <Compile Include="Models\Cards\IHaveFacts.cs" />
     <Compile Include="Models\Cards\IHaveImages.cs" />
     <Compile Include="Models\Cards\IHaveTapAction.cs" />
+    <Compile Include="Models\Cards\ReceiptCard.cs" />
+    <Compile Include="Models\Cards\ReceiptItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BotClient.cs" />
     <Compile Include="ShouldExtensions.cs" />
@@ -91,7 +93,6 @@
     <Compile Include="Assertions\Cards\ThumbnailCardAssertions.cs" />
     <Compile Include="Exceptions\MessageAssertionFailedException.cs" />
     <Compile Include="Exceptions\ThumbnailCardAssertionFailedException.cs" />
-    <Compile Include="Exceptions\MessageSetAssertionFailedException.cs" />
     <Compile Include="Assertions\Cards\IThumbnailCardAssertions.cs" />
     <Compile Include="Assertions\Cards\ThumbnailCardSetAssertions.cs" />
     <Compile Include="Assertions\Attachments\IMessageAttachmentAssertions.cs" />

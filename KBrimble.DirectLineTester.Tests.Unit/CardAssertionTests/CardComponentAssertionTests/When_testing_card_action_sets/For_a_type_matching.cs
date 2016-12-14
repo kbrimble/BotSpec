@@ -32,11 +32,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             Action act = () => sut.HasType(CardActionType.DownloadFile);
 
-            act.ShouldThrow<CardActionSetAssertionFailedException>();
+            act.ShouldThrow<CardActionAssertionFailedException>();
         }
 
         [Test]
-        public void HasTypeMatching_should_throw_CardActionSetAssertionFailedException_when_type_of_all_card_actions_is_null()
+        public void HasTypeMatching_should_throw_CardActionAssertionFailedException_when_type_of_all_card_actions_is_null()
         {
             var cardActions = CardActionTestData.CreateCardActionSetWithAllActionsWithSetProperties(type: null);
 
@@ -44,7 +44,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             Action act = () => sut.HasType(CardActionType.Call);
 
-            act.ShouldThrow<CardActionSetAssertionFailedException>();
+            act.ShouldThrow<CardActionAssertionFailedException>();
         }
 
         [Test]

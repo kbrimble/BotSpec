@@ -57,7 +57,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("some text!")]
         [TestCase("^[j-z ]*$")]
         [TestCase("s{12}")]
-        public void HasUrlMatching_should_throw_CardImageSetAssertionFailedException_when_regex_matches_no_cards(string regex)
+        public void HasUrlMatching_should_throw_CardImageAssertionFailedException_when_regex_matches_no_cards(string regex)
         {
             var cardImages = CardImageTestData.CreateRandomCardImages();
 
@@ -65,11 +65,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             Action act = () => sut.HasUrlMatching(regex);
 
-            act.ShouldThrow<CardImageSetAssertionFailedException>();
+            act.ShouldThrow<CardImageAssertionFailedException>();
         }
 
         [Test]
-        public void HasUrlMatching_should_throw_CardImageSetAssertionFailedException_when_Url_of_all_cards_is_null()
+        public void HasUrlMatching_should_throw_CardImageAssertionFailedException_when_Url_of_all_cards_is_null()
         {
             var cardImages = Enumerable.Range(1, 5).Select(_ => new CardImage()).ToList();
 
@@ -77,11 +77,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             Action act = () => sut.HasUrlMatching(".*");
 
-            act.ShouldThrow<CardImageSetAssertionFailedException>();
+            act.ShouldThrow<CardImageAssertionFailedException>();
         }
 
         [Test]
-        public void HasUrlMatching_should_throw_CardImageSetAssertionFailedException_when_trying_to_capture_groups_but_Url_of_all_cards_is_null()
+        public void HasUrlMatching_should_throw_CardImageAssertionFailedException_when_trying_to_capture_groups_but_Url_of_all_cards_is_null()
         {
             IList<string> matches;
 
@@ -91,7 +91,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             Action act = () => sut.HasUrlMatching(".*", "(.*)", out matches);
 
-            act.ShouldThrow<CardImageSetAssertionFailedException>();
+            act.ShouldThrow<CardImageAssertionFailedException>();
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             Action act = () => sut.HasUrlMatching("non matching regex", "(some text)", out matches);
 
-            act.ShouldThrow<CardImageSetAssertionFailedException>();
+            act.ShouldThrow<CardImageAssertionFailedException>();
             matches.Should().BeNull();
         }
 

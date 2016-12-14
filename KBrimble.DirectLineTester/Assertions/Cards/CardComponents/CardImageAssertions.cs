@@ -17,6 +17,13 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             _cardImage = cardImage;
         }
 
+        public CardImageAssertions(IHaveAnImage iHaveAnImage)
+        {
+            if (iHaveAnImage == null)
+                throw new ArgumentNullException(nameof(iHaveAnImage));
+            _cardImage = iHaveAnImage.Image;
+        }
+
         public ICardImageAssertions HasUrlMatching(string regex)
         {
             if (regex == null)

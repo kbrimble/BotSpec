@@ -57,7 +57,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_h
         [TestCase("some text!")]
         [TestCase("^[j-z ]*$")]
         [TestCase("s{12}")]
-        public void HasTextMatching_should_throw_HeroCardSetAssertionFailedException_when_regex_matches_no_cards(string regex)
+        public void HasTextMatching_should_throw_HeroCardAssertionFailedException_when_regex_matches_no_cards(string regex)
         {
             var cards = HeroCardTestData.CreateRandomHeroCards();
 
@@ -65,11 +65,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_h
 
             Action act = () => sut.HasTextMatching(regex);
 
-            act.ShouldThrow<HeroCardSetAssertionFailedException>();
+            act.ShouldThrow<HeroCardAssertionFailedException>();
         }
 
         [Test]
-        public void HasTextMatching_should_throw_HeroCardSetAssertionFailedException_when_Text_of_all_cards_is_null()
+        public void HasTextMatching_should_throw_HeroCardAssertionFailedException_when_Text_of_all_cards_is_null()
         {
             var cards = Enumerable.Range(1, 5).Select(_ => new HeroCard()).ToList();
 
@@ -77,11 +77,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_h
 
             Action act = () => sut.HasTextMatching(".*");
 
-            act.ShouldThrow<HeroCardSetAssertionFailedException>();
+            act.ShouldThrow<HeroCardAssertionFailedException>();
         }
 
         [Test]
-        public void HasTextMatching_should_throw_HeroCardSetAssertionFailedException_when_trying_to_capture_groups_but_Text_of_all_cards_is_null()
+        public void HasTextMatching_should_throw_HeroCardAssertionFailedException_when_trying_to_capture_groups_but_Text_of_all_cards_is_null()
         {
             IList<string> matches;
 
@@ -91,7 +91,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_h
 
             Action act = () => sut.HasTextMatching(".*", "(.*)", out matches);
 
-            act.ShouldThrow<HeroCardSetAssertionFailedException>();
+            act.ShouldThrow<HeroCardAssertionFailedException>();
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_h
 
             Action act = () => sut.HasTextMatching("non matching regex", "(some text)", out matches);
 
-            act.ShouldThrow<HeroCardSetAssertionFailedException>();
+            act.ShouldThrow<HeroCardAssertionFailedException>();
             matches.Should().BeNull();
         }
 

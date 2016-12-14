@@ -57,7 +57,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         [TestCase("some text!")]
         [TestCase("^[j-z ]*$")]
         [TestCase("s{12}")]
-        public void HaveFromMatching_should_throw_MessageSetAssertionFailedException_when_regex_matches_no_messages(string regex)
+        public void HaveFromMatching_should_throw_MessageAssertionFailedException_when_regex_matches_no_messages(string regex)
         {
             var messages = MessageTestData.CreateRandomMessages();
 
@@ -65,11 +65,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             Action act = () => sut.HaveFromMatching(regex);
 
-            act.ShouldThrow<MessageSetAssertionFailedException>();
+            act.ShouldThrow<MessageAssertionFailedException>();
         }
 
         [Test]
-        public void HaveFromMatching_should_throw_MessageSetAssertionFailedException_when_From_of_all_messages_is_null()
+        public void HaveFromMatching_should_throw_MessageAssertionFailedException_when_From_of_all_messages_is_null()
         {
             var messages = Enumerable.Range(1, 5).Select(_ => new Message()).ToList();
 
@@ -77,11 +77,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             Action act = () => sut.HaveFromMatching(".*");
 
-            act.ShouldThrow<MessageSetAssertionFailedException>();
+            act.ShouldThrow<MessageAssertionFailedException>();
         }
 
         [Test]
-        public void HaveFromMatching_should_throw_MessageSetAssertionFailedException_when_trying_to_capture_groups_but_From_of_all_messages_is_null()
+        public void HaveFromMatching_should_throw_MessageAssertionFailedException_when_trying_to_capture_groups_but_From_of_all_messages_is_null()
         {
             IList<string> matches;
 
@@ -91,7 +91,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             Action act = () => sut.HaveFromMatching(".*", "(.*)", out matches);
 
-            act.ShouldThrow<MessageSetAssertionFailedException>();
+            act.ShouldThrow<MessageAssertionFailedException>();
         }
 
         [Test]
@@ -105,7 +105,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             Action act = () => sut.HaveFromMatching("non matching regex", "(some text)", out matches);
 
-            act.ShouldThrow<MessageSetAssertionFailedException>();
+            act.ShouldThrow<MessageAssertionFailedException>();
             matches.Should().BeNull();
         }
 
