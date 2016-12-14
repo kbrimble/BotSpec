@@ -1,7 +1,10 @@
-﻿namespace KBrimble.DirectLineTester.Assertions
+﻿using System;
+using KBrimble.DirectLineTester.Exceptions;
+
+namespace KBrimble.DirectLineTester.Assertions
 {
-    internal interface IThrow<out T>
+    internal interface IThrow<out TEx> where TEx : BotAssertionFailedException
     {
-        T CreateEx(string testedProperty, string regex);
+        Func<TEx> CreateEx(string testedProperty, string regex);
     }
 }

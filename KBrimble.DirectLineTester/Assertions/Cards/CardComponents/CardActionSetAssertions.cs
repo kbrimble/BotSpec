@@ -121,10 +121,10 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public CardActionAssertionFailedException CreateEx(string testedProperty, string regex)
+        public Func<CardActionAssertionFailedException> CreateEx(string testedProperty, string regex)
         {
             var message = $"Expected at least one card action to have property {testedProperty} matching {regex} but none did.";
-            return new CardActionAssertionFailedException(message);
+            return () => new CardActionAssertionFailedException(message);
         }
     }
 }

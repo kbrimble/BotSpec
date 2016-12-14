@@ -9,10 +9,12 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
     public class HeroCardAssertions : IHeroCardAssertions, IThrow<HeroCardAssertionFailedException>
     {
         private readonly HeroCard _heroCard;
+        private readonly StringHelpers<HeroCardAssertionFailedException> _stringHelpers;
 
         public HeroCardAssertions(HeroCard heroCard)
         {
             _heroCard = heroCard;
+            _stringHelpers = new StringHelpers<HeroCardAssertionFailedException>();
         }
 
         public IHeroCardAssertions HasTextMatching(string regex)
@@ -20,7 +22,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            StringHelpers.TestForMatch(_heroCard.Text, regex, CreateEx(nameof(_heroCard.Text), regex));
+            _stringHelpers.TestForMatch(_heroCard.Text, regex, CreateEx(nameof(_heroCard.Text), regex));
 
             return this;
         }
@@ -32,7 +34,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = StringHelpers.TestForMatchAndReturnGroups(_heroCard.Text, regex, groupMatchRegex, CreateEx(nameof(_heroCard.Text), regex));
+            matchedGroups = _stringHelpers.TestForMatchAndReturnGroups(_heroCard.Text, regex, groupMatchRegex, CreateEx(nameof(_heroCard.Text), regex));
 
             return this;
         }
@@ -42,7 +44,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            StringHelpers.TestForMatch(_heroCard.Title, regex, CreateEx(nameof(_heroCard.Title), regex));
+            _stringHelpers.TestForMatch(_heroCard.Title, regex, CreateEx(nameof(_heroCard.Title), regex));
 
             return this;
         }
@@ -54,7 +56,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = StringHelpers.TestForMatchAndReturnGroups(_heroCard.Title, regex, groupMatchRegex, CreateEx(nameof(_heroCard.Title), regex));
+            matchedGroups = _stringHelpers.TestForMatchAndReturnGroups(_heroCard.Title, regex, groupMatchRegex, CreateEx(nameof(_heroCard.Title), regex));
 
             return this;
         }
@@ -64,7 +66,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            StringHelpers.TestForMatch(_heroCard.Subtitle, regex, CreateEx(nameof(_heroCard.Subtitle), regex));
+            _stringHelpers.TestForMatch(_heroCard.Subtitle, regex, CreateEx(nameof(_heroCard.Subtitle), regex));
 
             return this;
         }
@@ -76,7 +78,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = StringHelpers.TestForMatchAndReturnGroups(_heroCard.Subtitle, regex, groupMatchRegex, CreateEx(nameof(_heroCard.Subtitle), regex));
+            matchedGroups = _stringHelpers.TestForMatchAndReturnGroups(_heroCard.Subtitle, regex, groupMatchRegex, CreateEx(nameof(_heroCard.Subtitle), regex));
 
             return this;
         }
@@ -96,10 +98,10 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return new CardActionAssertions(_heroCard.Tap);
         }
 
-        public HeroCardAssertionFailedException CreateEx(string testedProperty, string regex)
+        public Func<HeroCardAssertionFailedException> CreateEx(string testedProperty, string regex)
         {
             var message = $"Expected hero card to have property {testedProperty} to match {regex} but regex test failed.";
-            return new HeroCardAssertionFailedException(message);
+            return () => new HeroCardAssertionFailedException(message);
         }
     }
 }

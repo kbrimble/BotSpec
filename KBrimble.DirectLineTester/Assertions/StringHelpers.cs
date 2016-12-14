@@ -6,29 +6,29 @@ using KBrimble.DirectLineTester.Exceptions;
 
 namespace KBrimble.DirectLineTester.Assertions
 {
-    internal static class StringHelpers
+    internal class StringHelpers<TEx> where TEx : BotAssertionFailedException
     {
-        internal static void TestForMatch<TEx>(string input, string regex, TEx exceptionToThrow) where TEx : BotAssertionFailedException
+        internal void TestForMatch(string input, string regex, Func<TEx> createException)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
-            if (exceptionToThrow == null)
-                throw new ArgumentNullException(nameof(exceptionToThrow));
+            if (createException == null)
+                throw new ArgumentNullException(nameof(createException));
 
             if (input == null || !Regex.IsMatch(input.ToLowerInvariant(), regex, RegexOptions.IgnoreCase))
-                throw exceptionToThrow;
+                throw createException();
         }
 
-        internal static IList<string> TestForMatchAndReturnGroups<TEx>(string input, string regex, string groupMatchRegex, TEx exceptionToThrow) where TEx : BotAssertionFailedException
+        internal IList<string> TestForMatchAndReturnGroups(string input, string regex, string groupMatchRegex, Func<TEx> createException)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
-            if (exceptionToThrow == null)
-                throw new ArgumentNullException(nameof(exceptionToThrow));
+            if (createException == null)
+                throw new ArgumentNullException(nameof(createException));
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            TestForMatch(input, regex, exceptionToThrow);
+            TestForMatch(input, regex, createException);
 
             IList<string> matchedGroups = null;
 

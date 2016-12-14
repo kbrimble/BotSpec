@@ -72,6 +72,7 @@
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_images\For_a_url_matching.cs" />
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_images\When_creating_card_image_assertions.cs" />
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_image_sets\When_creating_card_image_set_assertions.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_facts\For_a_key_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_hero_cards\For_card_components.cs" />
     <Compile Include="CardAssertionTests\When_testing_hero_card_sets\For_a_subtitle_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_hero_card_sets\For_a_title_matching.cs" />

@@ -11,14 +11,18 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
         public readonly IList<CardImage> CardImages;
         private readonly SetHelpers<CardImage, CardImageAssertionFailedException> _setHelpers;
 
-        public CardImageSetAssertions(IEnumerable<IHaveImages> hasCardImages)
+        public CardImageSetAssertions(IEnumerable<IHaveImages> hasCardImages) : this()
         {
             CardImages = hasCardImages.Where(x => x?.Images != null).Select(x => x.Images).SelectMany(x => x).ToList();
         }
 
-        public CardImageSetAssertions(IList<CardImage> cardImages)
+        public CardImageSetAssertions(IList<CardImage> cardImages) : this()
         {
             CardImages = cardImages.Where(x => x != null).ToList();
+        }
+
+        public CardImageSetAssertions()
+        {
             _setHelpers = new SetHelpers<CardImage, CardImageAssertionFailedException>();
         }
 
@@ -72,10 +76,10 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public CardImageAssertionFailedException CreateEx(string testedProperty, string regex)
+        public Func<CardImageAssertionFailedException> CreateEx(string testedProperty, string regex)
         {
             var message = $"Expected a card image to have property {testedProperty} matching {regex} but found none.";
-            return new CardImageAssertionFailedException(message);
+            return () => new CardImageAssertionFailedException(message);
         }
     }
 }

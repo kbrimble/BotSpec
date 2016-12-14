@@ -10,7 +10,7 @@ namespace KBrimble.DirectLineTester.Assertions
     {
         internal delegate void TestWithGroups(TSetItem item, out IList<string> groupMatches);
 
-        internal void TestSetForMatch(IEnumerable<TSetItem> set, Action<TSetItem> test, TEx exceptionToThrow)
+        internal void TestSetForMatch(IEnumerable<TSetItem> set, Action<TSetItem> test, Func<TEx> exceptionToThrow)
         {
             var passedAssertion = false;
             foreach (var item in set)
@@ -28,10 +28,10 @@ namespace KBrimble.DirectLineTester.Assertions
             }
 
             if (!passedAssertion)
-                throw exceptionToThrow;
+                throw exceptionToThrow();
         }
 
-        internal IList<string> TestSetForMatchAndReturnGroups(IEnumerable<TSetItem> set, TestWithGroups testWithGroups, TEx exceptionToThrow)
+        internal IList<string> TestSetForMatchAndReturnGroups(IEnumerable<TSetItem> set, TestWithGroups testWithGroups, Func<TEx> exceptionToThrow)
         {
             var totalMatches = new List<string>();
             var passedAssertion = false;
@@ -52,7 +52,7 @@ namespace KBrimble.DirectLineTester.Assertions
             }
 
             if (!passedAssertion)
-                throw exceptionToThrow;
+                throw exceptionToThrow();
 
             return totalMatches.Any() ? totalMatches : null;
         }

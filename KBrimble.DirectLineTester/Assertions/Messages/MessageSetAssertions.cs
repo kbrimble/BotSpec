@@ -15,8 +15,8 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
 
         public MessageSetAssertions(IEnumerable<Message> messageSet)
         {
-            _setHelpers = new SetHelpers<Message, MessageAssertionFailedException>();
             _messageSet = messageSet;
+            _setHelpers = new SetHelpers<Message, MessageAssertionFailedException>();
         }
 
         public IMessageAssertions HaveFromMatching(string regex)
@@ -97,10 +97,10 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             return new MessageSetAttachmentAssertions(_messageSet);
         }
 
-        public MessageAssertionFailedException CreateEx(string testedProperty, string regex)
+        public Func<MessageAssertionFailedException> CreateEx(string testedProperty, string regex)
         {
             var message = $"Expected one message in set to have property {testedProperty} to match {regex} but none did.";
-            return new MessageAssertionFailedException(message);
+            return () => new MessageAssertionFailedException(message);
         }
     }
 }

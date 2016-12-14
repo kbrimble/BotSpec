@@ -113,10 +113,10 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public HeroCardAssertionFailedException CreateEx(string testedProperty, string regex)
+        public Func<HeroCardAssertionFailedException> CreateEx(string testedProperty, string regex)
         {
             var message = $"Expected at least one hero card in set to have property {testedProperty} to match {regex} but none did.";
-            return new HeroCardAssertionFailedException(message);
+            return () => new HeroCardAssertionFailedException(message);
         }
 
         public ICardImageAssertions WithCardImageThat()
