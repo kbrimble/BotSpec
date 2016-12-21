@@ -3,6 +3,7 @@ using FluentAssertions;
 using KBrimble.DirectLineTester.Assertions.Cards.CardComponents;
 using KBrimble.DirectLineTester.Models.Cards;
 using NUnit.Framework;
+// ReSharper disable ObjectCreationAsStatement
 
 namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentAssertionTests.When_testing_card_images
 {

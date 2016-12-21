@@ -5,8 +5,7 @@ using KBrimble.DirectLineTester.Exceptions;
 
 namespace KBrimble.DirectLineTester.Assertions
 {
-    internal class SetHelpers<TSetItem, TEx> 
-        where TEx : BotAssertionFailedException
+    internal class SetHelpers<TSetItem, TEx> where TEx : BotAssertionFailedException
     {
         internal delegate void TestWithGroups(TSetItem item, out IList<string> groupMatches);
 

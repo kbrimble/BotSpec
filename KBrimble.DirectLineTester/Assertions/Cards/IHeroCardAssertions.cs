@@ -1,8 +1,9 @@
 using System.Collections.Generic;
+using KBrimble.DirectLineTester.Exceptions;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
-    public interface IHeroCardAssertions : ICanAssertCardImages, ICanAssertButtons, ICanAssertTapActions
+    public interface IHeroCardAssertions : ICanAssertCardImages, ICanAssertButtons, ICanAssertTapActions, IThrow<HeroCardAssertionFailedException>
     {
         IHeroCardAssertions HasTitleMatching(string regex);
         IHeroCardAssertions HasTitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);

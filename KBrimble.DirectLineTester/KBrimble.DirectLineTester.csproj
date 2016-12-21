@@ -45,7 +45,12 @@
     <Compile Include="Assertions\Cards\CardComponents\CardActionAssertions.cs" />
     <Compile Include="Assertions\Cards\CardComponents\CardActionSetAssertions.cs" />
     <Compile Include="Assertions\Cards\CardComponents\CardImageSetAssertions.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\FactAssertions.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\FactSetAssertions.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\ReceiptItemSetAssertions.cs" />
     <Compile Include="Assertions\Cards\HeroCardAssertions.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\IFactAssertions.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\IReceiptItemAssertions.cs" />
     <Compile Include="Assertions\Cards\ReceiptCardAssertions.cs" />
     <Compile Include="Assertions\Cards\HeroCardSetAssertions.cs" />
     <Compile Include="Assertions\Cards\ICanAssertButtons.cs" />
@@ -53,6 +58,8 @@
     <Compile Include="Assertions\Cards\ICanAssertTapActions.cs" />
     <Compile Include="Assertions\Cards\CardComponents\ICardActionAssertions.cs" />
     <Compile Include="Assertions\Cards\IHeroCardAssertions.cs" />
+    <Compile Include="Exceptions\ReceiptItemAssertionFailedException.cs" />
+    <Compile Include="Assertions\Cards\CardComponents\ReceiptItemAssertions.cs" />
     <Compile Include="Assertions\Messages\ICanAssertMessageAttachments.cs" />
     <Compile Include="Attachments\AttachmentExtractor.cs" />
     <Compile Include="Attachments\AttachmentRetriever.cs" />

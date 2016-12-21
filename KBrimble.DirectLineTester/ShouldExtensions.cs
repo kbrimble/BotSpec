@@ -20,5 +20,7 @@ namespace KBrimble.DirectLineTester
         public static IHeroCardAssertions That(this HeroCard heroCard) => new HeroCardAssertions(heroCard);
         public static ICardImageAssertions That(this CardImage cardImage) => new CardImageAssertions(cardImage);
         public static ICardActionAssertions That(this CardAction cardAction) => new CardActionAssertions(cardAction);
+        public static IFactAssertions That(this Fact fact) => new FactAssertions(fact);
+        public static IReceiptItemAssertions That(this ReceiptItem receiptItem) => new ReceiptItemAssertions(receiptItem);
     }
 }
