@@ -2,7 +2,7 @@
 
 namespace KBrimble.DirectLineTester.Models.Cards
 {
-    public class ReceiptCard : IHaveButtons, IHaveTapAction, IHaveFacts
+    public class ReceiptCard : IHaveButtons, IHaveTapAction, IHaveFacts, IHaveReceiptItems
     {
         public const string ContentType = "application/vnd.microsoft.card.receipt";
 
@@ -30,8 +30,7 @@ namespace KBrimble.DirectLineTester.Models.Cards
         /// Title of the card
         /// </summary>
         public string Title { get; set; }
-
-
+        
         /// <summary>
         /// Total amount of money paid (or should be paid)
         /// </summary>

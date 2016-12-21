@@ -15,7 +15,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
         {
             if (facts == null)
                 throw new ArgumentNullException(nameof(facts));
-            Facts = facts.Where(fact => fact != null);
+            Facts = facts.Where(fact => fact != null).ToList();
         }
 
         public FactSetAssertions(IHaveFacts iHaveFacts)
@@ -23,7 +23,15 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             if (iHaveFacts?.Facts == null)
                 throw new ArgumentNullException(nameof(iHaveFacts.Facts));
 
-            Facts = iHaveFacts.Facts.Where(fact => fact != null);
+            Facts = iHaveFacts.Facts.Where(fact => fact != null).ToList();
+        }
+
+        public FactSetAssertions(IEnumerable<IHaveFacts> iHaveFacts) : this()
+        {
+            if (iHaveFacts == null)
+                throw new ArgumentNullException(nameof(iHaveFacts));
+
+            Facts = iHaveFacts.Where(x => x != null).SelectMany(x => x?.Facts).Where(x => x != null).ToList();
         }
 
         private FactSetAssertions()

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using KBrimble.DirectLineTester.Assertions.Cards.CardComponents;
 using KBrimble.DirectLineTester.Exceptions;
@@ -6,19 +6,19 @@ using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
-    public class ReceiptCardAssertions : IReceiptCardAssertions
+    public class ReceiptCardSetAssertions : IReceiptCardAssertions
     {
-        private readonly ReceiptCard _receiptCard;
-        private readonly StringHelpers<ReceiptCardAssertionFailedException> _stringHelpers;
+        private readonly IEnumerable<ReceiptCard> _receiptCards;
+        private readonly SetHelpers<ReceiptCard, ReceiptCardAssertionFailedException> _setHelpers;
 
-        public ReceiptCardAssertions(ReceiptCard receiptCard) : this()
+        public ReceiptCardSetAssertions(IEnumerable<ReceiptCard> receiptCards) : this()
         {
-            _receiptCard = receiptCard;
+            _receiptCards = receiptCards;
         }
 
-        private ReceiptCardAssertions()
+        private ReceiptCardSetAssertions()
         {
-            _stringHelpers = new StringHelpers<ReceiptCardAssertionFailedException>();
+            _setHelpers = new SetHelpers<ReceiptCard, ReceiptCardAssertionFailedException>();
         }
 
         public IReceiptCardAssertions HasTitleMatching(string regex)
@@ -26,7 +26,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _stringHelpers.TestForMatch(_receiptCard.Title, regex, CreateEx(nameof(_receiptCard.Title), regex));
+            _setHelpers.TestSetForMatch(_receiptCards, card => card.That().HasTitleMatching(regex), CreateEx(nameof(ReceiptCard.Title), regex));
 
             return this;
         }
@@ -38,7 +38,9 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = _stringHelpers.TestForMatchAndReturnGroups(_receiptCard.Title, regex, groupMatchRegex, CreateEx(nameof(_receiptCard.Title), regex));
+            SetHelpers<ReceiptCard, ReceiptCardAssertionFailedException>.TestWithGroups act =
+                (ReceiptCard item, out IList<string> matches) => item.That().HasTitleMatching(regex, groupMatchRegex, out matches);
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_receiptCards, act, CreateEx(nameof(ReceiptCard.Title), regex));
 
             return this;
         }
@@ -48,7 +50,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _stringHelpers.TestForMatch(_receiptCard.Total, regex, CreateEx(nameof(_receiptCard.Total), regex));
+            _setHelpers.TestSetForMatch(_receiptCards, card => card.That().HasTotalMatching(regex), CreateEx(nameof(ReceiptCard.Total), regex));
 
             return this;
         }
@@ -60,7 +62,9 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = _stringHelpers.TestForMatchAndReturnGroups(_receiptCard.Total, regex, groupMatchRegex, CreateEx(nameof(_receiptCard.Total), regex));
+            SetHelpers<ReceiptCard, ReceiptCardAssertionFailedException>.TestWithGroups act =
+                (ReceiptCard item, out IList<string> matches) => item.That().HasTotalMatching(regex, groupMatchRegex, out matches);
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_receiptCards, act, CreateEx(nameof(ReceiptCard.Total), regex));
 
             return this;
         }
@@ -70,7 +74,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _stringHelpers.TestForMatch(_receiptCard.Tax, regex, CreateEx(nameof(_receiptCard.Tax), regex));
+            _setHelpers.TestSetForMatch(_receiptCards, card => card.That().HasTaxMatching(regex), CreateEx(nameof(ReceiptCard.Tax), regex));
 
             return this;
         }
@@ -82,7 +86,9 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = _stringHelpers.TestForMatchAndReturnGroups(_receiptCard.Tax, regex, groupMatchRegex, CreateEx(nameof(_receiptCard.Tax), regex));
+            SetHelpers<ReceiptCard, ReceiptCardAssertionFailedException>.TestWithGroups act =
+                (ReceiptCard item, out IList<string> matches) => item.That().HasTaxMatching(regex, groupMatchRegex, out matches);
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_receiptCards, act, CreateEx(nameof(ReceiptCard.Tax), regex));
 
             return this;
         }
@@ -92,7 +98,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _stringHelpers.TestForMatch(_receiptCard.Vat, regex, CreateEx(nameof(_receiptCard.Vat), regex));
+            _setHelpers.TestSetForMatch(_receiptCards, card => card.That().HasVatMatching(regex), CreateEx(nameof(ReceiptCard.Vat), regex));
 
             return this;
         }
@@ -104,34 +110,36 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (groupMatchRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
-            matchedGroups = _stringHelpers.TestForMatchAndReturnGroups(_receiptCard.Vat, regex, groupMatchRegex, CreateEx(nameof(_receiptCard.Vat), regex));
+            SetHelpers<ReceiptCard, ReceiptCardAssertionFailedException>.TestWithGroups act =
+                (ReceiptCard item, out IList<string> matches) => item.That().HasVatMatching(regex, groupMatchRegex, out matches);
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_receiptCards, act, CreateEx(nameof(ReceiptCard.Vat), regex));
 
             return this;
         }
 
         public ICardActionAssertions WithButtonsThat()
         {
-            return new CardActionSetAssertions(_receiptCard.Buttons);
+            return new CardActionSetAssertions(_receiptCards as IEnumerable<IHaveButtons>);
         }
 
         public ICardActionAssertions WithTapActionThat()
         {
-            return new CardActionAssertions(_receiptCard.Tap);
-        }
-
-        public IFactAssertions WithFactThat()
-        {
-            return new FactSetAssertions(_receiptCard);
+            return new CardActionSetAssertions(_receiptCards as IEnumerable<IHaveTapAction>);
         }
 
         public IReceiptItemAssertions WithReceiptItemThat()
         {
-            return new ReceiptItemSetAssertions(_receiptCard);
+            return new ReceiptItemSetAssertions(_receiptCards);
+        }
+
+        public IFactAssertions WithFactThat()
+        {
+            return new FactSetAssertions(_receiptCards);
         }
 
         public Func<ReceiptCardAssertionFailedException> CreateEx(string testedProperty, string regex)
         {
-            var message = $"Expected card to have property {testedProperty} to match {regex} but regex test failed";
+            var message = $"Expected one receipt card to have property {testedProperty} to match regex {regex} but found none";
             return () => new ReceiptCardAssertionFailedException(message);
         }
     }

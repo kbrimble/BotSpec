@@ -97,6 +97,16 @@
     <Compile Include="CardAssertionTests\When_testing_hero_card_sets\For_card_components.cs" />
     <Compile Include="CardAssertionTests\When_testing_hero_card_sets\For_text_matching.cs" />
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_items\For_text_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_cards\For_card_components.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_cards\For_vat_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_cards\For_tax_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_cards\For_a_total_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_cards\For_a_title_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_card_sets\For_card_components.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_card_sets\For_vat_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_card_sets\For_tax_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_card_sets\For_a_total_matching .cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_card_sets\For_a_title_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_thumbnail_card_sets\For_card_components.cs" />
     <Compile Include="TestData\CardImageTestData.cs" />
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_image_sets\For_an_alt_matching.cs" />
@@ -115,6 +125,7 @@
     <Compile Include="CardAssertionTests\When_testing_thumbnail_card_sets\For_text_matching.cs" />
     <Compile Include="TestData\FactTestData.cs" />
     <Compile Include="TestData\HeroCardTestData.cs" />
+    <Compile Include="TestData\ReceiptCardTestData.cs" />
     <Compile Include="TestData\ReceiptItemTestData.cs" />
     <Compile Include="TestData\ThumbnailCardTestData.cs" />
     <Compile Include="MessageAssertionTests\When_testing_messages\For_from_matching.cs" />

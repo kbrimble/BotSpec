@@ -27,6 +27,14 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             ReceiptItems = items.Where(x => x != null);
         }
 
+        public ReceiptItemSetAssertions(IEnumerable<IHaveReceiptItems> iHaveReceiptItemses) : this()
+        {
+            if (iHaveReceiptItemses == null)
+                throw new ArgumentNullException(nameof(iHaveReceiptItemses));
+
+            ReceiptItems = iHaveReceiptItemses.SelectMany(x => x?.Items).Where(x => x != null);
+        }
+
         private ReceiptItemSetAssertions()
         {
             _setHelpers = new SetHelpers<ReceiptItem, ReceiptItemAssertionFailedException>();

@@ -82,12 +82,6 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public Func<ThumbnailCardAssertionFailedException> CreateEx(string testedProperty, string regex)
-        {
-            var message = $"Expected thumbnail card to have property {testedProperty} to match {regex} but regex test failed.";
-            return () => new ThumbnailCardAssertionFailedException(message);
-        }
-
         public ICardImageAssertions WithCardImageThat()
         {
             return new CardImageSetAssertions(_thumbnailCard.Images);
@@ -101,6 +95,12 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
         public ICardActionAssertions WithTapActionThat()
         {
             return new CardActionAssertions(_thumbnailCard.Tap);
+        }
+
+        public Func<ThumbnailCardAssertionFailedException> CreateEx(string testedProperty, string regex)
+        {
+            var message = $"Expected thumbnail card to have property {testedProperty} to match {regex} but regex test failed.";
+            return () => new ThumbnailCardAssertionFailedException(message);
         }
     }
 }
