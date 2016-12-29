@@ -53,6 +53,10 @@
     <Compile Include="Assertions\Cards\CardComponents\IReceiptItemAssertions.cs" />
     <Compile Include="Assertions\Cards\ICanAssertFacts.cs" />
     <Compile Include="Assertions\Cards\ICanAssertReceiptItems.cs" />
+    <Compile Include="Assertions\Cards\ISigninCardAssertions.cs" />
+    <Compile Include="Exceptions\SigninCardAssertionFailedException.cs" />
+    <Compile Include="Assertions\Cards\SigninCardAssertions.cs" />
+    <Compile Include="Assertions\Cards\SigninCardSetAssertions.cs" />
     <Compile Include="Exceptions\ReceiptCardAssertionFailedException.cs" />
     <Compile Include="Assertions\Cards\ReceiptCardAssertions.cs" />
     <Compile Include="Assertions\Cards\HeroCardSetAssertions.cs" />
@@ -95,6 +99,7 @@
     <Compile Include="Models\Cards\ReceiptCard.cs" />
     <Compile Include="Assertions\Cards\ReceiptCardSetAssertions.cs" />
     <Compile Include="Models\Cards\ReceiptItem.cs" />
+    <Compile Include="Models\Cards\SigninCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BotClient.cs" />
     <Compile Include="ShouldExtensions.cs" />
