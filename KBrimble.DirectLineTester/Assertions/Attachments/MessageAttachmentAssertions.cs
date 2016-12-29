@@ -15,10 +15,25 @@ namespace KBrimble.DirectLineTester.Assertions.Attachments
 
         public IThumbnailCardAssertions OfTypeThumbnailCardThat()
         {
-            var attachmentExtractor = new AttachmentExtractor(AttachmentRetrieverFactory.DefaultAttachmentRetriever());
+            var attachmentExtractor = new AttachmentExtractor();
             var thumbnailCards = attachmentExtractor.ExtractThumbnailCardsFromMessage(_message);
 
             return new ThumbnailCardSetAssertions(thumbnailCards);
+        }
+
+        public IHeroCardAssertions OfTypeHeroCardThat()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ISigninCardAssertions OfTypeSigninCardThat()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IReceiptCardAssertions OfTypeReceiptCardThat()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

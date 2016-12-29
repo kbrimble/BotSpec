@@ -13,11 +13,14 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
     [TestFixture]
     public class When_extracting_hero_cards
     {
-        private readonly IAttachmentRetreiver _retriever;
+        private IAttachmentRetriever _retriever;
 
-        public When_extracting_hero_cards()
+        [SetUp]
+        public void SetUp()
         {
-            _retriever = Substitute.For<IAttachmentRetreiver>();
+            _retriever = Substitute.For<IAttachmentRetriever>();
+            AttachmentExtractorSettings.AttachmentRetrieverType = AttachmentRetrieverType.Custom;
+            AttachmentExtractorSettings.CustomAttachmentRetriever = _retriever;
         }
 
         [Test]
@@ -37,7 +40,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
             _retriever.GetAttachmentsFromUrls(Arg.Is<string[]>(arr => arr.Length == 1)).Returns(new[] {validJson});
             _retriever.GetAttachmentsFromUrls(Arg.Is<string[]>(arr => arr.Length == 2)).Returns(new[] {validJson, validJson});
 
-            var sut = new AttachmentExtractor(_retriever);
+            var sut = new AttachmentExtractor();
 
             var returnedCards = sut.ExtractHeroCardsFromMessage(message).ToList();
 
@@ -54,7 +57,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
 
             _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] {validJson, inValidJson});
 
-            var sut = new AttachmentExtractor(_retriever);
+            var sut = new AttachmentExtractor();
 
             var returnedCards = sut.ExtractHeroCardsFromMessage(message).ToList();
 
@@ -77,7 +80,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
 
             _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] {heroJson, someOtherTypeJson});
 
-            var sut = new AttachmentExtractor(_retriever);
+            var sut = new AttachmentExtractor();
 
             var returnedCards = sut.ExtractHeroCardsFromMessage(message).ToList();
 

@@ -15,19 +15,19 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
         public HeroCardSetAssertions(MessageSet messageSet) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor(AttachmentRetrieverFactory.DefaultAttachmentRetriever());
+            var attachmentExtractor = new AttachmentExtractor();
             _heroCards = attachmentExtractor.ExtractHeroCardsFromMessageSet(messageSet);
         }
 
         public HeroCardSetAssertions(IEnumerable<Message> messageSet) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor(AttachmentRetrieverFactory.DefaultAttachmentRetriever());
+            var attachmentExtractor = new AttachmentExtractor();
             _heroCards = attachmentExtractor.ExtractHeroCardsFromMessageSet(messageSet);
         }
 
         public HeroCardSetAssertions(Message message) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor(AttachmentRetrieverFactory.DefaultAttachmentRetriever());
+            var attachmentExtractor = new AttachmentExtractor();
             _heroCards = attachmentExtractor.ExtractHeroCardsFromMessage(message);
         }
 

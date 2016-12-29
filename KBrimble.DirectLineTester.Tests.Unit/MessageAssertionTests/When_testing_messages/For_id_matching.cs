@@ -179,5 +179,18 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             act.ShouldThrow<MessageAssertionFailedException>();
         }
+
+        [Test]
+        public void HaveIdMatching_should_throw_ArgumentNullException_when_trying_to_capture_groups_but_regex_is_null()
+        {
+            IList<string> matches;
+            var message = new Message(id: "some text");
+
+            var sut = new MessageAssertions(message);
+
+            Action act = () => sut.HaveIdMatching(null, "(.*)", out matches);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
     }
 }

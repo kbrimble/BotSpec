@@ -9,11 +9,11 @@ namespace KBrimble.DirectLineTester
 {
     public static class DirectLineTesterSettings
     {
-        private static IAttachmentRetreiver _attachmentRetriever;
+        private static IAttachmentRetriever _attachmentRetriever;
 
-        private static IAttachmentRetreiver AttachmentRetriever 
+        private static IAttachmentRetriever AttachmentRetriever 
         {
-            get { return _attachmentRetriever ?? (_attachmentRetriever = new AttachmentRetriever()); }
+            get { return _attachmentRetriever ?? (_attachmentRetriever = new DefaultAttachmentRetriever()); }
             set { _attachmentRetriever = value; }
         }
 

@@ -7,26 +7,54 @@ using Newtonsoft.Json;
 
 namespace KBrimble.DirectLineTester.Attachments
 {
-    public class AttachmentExtractor
+    public class AttachmentExtractor : IAttachmentExtractor
     {
-        private readonly IAttachmentRetreiver _attachmentRetriever;
+        private readonly IAttachmentRetriever _attachmentRetriever;
 
-        public AttachmentExtractor(IAttachmentRetreiver attachmentRetriever)
+        public AttachmentExtractor()
         {
-            _attachmentRetriever = attachmentRetriever;
+            _attachmentRetriever = AttachmentRetrieverFactory.GetAttachmentRetriever();
         }
 
-        public IEnumerable<ThumbnailCard> ExtractThumbnailCardsFromMessage(Message message)
+        public IEnumerable<HeroCard> ExtractHeroCardsFromMessage(Message message) => ExtractCardsFromMessage<HeroCard>(message);
+
+        public IEnumerable<HeroCard> ExtractHeroCardsFromMessageSet(MessageSet messageSet) => ExtractHeroCardsFromMessageSet(messageSet.Messages);
+
+        public IEnumerable<HeroCard> ExtractHeroCardsFromMessageSet(IEnumerable<Message> messageSet) => messageSet.SelectMany(ExtractHeroCardsFromMessage);
+
+        public IEnumerable<ReceiptCard> ExtractReceiptCardsFromMessage(Message message) => ExtractCardsFromMessage<ReceiptCard>(message);
+
+        public IEnumerable<ReceiptCard> ExtractReceiptCardsFromMessageSet(IEnumerable<Message> messageSet) => messageSet.SelectMany(ExtractReceiptCardsFromMessage);
+
+        public IEnumerable<ReceiptCard> ExtractReceiptCardsFromMessageSet(MessageSet messageSet) => ExtractReceiptCardsFromMessageSet(messageSet.Messages);
+
+        public IEnumerable<SigninCard> ExtractSigninCardsFromMessage(Message message) => ExtractCardsFromMessage<SigninCard>(message);
+
+        public IEnumerable<SigninCard> ExtractSigninCardsFromMessageSet(IEnumerable<Message> messageSet) => messageSet.SelectMany(ExtractSigninCardsFromMessage);
+
+        public IEnumerable<SigninCard> ExtractSigninCardsFromMessageSet(MessageSet messageSet) => ExtractSigninCardsFromMessageSet(messageSet.Messages);
+
+        public IEnumerable<ThumbnailCard> ExtractThumbnailCardsFromMessage(Message message) => ExtractCardsFromMessage<ThumbnailCard>(message);
+
+        public IEnumerable<ThumbnailCard> ExtractThumbnailCardsFromMessageSet(MessageSet messageSet) => ExtractThumbnailCardsFromMessageSet(messageSet.Messages);
+
+        public IEnumerable<ThumbnailCard> ExtractThumbnailCardsFromMessageSet(IEnumerable<Message> messageSet) => messageSet.SelectMany(ExtractThumbnailCardsFromMessage);
+
+        private IEnumerable<T> ExtractCardsFromMessage<T>(Message message)
         {
-            var thumbnailCardAttachments = message.Attachments.Where(att => att.ContentType == ThumbnailCard.ContentType);
-            var urls = thumbnailCardAttachments.Select(tca => tca.Url).ToArray();
+            var contentType = typeof(T).GetField("ContentType").GetValue(null)?.ToString();
+            if (string.IsNullOrWhiteSpace(contentType))
+                throw new InvalidOperationException($"Cannot get ContentType property of type {typeof(T).Name}");
+
+            var cardAttachments = message.Attachments.Where(att => att.ContentType == contentType);
+            var urls = cardAttachments.Select(tca => tca.Url).ToArray();
             var jsonResponses = _attachmentRetriever.GetAttachmentsFromUrls(urls);
             foreach (var json in jsonResponses)
             {
-                ThumbnailCard card;
+                T card;
                 try
                 {
-                    card = JsonConvert.DeserializeObject<ThumbnailCard>(json);
+                    card = JsonConvert.DeserializeObject<T>(json);
                 }
                 catch (Exception)
                 {
@@ -34,56 +62,7 @@ namespace KBrimble.DirectLineTester.Attachments
                 }
                 yield return card;
             }
-        }
 
-        public IEnumerable<ThumbnailCard> ExtractThumbnailCardsFromMessageSet(MessageSet messageSet)
-        {
-            return ExtractThumbnailCardsFromMessageSet(messageSet.Messages);
-        }
-
-        public IEnumerable<ThumbnailCard> ExtractThumbnailCardsFromMessageSet(IEnumerable<Message> messageSet)
-        {
-            var cards = new List<ThumbnailCard>();
-            foreach (var message in messageSet)
-            {
-                cards.AddRange(ExtractThumbnailCardsFromMessage(message));
-            }
-            return cards;
-        }
-
-        public IEnumerable<HeroCard> ExtractHeroCardsFromMessageSet(MessageSet messageSet)
-        {
-            return ExtractHeroCardsFromMessageSet(messageSet.Messages);
-        }
-
-        public IEnumerable<HeroCard> ExtractHeroCardsFromMessageSet(IEnumerable<Message> messageSet)
-        {
-            var cards = new List<HeroCard>();
-            foreach (var message in messageSet)
-            {
-                cards.AddRange(ExtractHeroCardsFromMessage(message));
-            }
-            return cards;
-        }
-
-        public IEnumerable<HeroCard> ExtractHeroCardsFromMessage(Message message)
-        {
-            var heroCardAttachments = message.Attachments.Where(att => att.ContentType == HeroCard.ContentType);
-            var urls = heroCardAttachments.Select(tca => tca.Url).ToArray();
-            var jsonResponses = _attachmentRetriever.GetAttachmentsFromUrls(urls);
-            foreach (var json in jsonResponses)
-            {
-                HeroCard card;
-                try
-                {
-                    card = JsonConvert.DeserializeObject<HeroCard>(json);
-                }
-                catch (Exception)
-                {
-                    continue;
-                }
-                yield return card;
-            }
         }
     }
 }

@@ -1,7 +1,20 @@
-﻿namespace KBrimble.DirectLineTester.Attachments
+﻿using System;
+
+namespace KBrimble.DirectLineTester.Attachments
 {
     public static class AttachmentRetrieverFactory
     {
-        public static IAttachmentRetreiver DefaultAttachmentRetriever() => new AttachmentRetriever();
+        public static IAttachmentRetriever GetAttachmentRetriever()
+        {
+            switch (AttachmentExtractorSettings.AttachmentRetrieverType)
+            {
+                case AttachmentRetrieverType.Default:
+                    return new DefaultAttachmentRetriever();
+                case AttachmentRetrieverType.Custom:
+                    return AttachmentExtractorSettings.CustomAttachmentRetriever;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
     }
 }

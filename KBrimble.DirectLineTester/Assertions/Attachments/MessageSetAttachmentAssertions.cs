@@ -22,5 +22,20 @@ namespace KBrimble.DirectLineTester.Assertions.Attachments
         {
             return new ThumbnailCardSetAssertions(_messageSet);
         }
+
+        public IHeroCardAssertions OfTypeHeroCardThat()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public ISigninCardAssertions OfTypeSigninCardThat()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IReceiptCardAssertions OfTypeReceiptCardThat()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

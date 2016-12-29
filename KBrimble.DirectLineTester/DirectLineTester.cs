@@ -22,6 +22,10 @@ namespace KBrimble.DirectLineTester
             _getMessagesFromHighWatermark = true;
         }
 
+        public async Task Expect1(Action<MessageSet> messageSetAssertion)
+        {
+        }
+
         public async Task Expect(Action<IEnumerable<Message>> messageSetAssertion)
         {
             var messages = _getMessagesFromHighWatermark

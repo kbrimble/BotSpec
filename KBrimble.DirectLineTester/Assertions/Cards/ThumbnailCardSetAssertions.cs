@@ -15,19 +15,19 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
         public ThumbnailCardSetAssertions(MessageSet messageSet) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor(AttachmentRetrieverFactory.DefaultAttachmentRetriever());
+            var attachmentExtractor = new AttachmentExtractor();
             _thumbnailCards = attachmentExtractor.ExtractThumbnailCardsFromMessageSet(messageSet);
         }
 
         public ThumbnailCardSetAssertions(IEnumerable<Message> messageSet) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor(AttachmentRetrieverFactory.DefaultAttachmentRetriever());
+            var attachmentExtractor = new AttachmentExtractor();
             _thumbnailCards = attachmentExtractor.ExtractThumbnailCardsFromMessageSet(messageSet);
         }
 
         public ThumbnailCardSetAssertions(Message message) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor(AttachmentRetrieverFactory.DefaultAttachmentRetriever());
+            var attachmentExtractor = new AttachmentExtractor();
             _thumbnailCards = attachmentExtractor.ExtractThumbnailCardsFromMessage(message);
         }
 
@@ -45,7 +45,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
-            
+
             _setHelpers.TestSetForMatch(_thumbnailCards, card => card.That().HasSubtitleMatching(regex), CreateEx(nameof(ThumbnailCard.Subtitle), regex));
 
             return this;

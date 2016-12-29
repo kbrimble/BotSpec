@@ -21,7 +21,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.TestData
             for (var i = 0; i < 5; i++)
             {
                 var dt = now.AddSeconds(-1);
-                messages.Add(new Message($"id{i}", $"conversationId{i}", dt, $"fromProperty{i}", $"text{i}", null, null, null, $"eTag"));
+                messages.Add(new Message($"id{i}", $"conversationId{i}", dt, $"fromProperty{i}", $"text{i}", null, null, null, $"eTag{i}"));
             }
             return messages;
         }

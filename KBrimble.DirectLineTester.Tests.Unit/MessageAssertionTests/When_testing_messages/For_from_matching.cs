@@ -180,5 +180,18 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
             act.ShouldThrow<MessageAssertionFailedException>();
         }
 
+        [Test]
+        public void HaveFromMatching_should_throw_ArgumentNullException_when_trying_to_capture_groups_but_regex_is_null()
+        {
+            IList<string> matches;
+            var message = new Message(fromProperty: "some text");
+
+            var sut = new MessageAssertions(message);
+
+            Action act = () => sut.HaveFromMatching(null, "(.*)", out matches);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
     }
 }
