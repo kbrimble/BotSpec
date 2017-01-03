@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
+namespace KBrimble.DirectLineTester.Tests.Unit.DefaultAttachmentExtractorTests
 {
     [TestFixture]
     public class When_extracting_thumbnail_cards
@@ -19,8 +19,8 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
         public void SetUp()
         {
             _retriever = Substitute.For<IAttachmentRetriever>();
-            AttachmentExtractorSettings.AttachmentRetrieverType = AttachmentRetrieverType.Custom;
-            AttachmentExtractorSettings.CustomAttachmentRetriever = _retriever;
+            AttachmentRetrieverSettings.AttachmentRetrieverType = AttachmentRetrieverType.Custom;
+            AttachmentRetrieverSettings.CustomAttachmentRetriever = _retriever;
         }
 
         [Test]
@@ -40,9 +40,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
             _retriever.GetAttachmentsFromUrls(Arg.Is<string[]>(arr => arr.Length == 1)).Returns(new[] {validJson});
             _retriever.GetAttachmentsFromUrls(Arg.Is<string[]>(arr => arr.Length == 2)).Returns(new[] {validJson, validJson});
 
-            var sut = new AttachmentExtractor();
+            var sut = new DefaultAttachmentExtractor();
 
-            var returnedCards = sut.ExtractThumbnailCardsFromMessage(message).ToList();
+            var returnedCards = sut.ExtractCardsFromMessage<ThumbnailCard>(message).ToList();
 
             returnedCards.Count.Should().Be(1);
         }
@@ -57,9 +57,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
 
             _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] {validJson, inValidJson});
 
-            var sut = new AttachmentExtractor();
+            var sut = new DefaultAttachmentExtractor();
 
-            var returnedCards = sut.ExtractThumbnailCardsFromMessage(message).ToList();
+            var returnedCards = sut.ExtractCardsFromMessage<ThumbnailCard>(message).ToList();
 
             returnedCards.Count.Should().Be(1);
         }
@@ -80,9 +80,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
 
             _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] {thumbnailJson, someOtherTypeJson});
 
-            var sut = new AttachmentExtractor();
+            var sut = new DefaultAttachmentExtractor();
 
-            var returnedCards = sut.ExtractThumbnailCardsFromMessage(message).ToList();
+            var returnedCards = sut.ExtractCardsFromMessage<ThumbnailCard>(message).ToList();
 
             returnedCards.Count.Should().Be(2);
             returnedCards.Should().Contain(card => card.Text == null);

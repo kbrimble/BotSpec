@@ -6,12 +6,12 @@ namespace KBrimble.DirectLineTester.Attachments
     {
         public static IAttachmentRetriever GetAttachmentRetriever()
         {
-            switch (AttachmentExtractorSettings.AttachmentRetrieverType)
+            switch (AttachmentRetrieverSettings.AttachmentRetrieverType)
             {
                 case AttachmentRetrieverType.Default:
                     return new DefaultAttachmentRetriever();
                 case AttachmentRetrieverType.Custom:
-                    return AttachmentExtractorSettings.CustomAttachmentRetriever;
+                    return AttachmentRetrieverSettings.CustomAttachmentRetriever;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

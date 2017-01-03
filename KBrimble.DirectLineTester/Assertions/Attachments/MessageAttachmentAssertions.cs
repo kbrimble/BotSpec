@@ -1,5 +1,6 @@
 using KBrimble.DirectLineTester.Assertions.Cards;
 using KBrimble.DirectLineTester.Attachments;
+using KBrimble.DirectLineTester.Models.Cards;
 using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Attachments
@@ -15,25 +16,34 @@ namespace KBrimble.DirectLineTester.Assertions.Attachments
 
         public IThumbnailCardAssertions OfTypeThumbnailCardThat()
         {
-            var attachmentExtractor = new AttachmentExtractor();
-            var thumbnailCards = attachmentExtractor.ExtractThumbnailCardsFromMessage(_message);
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            var thumbnailCards = attachmentExtractor.ExtractCardsFromMessage<ThumbnailCard>(_message);
 
             return new ThumbnailCardSetAssertions(thumbnailCards);
         }
 
         public IHeroCardAssertions OfTypeHeroCardThat()
         {
-            throw new System.NotImplementedException();
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            var heroCards = attachmentExtractor.ExtractCardsFromMessage<HeroCard>(_message);
+
+            return new HeroCardSetAssertions(heroCards);
         }
 
         public ISigninCardAssertions OfTypeSigninCardThat()
         {
-            throw new System.NotImplementedException();
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            var signinCards = attachmentExtractor.ExtractCardsFromMessage<SigninCard>(_message);
+
+            return new SigninCardSetAssertions(signinCards);
         }
 
         public IReceiptCardAssertions OfTypeReceiptCardThat()
         {
-            throw new System.NotImplementedException();
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            var receiptCards = attachmentExtractor.ExtractCardsFromMessage<ReceiptCard>(_message);
+
+            return new ReceiptCardSetAssertions(receiptCards);
         }
     }
 }

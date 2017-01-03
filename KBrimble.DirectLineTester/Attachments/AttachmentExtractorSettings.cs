@@ -1,9 +1,9 @@
-﻿namespace KBrimble.DirectLineTester.Attachments
+namespace KBrimble.DirectLineTester.Attachments
 {
     public static class AttachmentExtractorSettings
     {
-        public static AttachmentRetrieverType AttachmentRetrieverType { get; set; } = AttachmentRetrieverType.Default;
+        public static AttachmentExtractorType AttachmentExtractorType { get; set; } = AttachmentExtractorType.Default;
 
-        public static IAttachmentRetriever CustomAttachmentRetriever { get; set; }
+        public static IAttachmentExtractor CustomAttachmentExtractor { get; set; }
     }
 }

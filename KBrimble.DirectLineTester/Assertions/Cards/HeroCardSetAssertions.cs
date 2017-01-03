@@ -10,30 +10,30 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 {
     public class HeroCardSetAssertions : IHeroCardAssertions
     {
-        private readonly IEnumerable<HeroCard> _heroCards;
+        public readonly IEnumerable<HeroCard> HeroCards;
         private readonly SetHelpers<HeroCard, HeroCardAssertionFailedException> _setHelpers;
 
         public HeroCardSetAssertions(MessageSet messageSet) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor();
-            _heroCards = attachmentExtractor.ExtractHeroCardsFromMessageSet(messageSet);
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            HeroCards = attachmentExtractor.ExtractCardsFromMessageSet<HeroCard>(messageSet);
         }
 
         public HeroCardSetAssertions(IEnumerable<Message> messageSet) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor();
-            _heroCards = attachmentExtractor.ExtractHeroCardsFromMessageSet(messageSet);
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            HeroCards = attachmentExtractor.ExtractCardsFromMessageSet<HeroCard>(messageSet);
         }
 
         public HeroCardSetAssertions(Message message) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor();
-            _heroCards = attachmentExtractor.ExtractHeroCardsFromMessage(message);
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            HeroCards = attachmentExtractor.ExtractCardsFromMessage<HeroCard>(message);
         }
 
         public HeroCardSetAssertions(IEnumerable<HeroCard> heroCards) : this()
         {
-            _heroCards = heroCards;
+            HeroCards = heroCards;
         }
 
         private HeroCardSetAssertions()
@@ -46,7 +46,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(_heroCards, card => card.That().HasSubtitleMatching(regex), CreateEx(nameof(HeroCard.Subtitle), regex));
+            _setHelpers.TestSetForMatch(HeroCards, card => card.That().HasSubtitleMatching(regex), CreateEx(nameof(HeroCard.Subtitle), regex));
 
             return this;
         }
@@ -60,7 +60,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
             SetHelpers<HeroCard, HeroCardAssertionFailedException>.TestWithGroups act
                 = (HeroCard card, out IList<string> matches) => card.That().HasSubtitleMatching(regex, groupMatchRegex, out matches);
-            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_heroCards, act, CreateEx(nameof(HeroCard.Subtitle), regex));
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(HeroCards, act, CreateEx(nameof(HeroCard.Subtitle), regex));
 
             return this;
         }
@@ -70,7 +70,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(_heroCards, card => card.That().HasTextMatching(regex), CreateEx(nameof(HeroCard.Text), regex));
+            _setHelpers.TestSetForMatch(HeroCards, card => card.That().HasTextMatching(regex), CreateEx(nameof(HeroCard.Text), regex));
 
             return this;
         }
@@ -84,7 +84,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
             SetHelpers<HeroCard, HeroCardAssertionFailedException>.TestWithGroups act
                 = (HeroCard card, out IList<string> matches) => card.That().HasTextMatching(regex, groupMatchRegex, out matches);
-            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_heroCards, act, CreateEx(nameof(HeroCard.Text), regex));
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(HeroCards, act, CreateEx(nameof(HeroCard.Text), regex));
 
             return this;
         }
@@ -94,7 +94,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(_heroCards, card => card.That().HasTitleMatching(regex), CreateEx(nameof(HeroCard.Title), regex));
+            _setHelpers.TestSetForMatch(HeroCards, card => card.That().HasTitleMatching(regex), CreateEx(nameof(HeroCard.Title), regex));
 
             return this;
         }
@@ -108,7 +108,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
             SetHelpers<HeroCard, HeroCardAssertionFailedException>.TestWithGroups act
                 = (HeroCard card, out IList<string> matches) => card.That().HasTitleMatching(regex, groupMatchRegex, out matches);
-            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_heroCards, act, CreateEx(nameof(HeroCard.Title), regex));
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(HeroCards, act, CreateEx(nameof(HeroCard.Title), regex));
 
             return this;
         }
@@ -121,17 +121,17 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
         public ICardImageAssertions WithCardImageThat()
         {
-            return new CardImageSetAssertions(_heroCards);
+            return new CardImageSetAssertions(HeroCards);
         }
 
         public ICardActionAssertions WithButtonsThat()
         {
-            return new CardActionSetAssertions(_heroCards as IEnumerable<IHaveButtons>);
+            return new CardActionSetAssertions(HeroCards as IEnumerable<IHaveButtons>);
         }
 
         public ICardActionAssertions WithTapActionThat()
         {
-            return new CardActionSetAssertions(_heroCards as IEnumerable<IHaveTapAction>);
+            return new CardActionSetAssertions(HeroCards as IEnumerable<IHaveTapAction>);
         }
     }
 }

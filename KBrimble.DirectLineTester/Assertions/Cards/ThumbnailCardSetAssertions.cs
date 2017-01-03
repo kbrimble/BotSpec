@@ -10,30 +10,30 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 {
     public class ThumbnailCardSetAssertions : IThumbnailCardAssertions
     {
-        private readonly IEnumerable<ThumbnailCard> _thumbnailCards;
+        public readonly IEnumerable<ThumbnailCard> ThumbnailCards;
         private readonly SetHelpers<ThumbnailCard, ThumbnailCardAssertionFailedException> _setHelpers;
 
         public ThumbnailCardSetAssertions(MessageSet messageSet) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor();
-            _thumbnailCards = attachmentExtractor.ExtractThumbnailCardsFromMessageSet(messageSet);
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            ThumbnailCards = attachmentExtractor.ExtractCardsFromMessageSet<ThumbnailCard>(messageSet);
         }
 
         public ThumbnailCardSetAssertions(IEnumerable<Message> messageSet) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor();
-            _thumbnailCards = attachmentExtractor.ExtractThumbnailCardsFromMessageSet(messageSet);
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            ThumbnailCards = attachmentExtractor.ExtractCardsFromMessageSet<ThumbnailCard>(messageSet);
         }
 
         public ThumbnailCardSetAssertions(Message message) : this()
         {
-            var attachmentExtractor = new AttachmentExtractor();
-            _thumbnailCards = attachmentExtractor.ExtractThumbnailCardsFromMessage(message);
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            ThumbnailCards = attachmentExtractor.ExtractCardsFromMessage<ThumbnailCard>(message);
         }
 
         public ThumbnailCardSetAssertions(IEnumerable<ThumbnailCard> thumbnailCards) : this()
         {
-            _thumbnailCards = thumbnailCards;
+            ThumbnailCards = thumbnailCards;
         }
 
         private ThumbnailCardSetAssertions()
@@ -46,7 +46,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(_thumbnailCards, card => card.That().HasSubtitleMatching(regex), CreateEx(nameof(ThumbnailCard.Subtitle), regex));
+            _setHelpers.TestSetForMatch(ThumbnailCards, card => card.That().HasSubtitleMatching(regex), CreateEx(nameof(ThumbnailCard.Subtitle), regex));
 
             return this;
         }
@@ -60,7 +60,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
             SetHelpers<ThumbnailCard, ThumbnailCardAssertionFailedException>.TestWithGroups act
                 = (ThumbnailCard card, out IList<string> matches) => card.That().HasSubtitleMatching(regex, groupMatchRegex, out matches);
-            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_thumbnailCards, act, CreateEx(nameof(ThumbnailCard.Subtitle), regex));
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(ThumbnailCards, act, CreateEx(nameof(ThumbnailCard.Subtitle), regex));
 
             return this;
         }
@@ -70,7 +70,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(_thumbnailCards, card => card.That().HasTextMatching(regex), CreateEx(nameof(ThumbnailCard.Text), regex));
+            _setHelpers.TestSetForMatch(ThumbnailCards, card => card.That().HasTextMatching(regex), CreateEx(nameof(ThumbnailCard.Text), regex));
 
             return this;
         }
@@ -84,7 +84,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
             SetHelpers<ThumbnailCard, ThumbnailCardAssertionFailedException>.TestWithGroups act
                 = (ThumbnailCard card, out IList<string> matches) => card.That().HasTextMatching(regex, groupMatchRegex, out matches);
-            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_thumbnailCards, act, CreateEx(nameof(ThumbnailCard.Text), regex));
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(ThumbnailCards, act, CreateEx(nameof(ThumbnailCard.Text), regex));
 
             return this;
         }
@@ -94,7 +94,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(_thumbnailCards, card => card.That().HasTitleMatching(regex), CreateEx(nameof(ThumbnailCard.Title), regex));
+            _setHelpers.TestSetForMatch(ThumbnailCards, card => card.That().HasTitleMatching(regex), CreateEx(nameof(ThumbnailCard.Title), regex));
 
             return this;
         }
@@ -108,7 +108,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
             SetHelpers<ThumbnailCard, ThumbnailCardAssertionFailedException>.TestWithGroups act
                 = (ThumbnailCard card, out IList<string> matches) => card.That().HasTitleMatching(regex, groupMatchRegex, out matches);
-            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_thumbnailCards, act, CreateEx(nameof(ThumbnailCard.Title), regex));
+            matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(ThumbnailCards, act, CreateEx(nameof(ThumbnailCard.Title), regex));
 
             return this;
         }
@@ -121,17 +121,17 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 
         public ICardImageAssertions WithCardImageThat()
         {
-            return new CardImageSetAssertions(_thumbnailCards);
+            return new CardImageSetAssertions(ThumbnailCards);
         }
 
         public ICardActionAssertions WithButtonsThat()
         {
-            return new CardActionSetAssertions(_thumbnailCards as IEnumerable<IHaveButtons>);
+            return new CardActionSetAssertions(ThumbnailCards as IEnumerable<IHaveButtons>);
         }
 
         public ICardActionAssertions WithTapActionThat()
         {
-            return new CardActionSetAssertions(_thumbnailCards as IEnumerable<IHaveTapAction>);
+            return new CardActionSetAssertions(ThumbnailCards as IEnumerable<IHaveTapAction>);
         }
     }
 }

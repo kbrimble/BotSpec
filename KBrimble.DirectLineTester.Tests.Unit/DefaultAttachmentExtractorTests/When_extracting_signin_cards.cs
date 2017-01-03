@@ -8,10 +8,10 @@ using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
+namespace KBrimble.DirectLineTester.Tests.Unit.DefaultAttachmentExtractorTests
 {
     [TestFixture]
-    public class When_extracting_hero_cards
+    public class When_extracting_signin_cards
     {
         private IAttachmentRetriever _retriever;
 
@@ -19,16 +19,16 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
         public void SetUp()
         {
             _retriever = Substitute.For<IAttachmentRetriever>();
-            AttachmentExtractorSettings.AttachmentRetrieverType = AttachmentRetrieverType.Custom;
-            AttachmentExtractorSettings.CustomAttachmentRetriever = _retriever;
+            AttachmentRetrieverSettings.AttachmentRetrieverType = AttachmentRetrieverType.Custom;
+            AttachmentRetrieverSettings.CustomAttachmentRetriever = _retriever;
         }
 
         [Test]
         public void Only_attachments_with_valid_content_type_should_be_extracted()
         {
-            const string validContentType = HeroCard.ContentType;
-            var validHeroCard = new HeroCard(text: "some text");
-            var validJson = JsonConvert.SerializeObject(validHeroCard);
+            const string validContentType = SigninCard.ContentType;
+            var validSigninCard = new SigninCard(text: "some text");
+            var validJson = JsonConvert.SerializeObject(validSigninCard);
             var validAttachment = new Attachment("validUrl1", validContentType);
 
             const string invalidContentType = "invalidContentType";
@@ -40,9 +40,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
             _retriever.GetAttachmentsFromUrls(Arg.Is<string[]>(arr => arr.Length == 1)).Returns(new[] {validJson});
             _retriever.GetAttachmentsFromUrls(Arg.Is<string[]>(arr => arr.Length == 2)).Returns(new[] {validJson, validJson});
 
-            var sut = new AttachmentExtractor();
+            var sut = new DefaultAttachmentExtractor();
 
-            var returnedCards = sut.ExtractHeroCardsFromMessage(message).ToList();
+            var returnedCards = sut.ExtractCardsFromMessage<SigninCard>(message).ToList();
 
             returnedCards.Count.Should().Be(1);
         }
@@ -50,16 +50,16 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
         [Test]
         public void Only_attachments_with_valid_json_should_be_extracted()
         {
-            var validJson = JsonConvert.SerializeObject(new HeroCard(text: "valid"));
+            var validJson = JsonConvert.SerializeObject(new SigninCard(text: "valid"));
             var inValidJson = validJson + "some extra text";
-            var attachment = new Attachment(contentType: HeroCard.ContentType);
+            var attachment = new Attachment(contentType: SigninCard.ContentType);
             var message = new Message(attachments: new[] {attachment, attachment});
 
             _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] {validJson, inValidJson});
 
-            var sut = new AttachmentExtractor();
+            var sut = new DefaultAttachmentExtractor();
 
-            var returnedCards = sut.ExtractHeroCardsFromMessage(message).ToList();
+            var returnedCards = sut.ExtractCardsFromMessage<SigninCard>(message).ToList();
 
             returnedCards.Count.Should().Be(1);
         }
@@ -67,22 +67,22 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentExtractorTests
         [Test]
         public void All_attachments_with_correct_content_type_will_be_extracted_regardless_of_type()
         {
-            var heroCard = new HeroCard(text: "some text");
-            var heroJson = JsonConvert.SerializeObject(heroCard);
-            var heroAttachment = new Attachment("validUrl1", HeroCard.ContentType);
+            var signinCard = new SigninCard(text: "some text");
+            var signinJson = JsonConvert.SerializeObject(signinCard);
+            var signinAttachment = new Attachment("validUrl1", SigninCard.ContentType);
 
             var someOtherType = new {SomeField = "some text"};
             var someOtherTypeJson = JsonConvert.SerializeObject(someOtherType);
-            var someOtherTypeAttachment = new Attachment("validUrl2", HeroCard.ContentType);
+            var someOtherTypeAttachment = new Attachment("validUrl2", SigninCard.ContentType);
 
-            var attachments = new List<Attachment> { heroAttachment, someOtherTypeAttachment };
+            var attachments = new List<Attachment> { signinAttachment, someOtherTypeAttachment };
             var message = new Message(attachments: attachments);
 
-            _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] {heroJson, someOtherTypeJson});
+            _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] {signinJson, someOtherTypeJson});
 
-            var sut = new AttachmentExtractor();
+            var sut = new DefaultAttachmentExtractor();
 
-            var returnedCards = sut.ExtractHeroCardsFromMessage(message).ToList();
+            var returnedCards = sut.ExtractCardsFromMessage<SigninCard>(message).ToList();
 
             returnedCards.Count.Should().Be(2);
             returnedCards.Should().Contain(card => card.Text == null);

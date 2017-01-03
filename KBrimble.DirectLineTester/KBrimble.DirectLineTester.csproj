@@ -54,7 +54,10 @@
     <Compile Include="Assertions\Cards\ICanAssertFacts.cs" />
     <Compile Include="Assertions\Cards\ICanAssertReceiptItems.cs" />
     <Compile Include="Assertions\Cards\ISigninCardAssertions.cs" />
+    <Compile Include="Attachments\AttachmentExtractorFactory.cs" />
     <Compile Include="Attachments\AttachmentExtractorSettings.cs" />
+    <Compile Include="Attachments\AttachmentExtractorType.cs" />
+    <Compile Include="Attachments\AttachmentRetrieverSettings.cs" />
     <Compile Include="Attachments\AttachmentRetrieverType.cs" />
     <Compile Include="Attachments\IAttachmentExtractor.cs" />
     <Compile Include="Exceptions\SigninCardAssertionFailedException.cs" />
@@ -71,7 +74,7 @@
     <Compile Include="Exceptions\ReceiptItemAssertionFailedException.cs" />
     <Compile Include="Assertions\Cards\CardComponents\ReceiptItemAssertions.cs" />
     <Compile Include="Assertions\Messages\ICanAssertMessageAttachments.cs" />
-    <Compile Include="Attachments\AttachmentExtractor.cs" />
+    <Compile Include="Attachments\DefaultAttachmentExtractor.cs" />
     <Compile Include="Attachments\DefaultAttachmentRetriever.cs" />
     <Compile Include="Attachments\AttachmentRetrieverFactory.cs" />
     <Compile Include="Attachments\IAttachmentRetriever.cs" />
