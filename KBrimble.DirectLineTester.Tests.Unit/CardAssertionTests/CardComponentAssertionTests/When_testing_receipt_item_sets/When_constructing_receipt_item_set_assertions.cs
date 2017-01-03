@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         public void Constructor_should_throw_ArgumentNullException_when_ReceiptCard_list_is_null()
         {
             Action act = () => new ReceiptItemSetAssertions((ReceiptCard) null);
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
+        public void Constructor_should_throw_ArgumentNullException_when_IHaveReceiptItem_list_is_null()
+        {
+            Action act = () => new ReceiptItemSetAssertions((IEnumerable<IHaveReceiptItems>) null);
             act.ShouldThrow<ArgumentNullException>();
         }
 

@@ -6,8 +6,8 @@ namespace KBrimble.DirectLineTester.Attachments
 {
     public interface IAttachmentExtractor
     {
-        IEnumerable<T> ExtractCardsFromMessageSet<T>(MessageSet messageSet);
-        IEnumerable<T> ExtractCardsFromMessageSet<T>(IEnumerable<Message> messageSet);
-        IEnumerable<T> ExtractCardsFromMessage<T>(Message message);
+        IEnumerable<T> ExtractCards<T>(MessageSet messageSet);
+        IEnumerable<T> ExtractCards<T>(IEnumerable<Message> messageSet);
+        IEnumerable<T> ExtractCards<T>(Message message);
     }
 }

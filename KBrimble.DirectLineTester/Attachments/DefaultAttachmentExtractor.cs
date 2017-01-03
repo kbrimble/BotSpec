@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using KBrimble.DirectLineTester.Models.Cards;
 using Microsoft.Bot.Connector.DirectLine.Models;
 using Newtonsoft.Json;
@@ -16,14 +17,15 @@ namespace KBrimble.DirectLineTester.Attachments
             _attachmentRetriever = AttachmentRetrieverFactory.GetAttachmentRetriever();
         }
 
-        public IEnumerable<T> ExtractCardsFromMessageSet<T>(MessageSet messageSet) => messageSet.Messages.SelectMany(ExtractCardsFromMessage<T>);
-        public IEnumerable<T> ExtractCardsFromMessageSet<T>(IEnumerable<Message> messageSet) => messageSet.SelectMany(ExtractCardsFromMessage<T>);
+        public IEnumerable<T> ExtractCards<T>(MessageSet messageSet) => messageSet.Messages.SelectMany(ExtractCards<T>);
+        public IEnumerable<T> ExtractCards<T>(IEnumerable<Message> messageSet) => messageSet.SelectMany(ExtractCards<T>);
 
-        public IEnumerable<T> ExtractCardsFromMessage<T>(Message message)
+        public IEnumerable<T> ExtractCards<T>(Message message)
         {
-            var contentType = typeof(T).GetField("ContentType").GetValue(null)?.ToString();
+            var cardType = typeof(T);
+            var contentType = cardType.GetField("ContentType")?.GetValue(null)?.ToString();
             if (string.IsNullOrWhiteSpace(contentType))
-                throw new InvalidOperationException($"Cannot get ContentType property of type {typeof(T).Name}");
+                throw new InvalidOperationException($"Cannot get ContentType property of type {cardType.Name}");
 
             var cardAttachments = message.Attachments.Where(att => att.ContentType == contentType);
             var urls = cardAttachments.Select(tca => tca.Url).ToArray();

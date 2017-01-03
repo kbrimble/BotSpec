@@ -90,8 +90,6 @@
     <Compile Include="Exceptions\BotAssertionFailedException.cs" />
     <Compile Include="Exceptions\HeroCardAssertionFailedException.cs" />
     <Compile Include="IBotClient.cs" />
-    <Compile Include="DirectLineTester.cs" />
-    <Compile Include="DirectLineTesterSettings.cs" />
     <Compile Include="Models\Cards\CardActionType.cs" />
     <Compile Include="Models\Cards\Fact.cs" />
     <Compile Include="Models\Cards\HeroCard.cs" />

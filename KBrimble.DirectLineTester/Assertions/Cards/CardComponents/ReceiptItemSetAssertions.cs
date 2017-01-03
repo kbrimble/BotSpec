@@ -162,12 +162,12 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 
         public ICardActionAssertions WithTapActionThat()
         {
-            return new CardActionSetAssertions(ReceiptItems as IEnumerable<IHaveTapAction>);
+            return new CardActionSetAssertions(ReceiptItems);
         }
 
         public ICardImageAssertions WithCardImageThat()
         {
-            return new CardImageSetAssertions(ReceiptItems as IEnumerable<IHaveAnImage>);
+            return new CardImageSetAssertions(ReceiptItems);
         }
 
         public Func<ReceiptItemAssertionFailedException> CreateEx(string testedProperty, string regex)

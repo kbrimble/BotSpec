@@ -184,6 +184,19 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         }
 
         [Test]
+        public void HasImageMatching_should_throw_ArgumentNullException_if_regex_is_null_when_matching_groups()
+        {
+            var cardActions = CardActionTestData.CreateRandomCardActions();
+
+            var sut = new CardActionSetAssertions(cardActions);
+
+            IList<string> matches;
+            Action act = () => sut.HasImageMatching(null, "(.*)", out matches);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
         public void HasImageMatching_should_throw_ArgumentNullException_when_capturing_groups_if_regex_is_null()
         {
             IList<string> matches;

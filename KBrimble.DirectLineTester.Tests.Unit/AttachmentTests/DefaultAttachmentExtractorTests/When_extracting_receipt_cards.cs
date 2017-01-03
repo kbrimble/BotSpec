@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
 
-namespace KBrimble.DirectLineTester.Tests.Unit.DefaultAttachmentExtractorTests
+namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentTests.DefaultAttachmentExtractorTests
 {
     [TestFixture]
     public class When_extracting_receipt_cards
@@ -40,9 +40,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.DefaultAttachmentExtractorTests
             _retriever.GetAttachmentsFromUrls(Arg.Is<string[]>(arr => arr.Length == 1)).Returns(new[] {validJson});
             _retriever.GetAttachmentsFromUrls(Arg.Is<string[]>(arr => arr.Length == 2)).Returns(new[] {validJson, validJson});
 
-            var sut = new DefaultAttachmentExtractor();
+            var sut = new Attachments.DefaultAttachmentExtractor();
 
-            var returnedCards = sut.ExtractCardsFromMessage<ReceiptCard>(message).ToList();
+            var returnedCards = sut.ExtractCards<ReceiptCard>(message).ToList();
 
             returnedCards.Count.Should().Be(1);
         }
@@ -57,9 +57,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.DefaultAttachmentExtractorTests
 
             _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] {validJson, inValidJson});
 
-            var sut = new DefaultAttachmentExtractor();
+            var sut = new Attachments.DefaultAttachmentExtractor();
 
-            var returnedCards = sut.ExtractCardsFromMessage<ReceiptCard>(message).ToList();
+            var returnedCards = sut.ExtractCards<ReceiptCard>(message).ToList();
 
             returnedCards.Count.Should().Be(1);
         }
@@ -80,9 +80,9 @@ namespace KBrimble.DirectLineTester.Tests.Unit.DefaultAttachmentExtractorTests
 
             _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] {receiptJson, someOtherTypeJson});
 
-            var sut = new DefaultAttachmentExtractor();
+            var sut = new Attachments.DefaultAttachmentExtractor();
 
-            var returnedCards = sut.ExtractCardsFromMessage<ReceiptCard>(message).ToList();
+            var returnedCards = sut.ExtractCards<ReceiptCard>(message).ToList();
 
             returnedCards.Count.Should().Be(2);
             returnedCards.Should().Contain(card => card.Title == null);

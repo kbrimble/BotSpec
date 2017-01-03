@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
 using KBrimble.DirectLineTester.Assertions.Cards.CardComponents;
+using KBrimble.DirectLineTester.Attachments;
 using KBrimble.DirectLineTester.Exceptions;
 using KBrimble.DirectLineTester.Models.Cards;
+using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
@@ -11,9 +13,27 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
         public readonly IEnumerable<ReceiptCard> ReceiptCards;
         private readonly SetHelpers<ReceiptCard, ReceiptCardAssertionFailedException> _setHelpers;
 
-        public ReceiptCardSetAssertions(IEnumerable<ReceiptCard> receiptCards) : this()
+        public ReceiptCardSetAssertions(Message message) : this()
         {
-            ReceiptCards = receiptCards;
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            ReceiptCards = attachmentExtractor.ExtractCards<ReceiptCard>(message);
+        }
+
+        public ReceiptCardSetAssertions(MessageSet messageSet) : this()
+        {
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            ReceiptCards = attachmentExtractor.ExtractCards<ReceiptCard>(messageSet);
+        }
+
+        public ReceiptCardSetAssertions(IEnumerable<Message> messageSet) : this()
+        {
+            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
+            ReceiptCards = attachmentExtractor.ExtractCards<ReceiptCard>(messageSet);
+        }
+
+        public ReceiptCardSetAssertions(IEnumerable<ReceiptCard> signinCards) : this()
+        {
+            ReceiptCards = signinCards;
         }
 
         private ReceiptCardSetAssertions()

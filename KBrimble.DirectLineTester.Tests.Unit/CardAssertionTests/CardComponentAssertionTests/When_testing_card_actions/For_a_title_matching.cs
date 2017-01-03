@@ -25,6 +25,19 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         }
 
         [Test]
+        public void HasTitleMatching_should_throw_ArgumentNullException_when_regex_is_null_when_matching_groups()
+        {
+            var cardAction = new CardAction(title: "some text");
+
+            var sut = new CardActionAssertions(cardAction);
+
+            IList<string> matches;
+            Action act = () => sut.HasTitleMatching(null, "(.*)", out matches);
+
+            act.ShouldThrow<ArgumentNullException>();
+        }
+
+        [Test]
         public void HasTitleMatching_should_throw_ArgumentNullException_when_groupMatchRegex_is_null()
         {
             IList<string> matches;
