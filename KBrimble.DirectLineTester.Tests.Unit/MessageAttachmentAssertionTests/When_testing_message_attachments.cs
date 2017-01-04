@@ -18,6 +18,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAttachmentAssertionTests
         [SetUp]
         public void SetUp()
         {
+            AttachmentRetrieverSettings.AttachmentRetrieverType = AttachmentRetrieverType.Default;
             AttachmentExtractorSettings.AttachmentExtractorType = AttachmentExtractorType.Custom;
             _extractor = Substitute.For<IAttachmentExtractor>();
             AttachmentExtractorSettings.CustomAttachmentExtractor = _extractor;

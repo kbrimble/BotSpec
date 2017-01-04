@@ -9,6 +9,12 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentTests.AttachmentExtract
     [TestFixture]
     public class When_getting_attachment_extractor
     {
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            AttachmentRetrieverSettings.AttachmentRetrieverType = AttachmentRetrieverType.Default;
+        }
+
         [Test]
         public void DefaultAttachmentExtractor_should_be_returned_when_Type_is_set_to_default()
         {

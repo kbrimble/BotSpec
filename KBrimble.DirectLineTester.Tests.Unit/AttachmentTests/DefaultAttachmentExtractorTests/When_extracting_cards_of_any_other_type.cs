@@ -12,6 +12,12 @@ namespace KBrimble.DirectLineTester.Tests.Unit.AttachmentTests.DefaultAttachment
     [TestFixture]
     public class When_extracting_cards_of_any_other_type
     {
+        [OneTimeSetUp]
+        public void SetUp()
+        {
+            AttachmentRetrieverSettings.AttachmentRetrieverType = AttachmentRetrieverType.Default;
+        }
+
         [Test]
         public void Types_that_have_no_string_property_named_ContentType_will_throw_InvalidOperationException()
         {

@@ -3,12 +3,12 @@ using KBrimble.DirectLineTester.Client;
 
 namespace KBrimble.DirectLineTester
 {
-    public class Expecto
+    public class Expect
     {
         private readonly IBotClient _botClient;
         private bool _fetchFromHighWatermark = true;
 
-        public Expecto(string secretOrToken)
+        public Expect(string secretOrToken)
         {
             _botClient = BotClientFactory.GetBotClient(secretOrToken);
             _botClient.StartConversation().RunSynchronously();

@@ -92,7 +92,7 @@
     <Compile Include="Assertions\Attachments\MessageSetAttachmentAssertions.cs" />
     <Compile Include="Exceptions\BotAssertionFailedException.cs" />
     <Compile Include="Exceptions\HeroCardAssertionFailedException.cs" />
-    <Compile Include="Expecto.cs" />
+    <Compile Include="Expect.cs" />
     <Compile Include="Client\IBotClient.cs" />
     <Compile Include="Models\Cards\CardActionType.cs" />
     <Compile Include="Models\Cards\CardActionTypeMap.cs" />
