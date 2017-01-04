@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using KBrimble.DirectLineTester.Assertions.Attachments;
 using KBrimble.DirectLineTester.Assertions.Cards;
 using KBrimble.DirectLineTester.Assertions.Cards.CardComponents;
 using KBrimble.DirectLineTester.Assertions.Messages;
@@ -10,10 +8,7 @@ namespace KBrimble.DirectLineTester
 {
     internal static class ShouldExtensions
     {
-        public static IMessageAssertions Should(this IEnumerable<Message> messageSet) => new MessageSetAssertions(messageSet);
         public static IMessageAssertions Should(this Message message) => new MessageAssertions(message);
-        public static IMessageAttachmentAssertions ShouldHaveAttachment(this Message message) => new MessageAttachmentAssertions(message);
-        public static IMessageAttachmentAssertions ShouldHaveAttachment(this IEnumerable<Message> messageSet) => new MessageSetAttachmentAssertions(messageSet);
         public static IThumbnailCardAssertions That(this ThumbnailCard thumbnailCard) => new ThumbnailCardAssertions(thumbnailCard);
         public static ISigninCardAssertions That(this SigninCard signinCard) => new SigninCardAssertions(signinCard);
         public static IReceiptCardAssertions That(this ReceiptCard receiptCard) => new ReceiptCardAssertions(receiptCard);
