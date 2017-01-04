@@ -8,7 +8,7 @@ using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
-    internal class ThumbnailCardSetAssertions : IThumbnailCardAssertions
+    internal class ThumbnailCardSetAssertions : IThumbnailCardAssertions, IThrow<ThumbnailCardAssertionFailedException>
     {
         public readonly IEnumerable<ThumbnailCard> ThumbnailCards;
         private readonly SetHelpers<ThumbnailCard, ThumbnailCardAssertionFailedException> _setHelpers;

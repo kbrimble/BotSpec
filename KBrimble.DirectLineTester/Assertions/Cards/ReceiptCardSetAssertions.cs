@@ -8,7 +8,7 @@ using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
-    internal class ReceiptCardSetAssertions : IReceiptCardAssertions
+    internal class ReceiptCardSetAssertions : IReceiptCardAssertions, IThrow<ReceiptCardAssertionFailedException>
     {
         public readonly IEnumerable<ReceiptCard> ReceiptCards;
         private readonly SetHelpers<ReceiptCard, ReceiptCardAssertionFailedException> _setHelpers;

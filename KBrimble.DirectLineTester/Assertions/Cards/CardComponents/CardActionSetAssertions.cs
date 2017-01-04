@@ -6,7 +6,7 @@ using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
-    internal class CardActionSetAssertions : ICardActionAssertions
+    internal class CardActionSetAssertions : ICardActionAssertions, IThrow<CardActionAssertionFailedException>
     {
         public readonly IList<CardAction> CardActions;
         private readonly SetHelpers<CardAction, CardActionAssertionFailedException> _setHelpers;

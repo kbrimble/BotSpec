@@ -5,7 +5,7 @@ using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
-    internal class CardActionAssertions : ICardActionAssertions
+    internal class CardActionAssertions : ICardActionAssertions, IThrow<CardActionAssertionFailedException>
     {
         private readonly CardAction _cardAction;
         private readonly StringHelpers<CardActionAssertionFailedException> _stringHelpers;

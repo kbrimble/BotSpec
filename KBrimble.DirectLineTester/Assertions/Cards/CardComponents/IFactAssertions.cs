@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using KBrimble.DirectLineTester.Exceptions;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
-    public interface IFactAssertions : IThrow<FactAssertionFailedException>
+    public interface IFactAssertions
     {
         IFactAssertions KeyMatching(string regex);
         IFactAssertions KeyMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);

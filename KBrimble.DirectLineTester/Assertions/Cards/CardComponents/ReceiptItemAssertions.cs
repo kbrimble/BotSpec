@@ -5,7 +5,7 @@ using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
-    public class ReceiptItemAssertions : IReceiptItemAssertions
+    public class ReceiptItemAssertions : IReceiptItemAssertions, IThrow<ReceiptItemAssertionFailedException>
     {
         private readonly ReceiptItem _receiptItem;
         private readonly StringHelpers<ReceiptItemAssertionFailedException> _stringHelpers;
