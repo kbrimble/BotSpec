@@ -3,16 +3,16 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Connector.DirectLine;
 using Microsoft.Bot.Connector.DirectLine.Models;
 
-namespace KBrimble.DirectLineTester
+namespace KBrimble.DirectLineTester.Client
 {
-    internal class BotClient : IBotClient
+    internal class DefaultBotClient : IBotClient
     {
         private readonly IDirectLineClient _directLineClient;
         private Conversation _conversation;
         private string _higherWatermark;
         private string _lowerWatermark;
 
-        public BotClient(string secretOrToken)
+        public DefaultBotClient(string secretOrToken)
         {
             _directLineClient = new DirectLineClient(secretOrToken);
         }

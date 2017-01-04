@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.Bot.Connector.DirectLine.Models;
 
-namespace KBrimble.DirectLineTester
+namespace KBrimble.DirectLineTester.Client
 {
     public interface IBotClient
     {

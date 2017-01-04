@@ -60,6 +60,9 @@
     <Compile Include="Attachments\AttachmentRetrieverSettings.cs" />
     <Compile Include="Attachments\AttachmentRetrieverType.cs" />
     <Compile Include="Attachments\IAttachmentExtractor.cs" />
+    <Compile Include="Client\BotClientFactory.cs" />
+    <Compile Include="Client\BotClientSettings.cs" />
+    <Compile Include="Client\BotClientType.cs" />
     <Compile Include="Exceptions\SigninCardAssertionFailedException.cs" />
     <Compile Include="Assertions\Cards\SigninCardAssertions.cs" />
     <Compile Include="Assertions\Cards\SigninCardSetAssertions.cs" />
@@ -89,7 +92,8 @@
     <Compile Include="Assertions\Attachments\MessageSetAttachmentAssertions.cs" />
     <Compile Include="Exceptions\BotAssertionFailedException.cs" />
     <Compile Include="Exceptions\HeroCardAssertionFailedException.cs" />
-    <Compile Include="IBotClient.cs" />
+    <Compile Include="Expecto.cs" />
+    <Compile Include="Client\IBotClient.cs" />
     <Compile Include="Models\Cards\CardActionType.cs" />
     <Compile Include="Models\Cards\Fact.cs" />
     <Compile Include="Models\Cards\HeroCard.cs" />
@@ -105,7 +109,7 @@
     <Compile Include="Models\Cards\ReceiptItem.cs" />
     <Compile Include="Models\Cards\SigninCard.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="BotClient.cs" />
+    <Compile Include="Client\DefaultBotClient.cs" />
     <Compile Include="ShouldExtensions.cs" />
     <Compile Include="Models\Cards\ThumbnailCard.cs" />
     <Compile Include="Models\Cards\CardAction.cs" />

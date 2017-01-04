@@ -10,13 +10,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
     public class For_attachments
     {
         [Test]
-        public void HaveAttachment_should_return_MessageAttachmentAssertions()
+        public void HasAttachment_should_return_MessageAttachmentAssertions()
         {
             var message = new Message();
 
             var sut = new MessageAssertions(message);
 
-            sut.HaveAttachment().Should().BeAssignableTo<MessageAttachmentAssertions>().And.NotBeNull();
+            sut.HasAttachment().Should().BeAssignableTo<MessageAttachmentAssertions>().And.NotBeNull();
         }
     }
 }

@@ -13,19 +13,19 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
     public class For_text_matching
     {
         [Test]
-        public void HaveTextMatching_should_throw_ArgumentNullException_when_regex_is_null()
+        public void HasTextMatching_should_throw_ArgumentNullException_when_regex_is_null()
         {
             var message = new Message(text: "valid text");
 
             var sut = new MessageAssertions(message);
 
-            Action act = () => sut.HaveTextMatching(null);
+            Action act = () => sut.HasTextMatching(null);
 
             act.ShouldThrow<ArgumentNullException>();
         }
 
         [Test]
-        public void HaveTextMatching_should_throw_ArgumentNullException_when_groupMatchRegex_is_null()
+        public void HasTextMatching_should_throw_ArgumentNullException_when_groupMatchRegex_is_null()
         {
             IList<string> matches;
 
@@ -33,7 +33,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var sut = new MessageAssertions(message);
 
-            Action act = () => sut.HaveTextMatching(".*", null, out matches);
+            Action act = () => sut.HasTextMatching(".*", null, out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }
@@ -41,26 +41,26 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         [TestCase("some text")]
         [TestCase("")]
         [TestCase("symbols ([*])?")]
-        public void HaveTextMatching_should_pass_if_regex_exactly_matches_message_Text(string messageTextAndRegex)
+        public void HasTextMatching_should_pass_if_regex_exactly_matches_message_Text(string messageTextAndRegex)
         {
             var message = new Message(text: messageTextAndRegex);
 
             var sut = new MessageAssertions(message);
 
-            Action act = () => sut.HaveTextMatching(messageTextAndRegex);
+            Action act = () => sut.HasTextMatching(messageTextAndRegex);
 
             act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text", "SOME TEXT")]
         [TestCase("SYMBOLS ([*])?", "symbols ([*])?")]
-        public void HaveTextMatching_should_pass_regardless_of_case(string messageText, string regex)
+        public void HasTextMatching_should_pass_regardless_of_case(string messageText, string regex)
         {
             var message = new Message(text: messageText);
 
             var sut = new MessageAssertions(message);
 
-            Action act = () => sut.HaveTextMatching(regex);
+            Action act = () => sut.HasTextMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -68,13 +68,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         [TestCase("some text", "so.*xt")]
         [TestCase("some text", "[a-z ]*")]
         [TestCase("some text", "s(ome tex)t")]
-        public void HaveTextMatching_should_pass_when_using_standard_regex_features(string messageText, string regex)
+        public void HasTextMatching_should_pass_when_using_standard_regex_features(string messageText, string regex)
         {
             var message = new Message(text: messageText);
 
             var sut = new MessageAssertions(message);
 
-            Action act = () => sut.HaveTextMatching(regex);
+            Action act = () => sut.HasTextMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -82,19 +82,19 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         [TestCase("some text", "some text!")]
         [TestCase("some text", "^[j-z ]*$")]
         [TestCase("some text", "s{12}")]
-        public void HaveTextMatching_should_throw_MessageAssertionFailedException_for_non_matching_regexes(string messageText, string regex)
+        public void HasTextMatching_should_throw_MessageAssertionFailedException_for_non_matching_regexes(string messageText, string regex)
         {
             var message = new Message(text: messageText);
 
             var sut = new MessageAssertions(message);
 
-            Action act = () => sut.HaveTextMatching(regex);
+            Action act = () => sut.HasTextMatching(regex);
 
             act.ShouldThrow<MessageAssertionFailedException>();
         }
 
         [Test]
-        public void HaveTextMatching_should_not_output_matches_when_regex_does_not_match_text()
+        public void HasTextMatching_should_not_output_matches_when_regex_does_not_match_text()
         {
             IList<string> matches = null;
 
@@ -102,14 +102,14 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var sut = new MessageAssertions(message);
 
-            Action act = () => sut.HaveTextMatching("non matching regex", "(some text)", out matches);
+            Action act = () => sut.HasTextMatching("non matching regex", "(some text)", out matches);
 
             act.ShouldThrow<MessageAssertionFailedException>();
             matches.Should().BeNull();
         }
 
         [Test]
-        public void HaveTextMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_text()
+        public void HasTextMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_text()
         {
             IList<string> matches;
 
@@ -117,13 +117,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var sut = new MessageAssertions(message);
 
-            sut.HaveTextMatching("some text", "(non matching)", out matches);
+            sut.HasTextMatching("some text", "(non matching)", out matches);
 
             matches.Should().BeNull();
         }
 
         [Test]
-        public void HaveTextMatching_should_output_matches_when_groupMatchingRegex_matches_text()
+        public void HasTextMatching_should_output_matches_when_groupMatchingRegex_matches_text()
         {
             IList<string> matches;
 
@@ -132,13 +132,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var sut = new MessageAssertions(message);
 
-            sut.HaveTextMatching(someText, $"({someText})", out matches);
+            sut.HasTextMatching(someText, $"({someText})", out matches);
 
             matches.First().Should().Be(someText);
         }
 
         [Test]
-        public void HaveTextMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_several_times()
+        public void HasTextMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_several_times()
         {
             IList<string> matches;
 
@@ -149,46 +149,46 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var match1 = "some";
             var match2 = "text";
-            sut.HaveTextMatching(someText, $"({match1}) ({match2})", out matches);
+            sut.HasTextMatching(someText, $"({match1}) ({match2})", out matches);
 
             matches.Should().Contain(match1, match2);
         }
 
 
         [Test]
-        public void HaveTextMatching_should_throw_MessageAssertionFailedException_when_text_is_null()
+        public void HasTextMatching_should_throw_MessageAssertionFailedException_when_text_is_null()
         {
             var message = new Message();
 
             var sut = new MessageAssertions(message);
 
-            Action act = () => sut.HaveTextMatching("anything");
+            Action act = () => sut.HasTextMatching("anything");
 
             act.ShouldThrow<MessageAssertionFailedException>();
         }
 
         [Test]
-        public void HaveTextMatching_should_throw_MessageAssertionFailedException_when_trying_to_capture_groups_but_text_is_null()
+        public void HasTextMatching_should_throw_MessageAssertionFailedException_when_trying_to_capture_groups_but_text_is_null()
         {
             IList<string> matches;
             var message = new Message();
 
             var sut = new MessageAssertions(message);
 
-            Action act = () => sut.HaveTextMatching("anything", "(.*)", out matches);
+            Action act = () => sut.HasTextMatching("anything", "(.*)", out matches);
 
             act.ShouldThrow<MessageAssertionFailedException>();
         }
 
         [Test]
-        public void HaveTextMatching_should_throw_ArgumentNullException_when_trying_to_capture_groups_but_regex_is_null()
+        public void HasTextMatching_should_throw_ArgumentNullException_when_trying_to_capture_groups_but_regex_is_null()
         {
             IList<string> matches;
             var message = new Message(text: "some text");
 
             var sut = new MessageAssertions(message);
 
-            Action act = () => sut.HaveTextMatching(null, "(.*)", out matches);
+            Action act = () => sut.HasTextMatching(null, "(.*)", out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }
