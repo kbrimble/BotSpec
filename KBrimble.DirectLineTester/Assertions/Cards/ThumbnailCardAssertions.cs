@@ -6,7 +6,7 @@ using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
-    public class ThumbnailCardAssertions : IThumbnailCardAssertions
+    internal class ThumbnailCardAssertions : IThumbnailCardAssertions
     {
         private readonly ThumbnailCard _thumbnailCard;
         private readonly StringHelpers<ThumbnailCardAssertionFailedException> _stringHelpers;

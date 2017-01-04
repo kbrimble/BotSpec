@@ -3,7 +3,7 @@
     /// <summary>
     /// An action on a card
     /// </summary>
-    public class CardAction
+    internal class CardAction
     {
         /// <summary>
         /// Initializes a new instance of the CardAction class.

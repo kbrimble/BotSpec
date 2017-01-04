@@ -1,6 +1,6 @@
 ﻿namespace KBrimble.DirectLineTester.Models.Cards
 {
-    public interface IHaveTapAction
+    internal interface IHaveTapAction
     {
         /// <summary>
         /// This action will be activated when user taps on the card itself

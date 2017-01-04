@@ -8,7 +8,7 @@ using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
-    public class SigninCardSetAssertions : ISigninCardAssertions
+    internal class SigninCardSetAssertions : ISigninCardAssertions
     {
         public readonly IEnumerable<SigninCard> SigninCards;
         private readonly SetHelpers<SigninCard, SigninCardAssertionFailedException> _setHelpers;
@@ -17,12 +17,6 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
         {
             var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
             SigninCards = attachmentExtractor.ExtractCards<SigninCard>(message);
-        }
-
-        public SigninCardSetAssertions(MessageSet messageSet) : this()
-        {
-            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
-            SigninCards = attachmentExtractor.ExtractCards<SigninCard>(messageSet);
         }
 
         public SigninCardSetAssertions(IEnumerable<Message> messageSet) : this()

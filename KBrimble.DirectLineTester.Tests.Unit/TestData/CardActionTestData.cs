@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Tests.Unit.TestData
@@ -27,10 +29,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.TestData
         internal static List<CardAction> CreateRandomCardActions()
         {
             var cardActions = new List<CardAction>();
+            var types = Enum.GetValues(typeof(CardActionType)).Cast<CardActionType>().ToList();
             for (var i = 0; i < 5; i++)
             {
-                var type = CardActionType.AllTypes[i % CardActionType.AllTypes.Length];
-                cardActions.Add(new CardAction(type.Value, $"title{i}", $"image{i}", $"value{i}"));
+                var type = CardActionTypeMap.Map(types[i % types.Count]);
+                cardActions.Add(new CardAction(type, $"title{i}", $"image{i}", $"value{i}"));
             }
             return cardActions;
         }

@@ -1,14 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
-using KBrimble.DirectLineTester.Models.Cards;
 using Microsoft.Bot.Connector.DirectLine.Models;
 using Newtonsoft.Json;
 
 namespace KBrimble.DirectLineTester.Attachments
 {
-    public class DefaultAttachmentExtractor : IAttachmentExtractor
+    internal class DefaultAttachmentExtractor : IAttachmentExtractor
     {
         private readonly IAttachmentRetriever _attachmentRetriever;
 

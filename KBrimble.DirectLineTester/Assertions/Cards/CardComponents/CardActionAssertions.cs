@@ -5,7 +5,7 @@ using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
-    public class CardActionAssertions : ICardActionAssertions
+    internal class CardActionAssertions : ICardActionAssertions
     {
         private readonly CardAction _cardAction;
         private readonly StringHelpers<CardActionAssertionFailedException> _stringHelpers;
@@ -65,10 +65,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 
         public ICardActionAssertions ActionType(CardActionType type)
         {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            _stringHelpers.TestForMatch(_cardAction.Type, type.Value, CreateEx(nameof(_cardAction.Type), type.Value));
+            _stringHelpers.TestForMatch(_cardAction.Type, CardActionTypeMap.Map(type), CreateEx(nameof(_cardAction.Type), type.ToString()));
 
             return this;
         }

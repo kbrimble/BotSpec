@@ -6,12 +6,12 @@ using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
-    public class ReceiptItemSetAssertions : IReceiptItemAssertions
+    internal class ReceiptItemSetAssertions : IReceiptItemAssertions
     {
         public readonly IEnumerable<ReceiptItem> ReceiptItems;
         private readonly SetHelpers<ReceiptItem, ReceiptItemAssertionFailedException> _setHelpers;
 
-        public ReceiptItemSetAssertions(ReceiptCard receiptCard) : this()
+        internal ReceiptItemSetAssertions(ReceiptCard receiptCard) : this()
         {
             if (receiptCard == null)
                 throw new ArgumentNullException(nameof(receiptCard));

@@ -1,6 +1,6 @@
 ﻿namespace KBrimble.DirectLineTester.Models.Cards
 {
-    public interface IHaveAnImage
+    internal interface IHaveAnImage
     {
         /// <summary>
         /// Image

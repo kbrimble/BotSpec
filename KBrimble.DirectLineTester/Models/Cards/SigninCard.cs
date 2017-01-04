@@ -5,7 +5,7 @@ namespace KBrimble.DirectLineTester.Models.Cards
     /// <summary>
     /// A card representing a request to sign in
     /// </summary>
-    public class SigninCard : IHaveButtons
+    internal class SigninCard : IHaveButtons
     {
         public const string ContentType = "application/vnd.microsoft.card.signin";
 

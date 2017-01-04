@@ -1,6 +1,6 @@
 ﻿namespace KBrimble.DirectLineTester.Models.Cards
 {
-    public class Fact
+    internal class Fact
     {
         /// <summary>
         /// Initializes a new instance of the Fact class.

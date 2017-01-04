@@ -5,7 +5,7 @@ namespace KBrimble.DirectLineTester.Models.Cards
     /// <summary>
     /// A Hero card (card with a single, large image)
     /// </summary>
-    public class HeroCard : IHaveButtons, IHaveImages, IHaveTapAction
+    internal class HeroCard : IHaveButtons, IHaveImages, IHaveTapAction
     {
         public const string ContentType = "application/vnd.microsoft.card.hero";
 

@@ -2,7 +2,7 @@
 
 namespace KBrimble.DirectLineTester.Models.Cards
 {
-    public interface IHaveFacts
+    internal interface IHaveFacts
     {
         /// <summary>
         /// Array of Fact Objects   Array of key-value pairs.

@@ -8,16 +8,10 @@ using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards
 {
-    public class HeroCardSetAssertions : IHeroCardAssertions
+    internal class HeroCardSetAssertions : IHeroCardAssertions
     {
         public readonly IEnumerable<HeroCard> HeroCards;
         private readonly SetHelpers<HeroCard, HeroCardAssertionFailedException> _setHelpers;
-
-        public HeroCardSetAssertions(MessageSet messageSet) : this()
-        {
-            var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
-            HeroCards = attachmentExtractor.ExtractCards<HeroCard>(messageSet);
-        }
 
         public HeroCardSetAssertions(IEnumerable<Message> messageSet) : this()
         {

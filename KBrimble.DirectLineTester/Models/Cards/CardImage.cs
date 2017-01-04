@@ -3,7 +3,7 @@
     /// <summary>
     /// An image on a card
     /// </summary>
-    public class CardImage
+    internal class CardImage
     {
         /// <summary>
         /// Initializes a new instance of the CardImage class.

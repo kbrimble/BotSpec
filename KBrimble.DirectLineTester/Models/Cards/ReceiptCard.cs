@@ -2,7 +2,7 @@
 
 namespace KBrimble.DirectLineTester.Models.Cards
 {
-    public class ReceiptCard : IHaveButtons, IHaveTapAction, IHaveFacts, IHaveReceiptItems
+    internal class ReceiptCard : IHaveButtons, IHaveTapAction, IHaveFacts, IHaveReceiptItems
     {
         public const string ContentType = "application/vnd.microsoft.card.receipt";
 

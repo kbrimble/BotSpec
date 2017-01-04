@@ -95,6 +95,7 @@
     <Compile Include="Expecto.cs" />
     <Compile Include="Client\IBotClient.cs" />
     <Compile Include="Models\Cards\CardActionType.cs" />
+    <Compile Include="Models\Cards\CardActionTypeMap.cs" />
     <Compile Include="Models\Cards\Fact.cs" />
     <Compile Include="Models\Cards\HeroCard.cs" />
     <Compile Include="Models\Cards\IHaveAnImage.cs" />

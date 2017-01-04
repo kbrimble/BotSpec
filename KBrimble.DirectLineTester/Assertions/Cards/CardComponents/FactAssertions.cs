@@ -5,7 +5,7 @@ using KBrimble.DirectLineTester.Models.Cards;
 
 namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
-    public class FactAssertions : IFactAssertions
+    internal class FactAssertions : IFactAssertions
     {
         private readonly Fact _fact;
         private readonly StringHelpers<FactAssertionFailedException> _stringHelpers;

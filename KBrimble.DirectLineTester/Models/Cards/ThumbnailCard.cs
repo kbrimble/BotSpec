@@ -5,7 +5,7 @@ namespace KBrimble.DirectLineTester.Models.Cards
     /// <summary>
     /// A thumbnail card (card with a single, small thumbnail image)
     /// </summary>
-    public class ThumbnailCard : IHaveImages, IHaveButtons, IHaveTapAction
+    internal class ThumbnailCard : IHaveImages, IHaveButtons, IHaveTapAction
     {
         public const string ContentType = "application/vnd.microsoft.card.thumbnail";
 

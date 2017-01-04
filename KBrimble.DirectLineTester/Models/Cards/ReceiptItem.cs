@@ -1,6 +1,6 @@
 ﻿namespace KBrimble.DirectLineTester.Models.Cards
 {
-    public class ReceiptItem : IHaveAnImage, IHaveTapAction
+    internal class ReceiptItem : IHaveAnImage, IHaveTapAction
     {
         /// <summary>
         /// Initializes a new instance of the ReceiptItem class.

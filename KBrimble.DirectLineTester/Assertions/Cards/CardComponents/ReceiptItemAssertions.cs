@@ -10,7 +10,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
         private readonly ReceiptItem _receiptItem;
         private readonly StringHelpers<ReceiptItemAssertionFailedException> _stringHelpers;
 
-        public ReceiptItemAssertions(ReceiptItem receiptItem)
+        internal ReceiptItemAssertions(ReceiptItem receiptItem)
         {
             if (receiptItem == null)
                 throw new ArgumentNullException(nameof(receiptItem));

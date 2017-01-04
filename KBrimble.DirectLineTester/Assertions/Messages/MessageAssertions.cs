@@ -6,7 +6,7 @@ using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Messages
 {
-    public class MessageAssertions : IMessageAssertions, IThrow<MessageAssertionFailedException>
+    internal class MessageAssertions : IMessageAssertions, IThrow<MessageAssertionFailedException>
     {
         private readonly Message _message;
         private readonly StringHelpers<MessageAssertionFailedException> _stringHelpers;

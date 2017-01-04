@@ -6,12 +6,10 @@ using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace KBrimble.DirectLineTester.Assertions.Messages
 {
-    public class MessageSetAssertions : IMessageAssertions, IThrow<MessageAssertionFailedException>
+    internal class MessageSetAssertions : IMessageAssertions, IThrow<MessageAssertionFailedException>
     {
         private readonly IEnumerable<Message> _messageSet;
         private readonly SetHelpers<Message, MessageAssertionFailedException> _setHelpers;
-
-        public MessageSetAssertions(MessageSet messageSet) : this(messageSet.Messages) {}
 
         public MessageSetAssertions(IEnumerable<Message> messageSet)
         {

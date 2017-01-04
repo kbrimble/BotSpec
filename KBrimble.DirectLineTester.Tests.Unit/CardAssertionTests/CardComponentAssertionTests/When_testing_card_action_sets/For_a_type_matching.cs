@@ -11,22 +11,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
     [TestFixture]
     public class For_a_type_matching
     {
-        [Test]
-        public void Type_should_throw_ArgumentNullException_when_type_is_null()
-        {
-            var cardActions = CardActionTestData.CreateRandomCardActions();
-
-            var sut = new CardActionSetAssertions(cardActions);
-
-            Action act = () => sut.ActionType(null);
-
-            act.ShouldThrow<ArgumentNullException>();
-        }
+        private const CardActionType CallType = CardActionType.Call;
+        private static readonly string CallTypeString = CardActionTypeMap.Map(CallType);
 
         [Test]
         public void TypeMatching_should_throw_CardActionAssertionSetFailedException_when_no_card_action_matches()
         {
-            var cardActions = CardActionTestData.CreateCardActionSetWithAllActionsWithSetProperties(type: CardActionType.Call.Value);
+            var cardActions = CardActionTestData.CreateCardActionSetWithAllActionsWithSetProperties(type: CallTypeString);
 
             var sut = new CardActionSetAssertions(cardActions);
 
@@ -50,12 +41,11 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [Test]
         public void TypeMatching_should_not_throw_when_card_action_type_matches_expected_type()
         {
-            var cardActionType = CardActionType.Call;
-            var cardActions = CardActionTestData.CreateCardActionSetWithOneActionThatHasSetProperties(type: cardActionType.Value);
+            var cardActions = CardActionTestData.CreateCardActionSetWithOneActionThatHasSetProperties(type: CallTypeString);
 
             var sut = new CardActionSetAssertions(cardActions);
 
-            Action act = () => sut.ActionType(cardActionType);
+            Action act = () => sut.ActionType(CallType);
 
             act.ShouldNotThrow<Exception>();
         }

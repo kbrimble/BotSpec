@@ -4,7 +4,7 @@ using System.Net;
 
 namespace KBrimble.DirectLineTester.Attachments
 {
-    public class DefaultAttachmentRetriever : IAttachmentRetriever
+    internal class DefaultAttachmentRetriever : IAttachmentRetriever
     {
         public string GetAttachmentFromUrl(string url)
         {
