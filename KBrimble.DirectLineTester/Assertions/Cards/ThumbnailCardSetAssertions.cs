@@ -41,17 +41,17 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             _setHelpers = new SetHelpers<ThumbnailCard, ThumbnailCardAssertionFailedException>();
         }
 
-        public IThumbnailCardAssertions HasSubtitleMatching(string regex)
+        public IThumbnailCardAssertions SubtitleMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(ThumbnailCards, card => card.That().HasSubtitleMatching(regex), CreateEx(nameof(ThumbnailCard.Subtitle), regex));
+            _setHelpers.TestSetForMatch(ThumbnailCards, card => card.That().SubtitleMatching(regex), CreateEx(nameof(ThumbnailCard.Subtitle), regex));
 
             return this;
         }
 
-        public IThumbnailCardAssertions HasSubtitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IThumbnailCardAssertions SubtitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -59,23 +59,23 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
             SetHelpers<ThumbnailCard, ThumbnailCardAssertionFailedException>.TestWithGroups act
-                = (ThumbnailCard card, out IList<string> matches) => card.That().HasSubtitleMatching(regex, groupMatchRegex, out matches);
+                = (ThumbnailCard card, out IList<string> matches) => card.That().SubtitleMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(ThumbnailCards, act, CreateEx(nameof(ThumbnailCard.Subtitle), regex));
 
             return this;
         }
 
-        public IThumbnailCardAssertions HasTextMatching(string regex)
+        public IThumbnailCardAssertions TextMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(ThumbnailCards, card => card.That().HasTextMatching(regex), CreateEx(nameof(ThumbnailCard.Text), regex));
+            _setHelpers.TestSetForMatch(ThumbnailCards, card => card.That().TextMatching(regex), CreateEx(nameof(ThumbnailCard.Text), regex));
 
             return this;
         }
 
-        public IThumbnailCardAssertions HasTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IThumbnailCardAssertions TextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -83,23 +83,23 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
             SetHelpers<ThumbnailCard, ThumbnailCardAssertionFailedException>.TestWithGroups act
-                = (ThumbnailCard card, out IList<string> matches) => card.That().HasTextMatching(regex, groupMatchRegex, out matches);
+                = (ThumbnailCard card, out IList<string> matches) => card.That().TextMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(ThumbnailCards, act, CreateEx(nameof(ThumbnailCard.Text), regex));
 
             return this;
         }
 
-        public IThumbnailCardAssertions HasTitleMatching(string regex)
+        public IThumbnailCardAssertions TitleMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(ThumbnailCards, card => card.That().HasTitleMatching(regex), CreateEx(nameof(ThumbnailCard.Title), regex));
+            _setHelpers.TestSetForMatch(ThumbnailCards, card => card.That().TitleMatching(regex), CreateEx(nameof(ThumbnailCard.Title), regex));
 
             return this;
         }
 
-        public IThumbnailCardAssertions HasTitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IThumbnailCardAssertions TitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -107,7 +107,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
             SetHelpers<ThumbnailCard, ThumbnailCardAssertionFailedException>.TestWithGroups act
-                = (ThumbnailCard card, out IList<string> matches) => card.That().HasTitleMatching(regex, groupMatchRegex, out matches);
+                = (ThumbnailCard card, out IList<string> matches) => card.That().TitleMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(ThumbnailCards, act, CreateEx(nameof(ThumbnailCard.Title), regex));
 
             return this;
@@ -119,17 +119,17 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return () => new ThumbnailCardAssertionFailedException(message);
         }
 
-        public ICardImageAssertions WithCardImageThat()
+        public ICardImageAssertions WithCardImage()
         {
             return new CardImageSetAssertions(ThumbnailCards);
         }
 
-        public ICardActionAssertions WithButtonsThat()
+        public ICardActionAssertions WithButtons()
         {
             return new CardActionSetAssertions(ThumbnailCards as IEnumerable<IHaveButtons>);
         }
 
-        public ICardActionAssertions WithTapActionThat()
+        public ICardActionAssertions WithTapAction()
         {
             return new CardActionSetAssertions(ThumbnailCards as IEnumerable<IHaveTapAction>);
         }

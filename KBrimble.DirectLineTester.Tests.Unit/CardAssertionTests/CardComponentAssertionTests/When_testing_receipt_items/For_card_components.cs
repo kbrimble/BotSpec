@@ -9,25 +9,25 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
     public class For_card_components
     {
         [Test]
-        public void WithTapActionThat_should_return_CardActionAssertions()
+        public void WithTapAction_should_return_CardActionAssertions()
         {
             var tap = new CardAction();
             var receiptItem = new ReceiptItem(tap: tap);
 
             var sut = new ReceiptItemAssertions(receiptItem);
 
-            sut.WithTapActionThat().Should().BeAssignableTo<CardActionAssertions>().And.NotBeNull();
+            sut.WithTapAction().Should().BeAssignableTo<CardActionAssertions>().And.NotBeNull();
         }
 
         [Test]
-        public void WithCardImageThat_should_return_CardImageAssertions()
+        public void WithCardImage_should_return_CardImageAssertions()
         {
             var cardImage = new CardImage();
             var receiptItem = new ReceiptItem(image: cardImage);
 
             var sut = new ReceiptItemAssertions(receiptItem);
 
-            sut.WithCardImageThat().Should().BeAssignableTo<CardImageAssertions>().And.NotBeNull();
+            sut.WithCardImage().Should().BeAssignableTo<CardImageAssertions>().And.NotBeNull();
         }
 
     }

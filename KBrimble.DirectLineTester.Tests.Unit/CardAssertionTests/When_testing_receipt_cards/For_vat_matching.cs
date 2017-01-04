@@ -15,26 +15,26 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_r
         [TestCase("some text")]
         [TestCase("")]
         [TestCase("symbols ([*])?")]
-        public void HasVatMatching_should_pass_if_regex_exactly_matches_message_Vat(string cardVatAndRegex)
+        public void VatMatching_should_pass_if_regex_exactly_matches_message_Vat(string cardVatAndRegex)
         {
             var receiptCard = new ReceiptCard(vat: cardVatAndRegex);
 
             var sut = new ReceiptCardAssertions(receiptCard);
 
-            Action act = () => sut.HasVatMatching(cardVatAndRegex);
+            Action act = () => sut.VatMatching(cardVatAndRegex);
 
             act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text", "SOME TEXT")]
         [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
-        public void HasVatMatching_should_pass_regardless_of_case(string cardVat, string regex)
+        public void VatMatching_should_pass_regardless_of_case(string cardVat, string regex)
         {
             var receiptCard = new ReceiptCard(vat: cardVat);
 
             var sut = new ReceiptCardAssertions(receiptCard);
 
-            Action act = () => sut.HasVatMatching(regex);
+            Action act = () => sut.VatMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -42,13 +42,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_r
         [TestCase("some text", "so.*xt")]
         [TestCase("some text", "[a-z ]*")]
         [TestCase("some text", "s(ome tex)t")]
-        public void HasVatMatching_should_pass_when_using_standard_regex_features(string cardVat, string regex)
+        public void VatMatching_should_pass_when_using_standard_regex_features(string cardVat, string regex)
         {
             var receiptCard = new ReceiptCard(vat: cardVat);
 
             var sut = new ReceiptCardAssertions(receiptCard);
 
-            Action act = () => sut.HasVatMatching(regex);
+            Action act = () => sut.VatMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -56,19 +56,19 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_r
         [TestCase("some text", "some text!")]
         [TestCase("some text", "^[j-z ]*$")]
         [TestCase("some text", "s{12}")]
-        public void HasVatMatching_should_throw_ReceiptCardAssertionFailedException_for_non_matching_regexes(string cardVat, string regex)
+        public void VatMatching_should_throw_ReceiptCardAssertionFailedException_for_non_matching_regexes(string cardVat, string regex)
         {
             var receiptCard = new ReceiptCard(vat: cardVat);
 
             var sut = new ReceiptCardAssertions(receiptCard);
 
-            Action act = () => sut.HasVatMatching(regex);
+            Action act = () => sut.VatMatching(regex);
 
             act.ShouldThrow<ReceiptCardAssertionFailedException>();
         }
 
         [Test]
-        public void HasVatMatching_should_not_output_matches_when_regex_does_not_match_text()
+        public void VatMatching_should_not_output_matches_when_regex_does_not_match_text()
         {
             IList<string> matches = null;
 
@@ -76,14 +76,14 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_r
 
             var sut = new ReceiptCardAssertions(receiptCard);
 
-            Action act = () => sut.HasVatMatching("non matching regex", "(some text)", out matches);
+            Action act = () => sut.VatMatching("non matching regex", "(some text)", out matches);
 
             act.ShouldThrow<ReceiptCardAssertionFailedException>();
             matches.Should().BeNull();
         }
 
         [Test]
-        public void HasVatMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_text()
+        public void VatMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_text()
         {
             IList<string> matches;
 
@@ -91,13 +91,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_r
 
             var sut = new ReceiptCardAssertions(receiptCard);
 
-            sut.HasVatMatching("some text", "(non matching)", out matches);
+            sut.VatMatching("some text", "(non matching)", out matches);
 
             matches.Should().BeNull();
         }
 
         [Test]
-        public void HasVatMatching_should_output_matches_when_groupMatchingRegex_matches_text()
+        public void VatMatching_should_output_matches_when_groupMatchingRegex_matches_text()
         {
             IList<string> matches;
 
@@ -106,13 +106,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_r
 
             var sut = new ReceiptCardAssertions(receiptCard);
 
-            sut.HasVatMatching(someText, $"({someText})", out matches);
+            sut.VatMatching(someText, $"({someText})", out matches);
 
             matches.First().Should().Be(someText);
         }
 
         [Test]
-        public void HasVatMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_several_times()
+        public void VatMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_several_times()
         {
             IList<string> matches;
 
@@ -123,50 +123,50 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_r
 
             const string match1 = "some";
             const string match2 = "text";
-            sut.HasVatMatching(someText, $"({match1}) ({match2})", out matches);
+            sut.VatMatching(someText, $"({match1}) ({match2})", out matches);
 
             matches.Should().Contain(match1, match2);
         }
 
         [Test]
-        public void HasVatMatching_should_throw_ReceiptCardAssertionFailedException_when_text_is_null()
+        public void VatMatching_should_throw_ReceiptCardAssertionFailedException_when_text_is_null()
         {
             var card = new ReceiptCard();
 
             var sut = new ReceiptCardAssertions(card);
 
-            Action act = () => sut.HasVatMatching("anything");
+            Action act = () => sut.VatMatching("anything");
 
             act.ShouldThrow<ReceiptCardAssertionFailedException>();
         }
 
         [Test]
-        public void HasVatMatching_should_throw_ReceiptCardAssertionFailedException_when_trying_to_capture_groups_but_text_is_null()
+        public void VatMatching_should_throw_ReceiptCardAssertionFailedException_when_trying_to_capture_groups_but_text_is_null()
         {
             IList<string> matches;
             var card = new ReceiptCard();
 
             var sut = new ReceiptCardAssertions(card);
 
-            Action act = () => sut.HasVatMatching("anything", "(.*)", out matches);
+            Action act = () => sut.VatMatching("anything", "(.*)", out matches);
 
             act.ShouldThrow<ReceiptCardAssertionFailedException>();
         }
 
         [Test]
-        public void HasVatMatching_should_throw_ArgumentNullException_if_regex_is_null()
+        public void VatMatching_should_throw_ArgumentNullException_if_regex_is_null()
         {
             var card = new ReceiptCard();
 
             var sut = new ReceiptCardAssertions(card);
 
-            Action act = () => sut.HasVatMatching(null);
+            Action act = () => sut.VatMatching(null);
 
             act.ShouldThrow<ArgumentNullException>();
         }
 
         [Test]
-        public void HasVatMatching_should_throw_ArgumentNullException_if_when_capturing_groups_regex_is_null()
+        public void VatMatching_should_throw_ArgumentNullException_if_when_capturing_groups_regex_is_null()
         {
             IList<string> matches;
 
@@ -174,13 +174,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_r
 
             var sut = new ReceiptCardAssertions(card);
 
-            Action act = () => sut.HasVatMatching(null, "(.*)", out matches);
+            Action act = () => sut.VatMatching(null, "(.*)", out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }
 
         [Test]
-        public void HasVatMatching_should_throw_ArgumentNullException_if_groupMatchRegex_is_null()
+        public void VatMatching_should_throw_ArgumentNullException_if_groupMatchRegex_is_null()
         {
             IList<string> matches;
 
@@ -188,7 +188,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_r
 
             var sut = new ReceiptCardAssertions(card);
 
-            Action act = () => sut.HasVatMatching("(.*)", null, out matches);
+            Action act = () => sut.VatMatching("(.*)", null, out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }

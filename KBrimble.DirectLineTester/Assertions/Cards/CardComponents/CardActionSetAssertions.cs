@@ -36,42 +36,17 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             CardActions = hasButtons.Where(x => x?.Buttons != null).Select(x => x.Buttons).SelectMany(x => x).ToList();
         }
 
-        public ICardActionAssertions HasTitleMatching(string regex)
+        public ICardActionAssertions TitleMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(CardActions, action => action.That().HasTitleMatching(regex), CreateEx(nameof(CardAction.Title), regex));
+            _setHelpers.TestSetForMatch(CardActions, action => action.That().TitleMatching(regex), CreateEx(nameof(CardAction.Title), regex));
 
             return this;
         }
 
-        public ICardActionAssertions HasTitleMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
-        {
-            if (regex == null)
-                throw new ArgumentNullException(nameof(regex));
-            if (groupMatchingRegex == null)
-                throw new ArgumentNullException(nameof(groupMatchingRegex));
-
-            SetHelpers<CardAction, CardActionAssertionFailedException>.TestWithGroups act
-                = (CardAction item, out IList<string> matches) => item.That().HasTitleMatching(regex, groupMatchingRegex, out matches);
-
-            groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(CardActions, act, CreateEx(nameof(CardAction.Title), regex));
-
-            return this;
-        }
-
-        public ICardActionAssertions HasValueMatching(string regex)
-        {
-            if (regex == null)
-                throw new ArgumentNullException(nameof(regex));
-
-            _setHelpers.TestSetForMatch(CardActions, action => action.That().HasValueMatching(regex), CreateEx(nameof(CardAction.Value), regex));
-
-            return this;
-        }
-
-        public ICardActionAssertions HasValueMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
+        public ICardActionAssertions TitleMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -79,24 +54,24 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
                 throw new ArgumentNullException(nameof(groupMatchingRegex));
 
             SetHelpers<CardAction, CardActionAssertionFailedException>.TestWithGroups act
-                = (CardAction item, out IList<string> matches) => item.That().HasValueMatching(regex, groupMatchingRegex, out matches);
+                = (CardAction item, out IList<string> matches) => item.That().TitleMatching(regex, groupMatchingRegex, out matches);
 
             groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(CardActions, act, CreateEx(nameof(CardAction.Title), regex));
 
             return this;
         }
 
-        public ICardActionAssertions HasImageMatching(string regex)
+        public ICardActionAssertions ValueMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(CardActions, action => action.That().HasImageMatching(regex), CreateEx(nameof(CardAction.Image), regex));
+            _setHelpers.TestSetForMatch(CardActions, action => action.That().ValueMatching(regex), CreateEx(nameof(CardAction.Value), regex));
 
             return this;
         }
 
-        public ICardActionAssertions HasImageMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
+        public ICardActionAssertions ValueMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -104,19 +79,44 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
                 throw new ArgumentNullException(nameof(groupMatchingRegex));
 
             SetHelpers<CardAction, CardActionAssertionFailedException>.TestWithGroups act
-                = (CardAction item, out IList<string> matches) => item.That().HasImageMatching(regex, groupMatchingRegex, out matches);
+                = (CardAction item, out IList<string> matches) => item.That().ValueMatching(regex, groupMatchingRegex, out matches);
 
             groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(CardActions, act, CreateEx(nameof(CardAction.Title), regex));
 
             return this;
         }
 
-        public ICardActionAssertions HasType(CardActionType type)
+        public ICardActionAssertions ImageMatching(string regex)
+        {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+
+            _setHelpers.TestSetForMatch(CardActions, action => action.That().ImageMatching(regex), CreateEx(nameof(CardAction.Image), regex));
+
+            return this;
+        }
+
+        public ICardActionAssertions ImageMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
+        {
+            if (regex == null)
+                throw new ArgumentNullException(nameof(regex));
+            if (groupMatchingRegex == null)
+                throw new ArgumentNullException(nameof(groupMatchingRegex));
+
+            SetHelpers<CardAction, CardActionAssertionFailedException>.TestWithGroups act
+                = (CardAction item, out IList<string> matches) => item.That().ImageMatching(regex, groupMatchingRegex, out matches);
+
+            groupMatches = _setHelpers.TestSetForMatchAndReturnGroups(CardActions, act, CreateEx(nameof(CardAction.Title), regex));
+
+            return this;
+        }
+
+        public ICardActionAssertions ActionType(CardActionType type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
 
-            _setHelpers.TestSetForMatch(CardActions, action => action.That().HasType(type), CreateEx(nameof(CardAction.Type), type.Value));
+            _setHelpers.TestSetForMatch(CardActions, action => action.That().ActionType(type), CreateEx(nameof(CardAction.Type), type.Value));
 
             return this;
         }

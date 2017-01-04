@@ -14,22 +14,22 @@ namespace KBrimble.DirectLineTester.Assertions.Attachments
             _message = message;
         }
 
-        public IThumbnailCardAssertions OfTypeThumbnailCardThat()
+        public IThumbnailCardAssertions OfTypeThumbnailCard()
         {
             return new ThumbnailCardSetAssertions(_message);
         }
 
-        public IHeroCardAssertions OfTypeHeroCardThat()
+        public IHeroCardAssertions OfTypeHeroCard()
         {
             return new HeroCardSetAssertions(_message);
         }
 
-        public ISigninCardAssertions OfTypeSigninCardThat()
+        public ISigninCardAssertions OfTypeSigninCard()
         {
             return new SigninCardSetAssertions(_message);
         }
 
-        public IReceiptCardAssertions OfTypeReceiptCardThat()
+        public IReceiptCardAssertions OfTypeReceiptCard()
         {
             return new ReceiptCardSetAssertions(_message);
         }

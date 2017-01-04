@@ -21,7 +21,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(receiptItem);
 
-            Action act = () => sut.HasTextMatching(itemTextAndRegex);
+            Action act = () => sut.TextMatching(itemTextAndRegex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -34,7 +34,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(receiptItem);
 
-            Action act = () => sut.HasTextMatching(regex);
+            Action act = () => sut.TextMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -48,7 +48,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(receiptItem);
 
-            Action act = () => sut.HasTextMatching(regex);
+            Action act = () => sut.TextMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -62,7 +62,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(receiptItem);
 
-            Action act = () => sut.HasTextMatching(regex);
+            Action act = () => sut.TextMatching(regex);
 
             act.ShouldThrow<ReceiptItemAssertionFailedException>();
         }
@@ -76,7 +76,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(receiptItem);
 
-            Action act = () => sut.HasTextMatching("non matching regex", "(some text)", out matches);
+            Action act = () => sut.TextMatching("non matching regex", "(some text)", out matches);
 
             act.ShouldThrow<ReceiptItemAssertionFailedException>();
             matches.Should().BeNull();
@@ -91,7 +91,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(receiptItem);
 
-            sut.HasTextMatching("some text", "(non matching)", out matches);
+            sut.TextMatching("some text", "(non matching)", out matches);
 
             matches.Should().BeNull();
         }
@@ -106,7 +106,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(receiptItem);
 
-            sut.HasTextMatching(someText, $"({someText})", out matches);
+            sut.TextMatching(someText, $"({someText})", out matches);
 
             matches.First().Should().Be(someText);
         }
@@ -123,7 +123,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             const string match1 = "some";
             const string match2 = "text";
-            sut.HasTextMatching(someText, $"({match1}) ({match2})", out matches);
+            sut.TextMatching(someText, $"({match1}) ({match2})", out matches);
 
             matches.Should().Contain(match1, match2);
         }
@@ -135,7 +135,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(item);
 
-            Action act = () => sut.HasTextMatching("anything");
+            Action act = () => sut.TextMatching("anything");
 
             act.ShouldThrow<ReceiptItemAssertionFailedException>();
         }
@@ -148,7 +148,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(item);
 
-            Action act = () => sut.HasTextMatching("anything", "(.*)", out matches);
+            Action act = () => sut.TextMatching("anything", "(.*)", out matches);
 
             act.ShouldThrow<ReceiptItemAssertionFailedException>();
         }
@@ -160,7 +160,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(item);
 
-            Action act = () => sut.HasTextMatching(null);
+            Action act = () => sut.TextMatching(null);
 
             act.ShouldThrow<ArgumentNullException>();
         }
@@ -174,7 +174,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(item);
 
-            Action act = () => sut.HasTextMatching(null, "(.*)", out matches);
+            Action act = () => sut.TextMatching(null, "(.*)", out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }
@@ -188,7 +188,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new ReceiptItemAssertions(item);
 
-            Action act = () => sut.HasTextMatching("(.*)", null, out matches);
+            Action act = () => sut.TextMatching("(.*)", null, out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }

@@ -20,7 +20,7 @@ namespace KBrimble.DirectLineTester
             _botClient.SendMessage(message).RunSynchronously();
         }
 
-        public IMessageAssertions MessageThat()
+        public IMessageAssertions Message()
         {
             var messages = _fetchFromHighWatermark ?
                 _botClient.GetMessagesFromHigherWatermark().Result : 

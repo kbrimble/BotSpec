@@ -21,7 +21,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             _stringHelpers = new StringHelpers<ReceiptCardAssertionFailedException>();
         }
 
-        public IReceiptCardAssertions HasTitleMatching(string regex)
+        public IReceiptCardAssertions TitleMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -31,7 +31,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IReceiptCardAssertions HasTitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IReceiptCardAssertions TitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -43,7 +43,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IReceiptCardAssertions HasTotalMatching(string regex)
+        public IReceiptCardAssertions TotalMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -53,7 +53,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IReceiptCardAssertions HasTotalMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IReceiptCardAssertions TotalMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -65,7 +65,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IReceiptCardAssertions HasTaxMatching(string regex)
+        public IReceiptCardAssertions TaxMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -75,7 +75,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IReceiptCardAssertions HasTaxMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IReceiptCardAssertions TaxMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -87,7 +87,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IReceiptCardAssertions HasVatMatching(string regex)
+        public IReceiptCardAssertions VatMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -97,7 +97,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IReceiptCardAssertions HasVatMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IReceiptCardAssertions VatMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -109,22 +109,22 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public ICardActionAssertions WithButtonsThat()
+        public ICardActionAssertions WithButtons()
         {
             return new CardActionSetAssertions(_receiptCard.Buttons);
         }
 
-        public ICardActionAssertions WithTapActionThat()
+        public ICardActionAssertions WithTapAction()
         {
             return new CardActionAssertions(_receiptCard.Tap);
         }
 
-        public IFactAssertions WithFactThat()
+        public IFactAssertions WithFact()
         {
             return new FactSetAssertions(_receiptCard);
         }
 
-        public IReceiptItemAssertions WithReceiptItemThat()
+        public IReceiptItemAssertions WithReceiptItem()
         {
             return new ReceiptItemSetAssertions(_receiptCard);
         }

@@ -16,26 +16,26 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("some text")]
         [TestCase("")]
         [TestCase("symbols ([*])?")]
-        public void HasKeyMatching_should_pass_if_regex_exactly_matches_message_Key(string keyAndRegex)
+        public void KeyMatching_should_pass_if_regex_exactly_matches_message_Key(string keyAndRegex)
         {
             var fact = new Fact(key: keyAndRegex);
 
             var sut = new FactAssertions(fact);
 
-            Action act = () => sut.HasKeyMatching(keyAndRegex);
+            Action act = () => sut.KeyMatching(keyAndRegex);
 
             act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text", "SOME TEXT")]
         [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
-        public void HasKeyMatching_should_pass_regardless_of_case(string key, string regex)
+        public void KeyMatching_should_pass_regardless_of_case(string key, string regex)
         {
             var fact = new Fact(key: key);
 
             var sut = new FactAssertions(fact);
 
-            Action act = () => sut.HasKeyMatching(regex);
+            Action act = () => sut.KeyMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -43,13 +43,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("some text", "so.*xt")]
         [TestCase("some text", "[a-z ]*")]
         [TestCase("some text", "s(ome tex)t")]
-        public void HasKeyMatching_should_pass_when_using_standard_regex_features(string key, string regex)
+        public void KeyMatching_should_pass_when_using_standard_regex_features(string key, string regex)
         {
             var fact = new Fact(key: key);
 
             var sut = new FactAssertions(fact);
 
-            Action act = () => sut.HasKeyMatching(regex);
+            Action act = () => sut.KeyMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -57,19 +57,19 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("some text", "some text!")]
         [TestCase("some text", "^[j-z ]*$")]
         [TestCase("some text", "s{12}")]
-        public void HasKeyMatching_should_throw_FactAssertionFailedException_for_non_matching_regexes(string key, string regex)
+        public void KeyMatching_should_throw_FactAssertionFailedException_for_non_matching_regexes(string key, string regex)
         {
             var fact = new Fact(key: key);
 
             var sut = new FactAssertions(fact);
 
-            Action act = () => sut.HasKeyMatching(regex);
+            Action act = () => sut.KeyMatching(regex);
 
             act.ShouldThrow<FactAssertionFailedException>();
         }
 
         [Test]
-        public void HasKeyMatching_should_not_output_matches_when_regex_does_not_match_key()
+        public void KeyMatching_should_not_output_matches_when_regex_does_not_match_key()
         {
             IList<string> matches = null;
 
@@ -77,14 +77,14 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new FactAssertions(fact);
 
-            Action act = () => sut.HasKeyMatching("non matching regex", "(some text)", out matches);
+            Action act = () => sut.KeyMatching("non matching regex", "(some text)", out matches);
 
             act.ShouldThrow<FactAssertionFailedException>();
             matches.Should().BeNull();
         }
 
         [Test]
-        public void HasKeyMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_key()
+        public void KeyMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_key()
         {
             IList<string> matches;
 
@@ -92,13 +92,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new FactAssertions(fact);
 
-            sut.HasKeyMatching("some text", "(non matching)", out matches);
+            sut.KeyMatching("some text", "(non matching)", out matches);
 
             matches.Should().BeNull();
         }
 
         [Test]
-        public void HasKeyMatching_should_output_matches_when_groupMatchingRegex_matches_key()
+        public void KeyMatching_should_output_matches_when_groupMatchingRegex_matches_key()
         {
             IList<string> matches;
 
@@ -107,13 +107,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new FactAssertions(fact);
 
-            sut.HasKeyMatching(someText, $"({someText})", out matches);
+            sut.KeyMatching(someText, $"({someText})", out matches);
 
             matches.First().Should().Be(someText);
         }
 
         [Test]
-        public void HasKeyMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_key_several_times()
+        public void KeyMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_key_several_times()
         {
             IList<string> matches;
 
@@ -124,50 +124,50 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             const string match1 = "some";
             const string match2 = "text";
-            sut.HasKeyMatching(someText, $"({match1}) ({match2})", out matches);
+            sut.KeyMatching(someText, $"({match1}) ({match2})", out matches);
 
             matches.Should().Contain(match1, match2);
         }
 
         [Test]
-        public void HasKeyMatching_should_throw_FactAssertionFailedException_when_key_is_null()
+        public void KeyMatching_should_throw_FactAssertionFailedException_when_key_is_null()
         {
             var card = new Fact();
 
             var sut = new FactAssertions(card);
 
-            Action act = () => sut.HasKeyMatching("anything");
+            Action act = () => sut.KeyMatching("anything");
 
             act.ShouldThrow<FactAssertionFailedException>();
         }
 
         [Test]
-        public void HasKeyMatching_should_throw_FactAssertionFailedException_when_trying_to_capture_groups_but_key_is_null()
+        public void KeyMatching_should_throw_FactAssertionFailedException_when_trying_to_capture_groups_but_key_is_null()
         {
             IList<string> matches;
             var card = new Fact();
 
             var sut = new FactAssertions(card);
 
-            Action act = () => sut.HasKeyMatching("anything", "(.*)", out matches);
+            Action act = () => sut.KeyMatching("anything", "(.*)", out matches);
 
             act.ShouldThrow<FactAssertionFailedException>();
         }
 
         [Test]
-        public void HasKeyMatching_should_throw_ArgumentNullException_if_regex_is_null()
+        public void KeyMatching_should_throw_ArgumentNullException_if_regex_is_null()
         {
             var card = new Fact();
 
             var sut = new FactAssertions(card);
 
-            Action act = () => sut.HasKeyMatching(null);
+            Action act = () => sut.KeyMatching(null);
 
             act.ShouldThrow<ArgumentNullException>();
         }
 
         [Test]
-        public void HasKeyMatching_should_throw_ArgumentNullException_if_when_capturing_groups_regex_is_null()
+        public void KeyMatching_should_throw_ArgumentNullException_if_when_capturing_groups_regex_is_null()
         {
             IList<string> matches;
 
@@ -175,13 +175,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new FactAssertions(card);
 
-            Action act = () => sut.HasKeyMatching(null, "(.*)", out matches);
+            Action act = () => sut.KeyMatching(null, "(.*)", out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }
 
         [Test]
-        public void HasKeyMatching_should_throw_ArgumentNullException_if_groupMatchRegex_is_null()
+        public void KeyMatching_should_throw_ArgumentNullException_if_groupMatchRegex_is_null()
         {
             IList<string> matches;
 
@@ -189,7 +189,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new FactAssertions(card);
 
-            Action act = () => sut.HasKeyMatching("(.*)", null, out matches);
+            Action act = () => sut.KeyMatching("(.*)", null, out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }

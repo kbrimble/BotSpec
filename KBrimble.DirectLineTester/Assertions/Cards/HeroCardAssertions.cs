@@ -17,7 +17,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             _stringHelpers = new StringHelpers<HeroCardAssertionFailedException>();
         }
 
-        public IHeroCardAssertions HasTextMatching(string regex)
+        public IHeroCardAssertions TextMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -27,7 +27,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IHeroCardAssertions HasTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IHeroCardAssertions TextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -39,7 +39,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IHeroCardAssertions HasTitleMatching(string regex)
+        public IHeroCardAssertions TitleMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -49,7 +49,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IHeroCardAssertions HasTitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IHeroCardAssertions TitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -61,7 +61,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IHeroCardAssertions HasSubtitleMatching(string regex)
+        public IHeroCardAssertions SubtitleMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -71,7 +71,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public IHeroCardAssertions HasSubtitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IHeroCardAssertions SubtitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -83,17 +83,17 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public ICardActionAssertions WithButtonsThat()
+        public ICardActionAssertions WithButtons()
         {
             return new CardActionSetAssertions(_heroCard.Buttons);
         }
 
-        public ICardImageAssertions WithCardImageThat()
+        public ICardImageAssertions WithCardImage()
         {
             return new CardImageSetAssertions(_heroCard.Images);
         }
 
-        public ICardActionAssertions WithTapActionThat()
+        public ICardActionAssertions WithTapAction()
         {
             return new CardActionAssertions(_heroCard.Tap);
         }

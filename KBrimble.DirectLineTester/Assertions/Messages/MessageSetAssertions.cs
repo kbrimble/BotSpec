@@ -19,17 +19,17 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             _setHelpers = new SetHelpers<Message, MessageAssertionFailedException>();
         }
 
-        public IMessageAssertions HasFromMatching(string regex)
+        public IMessageAssertions FromMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().HasFromMatching(regex), CreateEx(nameof(Message.FromProperty), regex));
+            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().FromMatching(regex), CreateEx(nameof(Message.FromProperty), regex));
 
             return this;
         }
 
-        public IMessageAssertions HasFromMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IMessageAssertions FromMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -37,24 +37,24 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
             SetHelpers<Message, MessageAssertionFailedException>.TestWithGroups act
-                = (Message item, out IList<string> matches) => item.Should().HasFromMatching(regex, groupMatchRegex, out matches);
+                = (Message item, out IList<string> matches) => item.Should().FromMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_messageSet, act, CreateEx(nameof(Message.FromProperty), regex));
 
             return this;
 
         }
 
-        public IMessageAssertions HasTextMatching(string regex)
+        public IMessageAssertions TextMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().HasTextMatching(regex), CreateEx(nameof(Message.Text), regex));
+            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().TextMatching(regex), CreateEx(nameof(Message.Text), regex));
 
             return this;
         }
 
-        public IMessageAssertions HasTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IMessageAssertions TextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -62,23 +62,23 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
             SetHelpers<Message, MessageAssertionFailedException>.TestWithGroups act
-                = (Message item, out IList<string> matches) => item.Should().HasTextMatching(regex, groupMatchRegex, out matches);
+                = (Message item, out IList<string> matches) => item.Should().TextMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_messageSet, act, CreateEx(nameof(Message.Text), regex));
 
             return this;
         }
 
-        public IMessageAssertions HasIdMatching(string regex)
+        public IMessageAssertions IdMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().HasIdMatching(regex), CreateEx(nameof(Message.Id), regex));
+            _setHelpers.TestSetForMatch(_messageSet, msg => msg.Should().IdMatching(regex), CreateEx(nameof(Message.Id), regex));
 
             return this;
         }
 
-        public IMessageAssertions HasIdMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IMessageAssertions IdMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -86,13 +86,13 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
             SetHelpers<Message, MessageAssertionFailedException>.TestWithGroups act
-                = (Message item, out IList<string> matches) => item.Should().HasIdMatching(regex, groupMatchRegex, out matches);
+                = (Message item, out IList<string> matches) => item.Should().IdMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(_messageSet, act, CreateEx(nameof(Message.Id), regex));
 
             return this;
         }
 
-        public IMessageAttachmentAssertions HasAttachment()
+        public IMessageAttachmentAssertions WithAttachment()
         {
             return new MessageSetAttachmentAssertions(_messageSet);
         }

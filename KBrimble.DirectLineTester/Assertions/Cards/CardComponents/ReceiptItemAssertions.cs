@@ -19,7 +19,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             _stringHelpers = new StringHelpers<ReceiptItemAssertionFailedException>();
         }
 
-        public IReceiptItemAssertions HasTitleMatching(string regex)
+        public IReceiptItemAssertions TitleMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -29,7 +29,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IReceiptItemAssertions HasTitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IReceiptItemAssertions TitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -41,7 +41,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IReceiptItemAssertions HasSubtitleMatching(string regex)
+        public IReceiptItemAssertions SubtitleMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -51,7 +51,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IReceiptItemAssertions HasSubtitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IReceiptItemAssertions SubtitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -63,7 +63,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IReceiptItemAssertions HasTextMatching(string regex)
+        public IReceiptItemAssertions TextMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -73,7 +73,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IReceiptItemAssertions HasTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IReceiptItemAssertions TextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -85,7 +85,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IReceiptItemAssertions HasPriceMatching(string regex)
+        public IReceiptItemAssertions PriceMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -95,7 +95,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IReceiptItemAssertions HasPriceMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IReceiptItemAssertions PriceMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -107,7 +107,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IReceiptItemAssertions HasQuantityMatching(string regex)
+        public IReceiptItemAssertions QuantityMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -117,7 +117,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IReceiptItemAssertions HasQuantityMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IReceiptItemAssertions QuantityMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -129,12 +129,12 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardActionAssertions WithTapActionThat()
+        public ICardActionAssertions WithTapAction()
         {
             return new CardActionAssertions(_receiptItem.Tap);
         }
 
-        public ICardImageAssertions WithCardImageThat()
+        public ICardImageAssertions WithCardImage()
         {
             return new CardImageAssertions(_receiptItem.Image);
         }

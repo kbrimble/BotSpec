@@ -4,6 +4,6 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 {
     public interface ICanAssertTapActions
     {
-        ICardActionAssertions WithTapActionThat();
+        ICardActionAssertions WithTapAction();
     }
 }

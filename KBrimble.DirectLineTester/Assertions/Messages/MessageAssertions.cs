@@ -17,7 +17,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             _stringHelpers = new StringHelpers<MessageAssertionFailedException>();
         }
 
-        public IMessageAssertions HasTextMatching(string regex)
+        public IMessageAssertions TextMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -26,7 +26,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             return this;
         }
 
-        public IMessageAssertions HasTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IMessageAssertions TextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -37,7 +37,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             return this;
         }
 
-        public IMessageAssertions HasIdMatching(string regex)
+        public IMessageAssertions IdMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -46,7 +46,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             return this;
         }
 
-        public IMessageAssertions HasIdMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IMessageAssertions IdMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -57,7 +57,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             return this;
         }
 
-        public IMessageAssertions HasFromMatching(string regex)
+        public IMessageAssertions FromMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -67,7 +67,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             return this;
         }
 
-        public IMessageAssertions HasFromMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IMessageAssertions FromMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -78,7 +78,7 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
             return this;
         }
 
-        public IMessageAttachmentAssertions HasAttachment()
+        public IMessageAttachmentAssertions WithAttachment()
         {
             return new MessageAttachmentAssertions(_message);
         }

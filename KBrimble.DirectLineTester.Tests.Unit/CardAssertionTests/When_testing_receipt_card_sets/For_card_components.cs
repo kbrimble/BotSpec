@@ -11,47 +11,47 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_r
     public class For_card_components
     {
         [Test]
-        public void WithButtonsThat_should_return_CardActionSetAssertions()
+        public void WithButtons_should_return_CardActionSetAssertions()
         {
             var buttons = CardActionTestData.CreateRandomCardActions();
             var cards = ReceiptCardTestData.CreateReceiptCardSetWithOneCardThatHasSetProperties(buttons: buttons);
 
             var sut = new ReceiptCardSetAssertions(cards);
 
-            sut.WithButtonsThat().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
+            sut.WithButtons().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }
 
         [Test]
-        public void WithTapActionThat_should_return_CardActionSetAssertions()
+        public void WithTapAction_should_return_CardActionSetAssertions()
         {
             var tap = new CardAction();
             var cards = ReceiptCardTestData.CreateReceiptCardSetWithOneCardThatHasSetProperties(tap: tap);
 
             var sut = new ReceiptCardSetAssertions(cards);
 
-            sut.WithTapActionThat().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
+            sut.WithTapAction().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }
 
         [Test]
-        public void WithFactThat_should_return_FactSetAssertions()
+        public void WithFact_should_return_FactSetAssertions()
         {
             var facts = FactTestData.CreateRandomFacts();
             var cards = ReceiptCardTestData.CreateReceiptCardSetWithAllCardsWithSetProperties(facts: facts);
 
             var sut = new ReceiptCardSetAssertions(cards);
 
-            sut.WithFactThat().Should().BeAssignableTo<FactSetAssertions>().And.NotBeNull();
+            sut.WithFact().Should().BeAssignableTo<FactSetAssertions>().And.NotBeNull();
         }
 
         [Test]
-        public void WithReceiptItemThat_should_return_ReceiptItemSetAssertions()
+        public void WithReceiptItem_should_return_ReceiptItemSetAssertions()
         {
             var receiptItems = ReceiptItemTestData.CreateRandomReceiptItems();
             var cards = ReceiptCardTestData.CreateReceiptCardSetWithOneCardThatHasSetProperties(items: receiptItems);
 
             var sut = new ReceiptCardSetAssertions(cards);
 
-            sut.WithReceiptItemThat().Should().BeAssignableTo<ReceiptItemSetAssertions>().And.NotBeNull();
+            sut.WithReceiptItem().Should().BeAssignableTo<ReceiptItemSetAssertions>().And.NotBeNull();
         }
     }
 }

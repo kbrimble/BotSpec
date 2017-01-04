@@ -23,7 +23,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             _stringHelpers = new StringHelpers<FactAssertionFailedException>();
         }
 
-        public IFactAssertions HasKeyMatching(string regex)
+        public IFactAssertions KeyMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -33,7 +33,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IFactAssertions HasKeyMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IFactAssertions KeyMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -45,7 +45,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IFactAssertions HasValueMatching(string regex)
+        public IFactAssertions ValueMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -55,7 +55,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public IFactAssertions HasValueMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IFactAssertions ValueMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));

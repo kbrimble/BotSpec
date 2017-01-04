@@ -10,14 +10,14 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_s
     public class For_card_components
     {
         [Test]
-        public void WithButtonsThat_should_return_CardActionSetAssertions()
+        public void WithButtons_should_return_CardActionSetAssertions()
         {
             var buttons = CardActionTestData.CreateRandomCardActions();
             var signinCards = SigninCardTestData.CreateSigninCardSetWithOneCardThatHasSetProperties(buttons: buttons);
 
             var sut = new SigninCardSetAssertions(signinCards);
 
-            sut.WithButtonsThat().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
+            sut.WithButtons().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }
     }
 

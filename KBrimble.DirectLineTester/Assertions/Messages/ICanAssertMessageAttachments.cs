@@ -4,6 +4,6 @@ namespace KBrimble.DirectLineTester.Assertions.Messages
 {
     public interface ICanAssertMessageAttachments
     {
-        IMessageAttachmentAssertions HasAttachment();
+        IMessageAttachmentAssertions WithAttachment();
     }
 }

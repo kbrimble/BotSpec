@@ -5,7 +5,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 {
     public interface ISigninCardAssertions : ICanAssertButtons, IThrow<SigninCardAssertionFailedException>
     {
-        ISigninCardAssertions HasTextMatching(string regex);
-        ISigninCardAssertions HasTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);
+        ISigninCardAssertions TextMatching(string regex);
+        ISigninCardAssertions TextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);
     }
 }

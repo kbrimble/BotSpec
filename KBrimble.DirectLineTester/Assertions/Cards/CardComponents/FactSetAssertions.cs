@@ -39,17 +39,17 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             _setHelper = new SetHelpers<Fact, FactAssertionFailedException>();
         }
 
-        public IFactAssertions HasKeyMatching(string regex)
+        public IFactAssertions KeyMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelper.TestSetForMatch(Facts, fact => fact.That().HasKeyMatching(regex), CreateEx(nameof(Fact.Key), regex));
+            _setHelper.TestSetForMatch(Facts, fact => fact.That().KeyMatching(regex), CreateEx(nameof(Fact.Key), regex));
 
             return this;
         }
 
-        public IFactAssertions HasKeyMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IFactAssertions KeyMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -57,23 +57,23 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
             SetHelpers<Fact, FactAssertionFailedException>.TestWithGroups act =
-                (Fact fact, out IList<string> matches) => fact.That().HasKeyMatching(regex, groupMatchRegex, out matches);
+                (Fact fact, out IList<string> matches) => fact.That().KeyMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelper.TestSetForMatchAndReturnGroups(Facts, act, CreateEx(nameof(Fact.Key), regex));
 
             return this;
         }
 
-        public IFactAssertions HasValueMatching(string regex)
+        public IFactAssertions ValueMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelper.TestSetForMatch(Facts, fact => fact.That().HasValueMatching(regex), CreateEx(nameof(Fact.Key), regex));
+            _setHelper.TestSetForMatch(Facts, fact => fact.That().ValueMatching(regex), CreateEx(nameof(Fact.Key), regex));
 
             return this;
         }
 
-        public IFactAssertions HasValueMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public IFactAssertions ValueMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -81,7 +81,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
             SetHelpers<Fact, FactAssertionFailedException>.TestWithGroups act =
-                (Fact fact, out IList<string> matches) => fact.That().HasValueMatching(regex, groupMatchRegex, out matches);
+                (Fact fact, out IList<string> matches) => fact.That().ValueMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelper.TestSetForMatchAndReturnGroups(Facts, act, CreateEx(nameof(Fact.Key), regex));
 
             return this;

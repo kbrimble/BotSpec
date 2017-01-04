@@ -13,19 +13,19 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
     public class For_an_image_matching
     {
         [Test]
-        public void HasImageMatching_should_throw_ArgumentNullException_when_regex_is_null()
+        public void ImageMatching_should_throw_ArgumentNullException_when_regex_is_null()
         {
             var cardAction = new CardAction(image: "some text");
 
             var sut = new CardActionAssertions(cardAction);
 
-            Action act = () => sut.HasImageMatching(null);
+            Action act = () => sut.ImageMatching(null);
 
             act.ShouldThrow<ArgumentNullException>();
         }
 
         [Test]
-        public void HasImageMatching_should_throw_ArgumentNullException_when_groupMatchRegex_is_null()
+        public void ImageMatching_should_throw_ArgumentNullException_when_groupMatchRegex_is_null()
         {
             IList<string> matches;
 
@@ -33,7 +33,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new CardActionAssertions(cardAction);
 
-            Action act = () => sut.HasImageMatching(".*", null, out matches);
+            Action act = () => sut.ImageMatching(".*", null, out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }
@@ -41,26 +41,26 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("some text")]
         [TestCase("")]
         [TestCase("symbols ([*])?")]
-        public void HasImageMatching_should_pass_if_regex_exactly_matches_image_image(string imageAndRegex)
+        public void ImageMatching_should_pass_if_regex_exactly_matches_image_image(string imageAndRegex)
         {
             var cardAction = new CardAction(image: imageAndRegex);
 
             var sut = new CardActionAssertions(cardAction);
 
-            Action act = () => sut.HasImageMatching(imageAndRegex);
+            Action act = () => sut.ImageMatching(imageAndRegex);
 
             act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text", "SOME TEXT")]
         [TestCase("SYMBOLS ([*])?", "symbols ([*])?")]
-        public void HasImageMatching_should_pass_regardless_of_case(string image, string regex)
+        public void ImageMatching_should_pass_regardless_of_case(string image, string regex)
         {
             var cardAction = new CardAction(image: image);
 
             var sut = new CardActionAssertions(cardAction);
 
-            Action act = () => sut.HasImageMatching(regex);
+            Action act = () => sut.ImageMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -68,13 +68,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("some text", "so.*xt")]
         [TestCase("some text", "[a-z ]*")]
         [TestCase("some text", "s(ome tex)t")]
-        public void HasImageMatching_should_pass_when_using_standard_regex_features(string image, string regex)
+        public void ImageMatching_should_pass_when_using_standard_regex_features(string image, string regex)
         {
             var cardAction = new CardAction(image: image);
 
             var sut = new CardActionAssertions(cardAction);
 
-            Action act = () => sut.HasImageMatching(regex);
+            Action act = () => sut.ImageMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -82,19 +82,19 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
         [TestCase("some text", "some text!")]
         [TestCase("some text", "^[j-z ]*$")]
         [TestCase("some text", "s{12}")]
-        public void HasImageMatching_should_throw_CardActionAssertionFailedException_for_non_matching_regexes(string image, string regex)
+        public void ImageMatching_should_throw_CardActionAssertionFailedException_for_non_matching_regexes(string image, string regex)
         {
             var cardAction = new CardAction(image: image);
 
             var sut = new CardActionAssertions(cardAction);
 
-            Action act = () => sut.HasImageMatching(regex);
+            Action act = () => sut.ImageMatching(regex);
 
             act.ShouldThrow<CardActionAssertionFailedException>();
         }
 
         [Test]
-        public void HasImageMatching_should_not_output_matches_when_regex_does_not_match_text()
+        public void ImageMatching_should_not_output_matches_when_regex_does_not_match_text()
         {
             IList<string> matches = null;
 
@@ -102,14 +102,14 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new CardActionAssertions(cardAction);
 
-            Action act = () => sut.HasImageMatching("non matching regex", "(some text)", out matches);
+            Action act = () => sut.ImageMatching("non matching regex", "(some text)", out matches);
 
             act.ShouldThrow<CardActionAssertionFailedException>();
             matches.Should().BeNull();
         }
 
         [Test]
-        public void HasImageMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_text()
+        public void ImageMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_text()
         {
             IList<string> matches;
 
@@ -117,13 +117,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new CardActionAssertions(cardAction);
 
-            sut.HasImageMatching("some text", "(non matching)", out matches);
+            sut.ImageMatching("some text", "(non matching)", out matches);
 
             matches.Should().BeNull();
         }
 
         [Test]
-        public void HasImageMatching_should_output_matches_when_groupMatchingRegex_matches_text()
+        public void ImageMatching_should_output_matches_when_groupMatchingRegex_matches_text()
         {
             IList<string> matches;
 
@@ -132,13 +132,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var sut = new CardActionAssertions(cardAction);
 
-            sut.HasImageMatching(someText, $"({someText})", out matches);
+            sut.ImageMatching(someText, $"({someText})", out matches);
 
             matches.First().Should().Be(someText);
         }
 
         [Test]
-        public void HasImageMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_several_times()
+        public void ImageMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_text_several_times()
         {
             IList<string> matches;
 
@@ -149,32 +149,32 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.CardComponentA
 
             var match1 = "some";
             var match2 = "text";
-            sut.HasImageMatching(someText, $"({match1}) ({match2})", out matches);
+            sut.ImageMatching(someText, $"({match1}) ({match2})", out matches);
 
             matches.Should().Contain(match1, match2);
         }
 
         [Test]
-        public void HasImageMatching_should_throw_CardActionAssertionFailedException_when_text_is_null()
+        public void ImageMatching_should_throw_CardActionAssertionFailedException_when_text_is_null()
         {
             var cardAction = new CardAction();
 
             var sut = new CardActionAssertions(cardAction);
 
-            Action act = () => sut.HasImageMatching("anything");
+            Action act = () => sut.ImageMatching("anything");
 
             act.ShouldThrow<CardActionAssertionFailedException>();
         }
 
         [Test]
-        public void HasImageMatching_should_throw_CardActionAssertionFailedException_when_trying_to_capture_groups_but_text_is_null()
+        public void ImageMatching_should_throw_CardActionAssertionFailedException_when_trying_to_capture_groups_but_text_is_null()
         {
             IList<string> matches;
             var cardAction = new CardAction();
 
             var sut = new CardActionAssertions(cardAction);
 
-            Action act = () => sut.HasImageMatching("anything", "(.*)", out matches);
+            Action act = () => sut.ImageMatching("anything", "(.*)", out matches);
 
             act.ShouldThrow<CardActionAssertionFailedException>();
         }

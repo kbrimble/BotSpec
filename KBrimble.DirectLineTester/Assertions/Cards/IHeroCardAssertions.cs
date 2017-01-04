@@ -5,11 +5,11 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
 {
     public interface IHeroCardAssertions : ICanAssertCardImages, ICanAssertButtons, ICanAssertTapActions, IThrow<HeroCardAssertionFailedException>
     {
-        IHeroCardAssertions HasTitleMatching(string regex);
-        IHeroCardAssertions HasTitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);
-        IHeroCardAssertions HasSubtitleMatching(string regex);
-        IHeroCardAssertions HasSubtitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);
-        IHeroCardAssertions HasTextMatching(string regex);
-        IHeroCardAssertions HasTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);
+        IHeroCardAssertions TitleMatching(string regex);
+        IHeroCardAssertions TitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);
+        IHeroCardAssertions SubtitleMatching(string regex);
+        IHeroCardAssertions SubtitleMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);
+        IHeroCardAssertions TextMatching(string regex);
+        IHeroCardAssertions TextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);
     }
 }

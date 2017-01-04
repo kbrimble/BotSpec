@@ -31,7 +31,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAttachmentAssertionTests
 
             var sut = new MessageAttachmentAssertions(new Message());
 
-            var result = sut.OfTypeThumbnailCardThat();
+            var result = sut.OfTypeThumbnailCard();
             result.Should().BeAssignableTo<ThumbnailCardSetAssertions>();
             var assertions = (ThumbnailCardSetAssertions) result;
             assertions.ThumbnailCards.ShouldBeEquivalentTo(thumbnailCards);
@@ -45,7 +45,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAttachmentAssertionTests
 
             var sut = new MessageAttachmentAssertions(new Message());
 
-            var result = sut.OfTypeHeroCardThat();
+            var result = sut.OfTypeHeroCard();
             result.Should().BeAssignableTo<HeroCardSetAssertions>();
             var assertions = (HeroCardSetAssertions) result;
             assertions.HeroCards.ShouldBeEquivalentTo(heroCards);
@@ -59,7 +59,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAttachmentAssertionTests
 
             var sut = new MessageAttachmentAssertions(new Message());
 
-            var result = sut.OfTypeReceiptCardThat();
+            var result = sut.OfTypeReceiptCard();
             result.Should().BeAssignableTo<ReceiptCardSetAssertions>();
             var assertions = (ReceiptCardSetAssertions) result;
             assertions.ReceiptCards.ShouldBeEquivalentTo(receiptCards);
@@ -73,7 +73,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAttachmentAssertionTests
 
             var sut = new MessageAttachmentAssertions(new Message());
 
-            var result = sut.OfTypeSigninCardThat();
+            var result = sut.OfTypeSigninCard();
             result.Should().BeAssignableTo<SigninCardSetAssertions>();
             var assertions = (SigninCardSetAssertions) result;
             assertions.SigninCards.ShouldBeEquivalentTo(signinCards);

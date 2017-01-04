@@ -41,17 +41,17 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             _setHelpers = new SetHelpers<SigninCard, SigninCardAssertionFailedException>();
         }
 
-        public ISigninCardAssertions HasTextMatching(string regex)
+        public ISigninCardAssertions TextMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _setHelpers.TestSetForMatch(SigninCards, card => card.That().HasTextMatching(regex), CreateEx(nameof(SigninCard.Text), regex));
+            _setHelpers.TestSetForMatch(SigninCards, card => card.That().TextMatching(regex), CreateEx(nameof(SigninCard.Text), regex));
 
             return this;
         }
 
-        public ISigninCardAssertions HasTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public ISigninCardAssertions TextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -59,13 +59,13 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
                 throw new ArgumentNullException(nameof(groupMatchRegex));
 
             SetHelpers<SigninCard, SigninCardAssertionFailedException>.TestWithGroups act =
-                (SigninCard card, out IList<string> matches) => card.That().HasTextMatching(regex, groupMatchRegex, out matches);
+                (SigninCard card, out IList<string> matches) => card.That().TextMatching(regex, groupMatchRegex, out matches);
             matchedGroups = _setHelpers.TestSetForMatchAndReturnGroups(SigninCards, act, CreateEx(nameof(SigninCard.Text), regex));
 
             return this;
         }
 
-        public ICardActionAssertions WithButtonsThat()
+        public ICardActionAssertions WithButtons()
         {
             return new CardActionSetAssertions(SigninCards);
         }

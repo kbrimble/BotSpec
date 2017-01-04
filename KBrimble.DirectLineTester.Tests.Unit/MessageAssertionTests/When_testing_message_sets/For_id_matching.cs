@@ -16,26 +16,26 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         [TestCase("some text")]
         [TestCase("")]
         [TestCase("symbols ([*])?")]
-        public void HasIdMatching_should_pass_if_regex_exactly_matches_message_Id_of_one_message(string idAndRegex)
+        public void IdMatching_should_pass_if_regex_exactly_matches_message_Id_of_one_message(string idAndRegex)
         {
             var messages = MessageTestData.CreateMessageSetWithOneMessageThatHasSetProperties(id: idAndRegex);
 
             var sut = new MessageSetAssertions(messages);
 
-            Action act = () => sut.HasIdMatching(idAndRegex);
+            Action act = () => sut.IdMatching(idAndRegex);
 
             act.ShouldNotThrow<Exception>();
         }
 
         [TestCase("some text", "SOME TEXT")]
         [TestCase(@"SYMBOLS ([*])?", @"symbols ([*])?")]
-        public void HasIdMatching_should_pass_if_regex_exactly_matches_Id_of_at_least_1_message_regardless_of_case(string text, string regex)
+        public void IdMatching_should_pass_if_regex_exactly_matches_Id_of_at_least_1_message_regardless_of_case(string text, string regex)
         {
             var messages = MessageTestData.CreateMessageSetWithOneMessageThatHasSetProperties(id: text);
 
             var sut = new MessageSetAssertions(messages);
 
-            Action act = () => sut.HasIdMatching(regex);
+            Action act = () => sut.IdMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -43,13 +43,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         [TestCase("some text", "so.*xt")]
         [TestCase("some text", "[a-z ]*")]
         [TestCase("some text", "s(ome tex)t")]
-        public void HasIdMatching_should_pass_when_using_standard_regex_features(string text, string regex)
+        public void IdMatching_should_pass_when_using_standard_regex_features(string text, string regex)
         {
             var messages = MessageTestData.CreateMessageSetWithOneMessageThatHasSetProperties(id: text);
 
             var sut = new MessageSetAssertions(messages);
 
-            Action act = () => sut.HasIdMatching(regex);
+            Action act = () => sut.IdMatching(regex);
 
             act.ShouldNotThrow<Exception>();
         }
@@ -57,31 +57,31 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
         [TestCase("some text!")]
         [TestCase("^[j-z ]*$")]
         [TestCase("s{12}")]
-        public void HasIdMatching_should_throw_MessageAssertionFailedException_when_regex_matches_no_messages(string regex)
+        public void IdMatching_should_throw_MessageAssertionFailedException_when_regex_matches_no_messages(string regex)
         {
             var messages = MessageTestData.CreateRandomMessages();
 
             var sut = new MessageSetAssertions(messages);
 
-            Action act = () => sut.HasIdMatching(regex);
+            Action act = () => sut.IdMatching(regex);
 
             act.ShouldThrow<MessageAssertionFailedException>();
         }
 
         [Test]
-        public void HasIdMatching_should_throw_MessageAssertionFailedException_when_Id_of_all_messages_is_null()
+        public void IdMatching_should_throw_MessageAssertionFailedException_when_Id_of_all_messages_is_null()
         {
             var messages = Enumerable.Range(1, 5).Select(_ => new Message()).ToList();
 
             var sut = new MessageSetAssertions(messages);
 
-            Action act = () => sut.HasIdMatching(".*");
+            Action act = () => sut.IdMatching(".*");
 
             act.ShouldThrow<MessageAssertionFailedException>();
         }
 
         [Test]
-        public void HasIdMatching_should_throw_MessageAssertionFailedException_when_trying_to_capture_groups_but_Id_of_all_messages_is_null()
+        public void IdMatching_should_throw_MessageAssertionFailedException_when_trying_to_capture_groups_but_Id_of_all_messages_is_null()
         {
             IList<string> matches;
 
@@ -89,13 +89,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var sut = new MessageSetAssertions(messages);
 
-            Action act = () => sut.HasIdMatching(".*", "(.*)", out matches);
+            Action act = () => sut.IdMatching(".*", "(.*)", out matches);
 
             act.ShouldThrow<MessageAssertionFailedException>();
         }
 
         [Test]
-        public void HasIdMatching_should_not_output_matches_when_regex_does_not_match_Id_of_any_messages()
+        public void IdMatching_should_not_output_matches_when_regex_does_not_match_Id_of_any_messages()
         {
             IList<string> matches = null;
 
@@ -103,14 +103,14 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var sut = new MessageSetAssertions(messages);
 
-            Action act = () => sut.HasIdMatching("non matching regex", "(some text)", out matches);
+            Action act = () => sut.IdMatching("non matching regex", "(some text)", out matches);
 
             act.ShouldThrow<MessageAssertionFailedException>();
             matches.Should().BeNull();
         }
 
         [Test]
-        public void HasIdMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_Id_of_any_message()
+        public void IdMatching_should_not_output_matches_when_groupMatchingRegex_does_not_match_Id_of_any_message()
         {
             IList<string> matches;
 
@@ -118,13 +118,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var sut = new MessageSetAssertions(messages);
 
-            sut.HasIdMatching(".*", "(non matching)", out matches);
+            sut.IdMatching(".*", "(non matching)", out matches);
 
             matches.Should().BeNull();
         }
 
         [Test]
-        public void HasIdMatching_should_output_matches_when_groupMatchingRegex_matches_Id_of_any_message()
+        public void IdMatching_should_output_matches_when_groupMatchingRegex_matches_Id_of_any_message()
         {
             IList<string> matches;
 
@@ -133,13 +133,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var sut = new MessageSetAssertions(messages);
 
-            sut.HasIdMatching(someId, $"({someId})", out matches);
+            sut.IdMatching(someId, $"({someId})", out matches);
 
             matches.First().Should().Be(someId);
         }
 
         [Test]
-        public void HasIdMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_Id_several_times_for_a_single_message()
+        public void IdMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_Id_several_times_for_a_single_message()
         {
             IList<string> matches;
 
@@ -150,13 +150,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             const string match1 = "some";
             const string match2 = "text";
-            sut.HasIdMatching(someId, $"({match1}) ({match2})", out matches);
+            sut.IdMatching(someId, $"({match1}) ({match2})", out matches);
 
             matches.Should().Contain(match1, match2);
         }
 
         [Test]
-        public void HasIdMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_Id_on_multiple_messages()
+        public void IdMatching_should_output_multiple_matches_when_groupMatchingRegex_matches_Id_on_multiple_messages()
         {
             IList<string> matches;
 
@@ -166,25 +166,25 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var sut = new MessageSetAssertions(messages);
 
-            sut.HasIdMatching(".*", @"(s[oa]me) (text)", out matches);
+            sut.IdMatching(".*", @"(s[oa]me) (text)", out matches);
 
             matches.Should().Contain("some", "same", "text");
         }
 
         [Test]
-        public void HasIdMatching_should_throw_ArgumentNullException_if_regex_is_null()
+        public void IdMatching_should_throw_ArgumentNullException_if_regex_is_null()
         {
             var messages = MessageTestData.CreateRandomMessages();
 
             var sut = new MessageSetAssertions(messages);
 
-            Action act = () => sut.HasIdMatching(null);
+            Action act = () => sut.IdMatching(null);
 
             act.ShouldThrow<ArgumentNullException>();
         }
 
         [Test]
-        public void HasIdMatching_should_throw_ArgumentNullException_when_capturing_groups_if_regex_is_null()
+        public void IdMatching_should_throw_ArgumentNullException_when_capturing_groups_if_regex_is_null()
         {
             IList<string> matches;
 
@@ -192,13 +192,13 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var sut = new MessageSetAssertions(messages);
 
-            Action act = () => sut.HasIdMatching(null, "(.*)", out matches);
+            Action act = () => sut.IdMatching(null, "(.*)", out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }
 
         [Test]
-        public void HasIdMatching_should_throw_ArgumentNullException_if_groupMatchRegex_is_null()
+        public void IdMatching_should_throw_ArgumentNullException_if_groupMatchRegex_is_null()
         {
             IList<string> matches;
 
@@ -206,7 +206,7 @@ namespace KBrimble.DirectLineTester.Tests.Unit.MessageAssertionTests.When_testin
 
             var sut = new MessageSetAssertions(messages);
 
-            Action act = () => sut.HasIdMatching("(.*)", null, out matches);
+            Action act = () => sut.IdMatching("(.*)", null, out matches);
 
             act.ShouldThrow<ArgumentNullException>();
         }

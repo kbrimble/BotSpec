@@ -11,36 +11,36 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
     public class For_card_components
     {
         [Test]
-        public void WithButtonsThat_should_return_CardActionSetAssertions()
+        public void WithButtons_should_return_CardActionSetAssertions()
         {
             var buttons = CardActionTestData.CreateRandomCardActions();
             var thumbnailCard = new ThumbnailCard(buttons: buttons);
 
             var sut = new ThumbnailCardAssertions(thumbnailCard);
 
-            sut.WithButtonsThat().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
+            sut.WithButtons().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }
 
         [Test]
-        public void WithCardImageThat_should_return_CardImageAssertions()
+        public void WithCardImage_should_return_CardImageAssertions()
         {
             var cardImages = CardImageTestData.CreateRandomCardImages();
             var thumbnailCard = new ThumbnailCard(images: cardImages);
 
             var sut = new ThumbnailCardAssertions(thumbnailCard);
 
-            sut.WithCardImageThat().Should().BeAssignableTo<CardImageSetAssertions>().And.NotBeNull();
+            sut.WithCardImage().Should().BeAssignableTo<CardImageSetAssertions>().And.NotBeNull();
         }
 
         [Test]
-        public void WithTapActionThat_should_return_CardActionAssertions()
+        public void WithTapAction_should_return_CardActionAssertions()
         {
             var tap = new CardAction();
             var thumbnailCard = new ThumbnailCard(tap: tap);
 
             var sut = new ThumbnailCardAssertions(thumbnailCard);
 
-            sut.WithTapActionThat().Should().BeAssignableTo<CardActionAssertions>().And.NotBeNull();
+            sut.WithTapAction().Should().BeAssignableTo<CardActionAssertions>().And.NotBeNull();
         }
     }
 }

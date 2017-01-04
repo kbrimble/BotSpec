@@ -11,36 +11,36 @@ namespace KBrimble.DirectLineTester.Tests.Unit.CardAssertionTests.When_testing_t
     public class For_card_components
     {
         [Test]
-        public void WithButtonsThat_should_return_CardActionSetAssertions()
+        public void WithButtons_should_return_CardActionSetAssertions()
         {
             var buttons = CardActionTestData.CreateRandomCardActions();
             var thumbnailCards = ThumbnailCardTestData.CreateThumbnailCardSetWithOneCardThatHasSetProperties(buttons: buttons);
 
             var sut = new ThumbnailCardSetAssertions(thumbnailCards);
 
-            sut.WithButtonsThat().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
+            sut.WithButtons().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }
 
         [Test]
-        public void WithCardImageThat_should_return_CardImageAssertions()
+        public void WithCardImage_should_return_CardImageAssertions()
         {
             var cardImages = CardImageTestData.CreateRandomCardImages();
             var thumbnailCards = ThumbnailCardTestData.CreateThumbnailCardSetWithOneCardThatHasSetProperties(images: cardImages);
 
             var sut = new ThumbnailCardSetAssertions(thumbnailCards);
 
-            sut.WithCardImageThat().Should().BeAssignableTo<CardImageSetAssertions>().And.NotBeNull();
+            sut.WithCardImage().Should().BeAssignableTo<CardImageSetAssertions>().And.NotBeNull();
         }
 
         [Test]
-        public void WithTapActionThat_should_return_CardActionAssertions()
+        public void WithTapAction_should_return_CardActionAssertions()
         {
             var tap = new CardAction();
             var thumbnailCards = ThumbnailCardTestData.CreateThumbnailCardSetWithOneCardThatHasSetProperties(tap: tap);
 
             var sut = new ThumbnailCardSetAssertions(thumbnailCards);
 
-            sut.WithTapActionThat().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
+            sut.WithTapAction().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }
     }
 

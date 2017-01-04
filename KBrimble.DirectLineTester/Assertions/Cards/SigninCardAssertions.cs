@@ -17,7 +17,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             _stringHelpers = new StringHelpers<SigninCardAssertionFailedException>();
         }
 
-        public ISigninCardAssertions HasTextMatching(string regex)
+        public ISigninCardAssertions TextMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -27,7 +27,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public ISigninCardAssertions HasTextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
+        public ISigninCardAssertions TextMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -39,7 +39,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards
             return this;
         }
 
-        public ICardActionAssertions WithButtonsThat()
+        public ICardActionAssertions WithButtons()
         {
             return new CardActionSetAssertions(_signinCard.Buttons);
         }

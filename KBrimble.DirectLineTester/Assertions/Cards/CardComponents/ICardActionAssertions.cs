@@ -6,12 +6,12 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
 {
     public interface ICardActionAssertions : IThrow<CardActionAssertionFailedException>
     {
-        ICardActionAssertions HasTitleMatching(string regex);
-        ICardActionAssertions HasTitleMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches);
-        ICardActionAssertions HasValueMatching(string regex);
-        ICardActionAssertions HasValueMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches);
-        ICardActionAssertions HasImageMatching(string regex);
-        ICardActionAssertions HasImageMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches);
-        ICardActionAssertions HasType(CardActionType type);
+        ICardActionAssertions TitleMatching(string regex);
+        ICardActionAssertions TitleMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches);
+        ICardActionAssertions ValueMatching(string regex);
+        ICardActionAssertions ValueMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches);
+        ICardActionAssertions ImageMatching(string regex);
+        ICardActionAssertions ImageMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches);
+        ICardActionAssertions ActionType(CardActionType type);
     }
 }

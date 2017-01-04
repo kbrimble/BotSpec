@@ -19,7 +19,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             _stringHelpers = new StringHelpers<CardActionAssertionFailedException>();
         }
 
-        public ICardActionAssertions HasTitleMatching(string regex)
+        public ICardActionAssertions TitleMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -29,7 +29,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardActionAssertions HasTitleMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
+        public ICardActionAssertions TitleMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -41,7 +41,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardActionAssertions HasValueMatching(string regex)
+        public ICardActionAssertions ValueMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -51,7 +51,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardActionAssertions HasValueMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
+        public ICardActionAssertions ValueMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -63,7 +63,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardActionAssertions HasType(CardActionType type)
+        public ICardActionAssertions ActionType(CardActionType type)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
@@ -73,7 +73,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardActionAssertions HasImageMatching(string regex)
+        public ICardActionAssertions ImageMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -83,7 +83,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardActionAssertions HasImageMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
+        public ICardActionAssertions ImageMatching(string regex, string groupMatchingRegex, out IList<string> groupMatches)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));

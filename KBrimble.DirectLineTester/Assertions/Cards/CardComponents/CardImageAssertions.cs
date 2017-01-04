@@ -30,7 +30,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             _stringHelpers = new StringHelpers<CardImageAssertionFailedException>();
         }
 
-        public ICardImageAssertions HasUrlMatching(string regex)
+        public ICardImageAssertions UrlMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -40,7 +40,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardImageAssertions HasUrlMatching(string regex, string groupMatchRegex, out IList<string> groupMatches)
+        public ICardImageAssertions UrlMatching(string regex, string groupMatchRegex, out IList<string> groupMatches)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -52,7 +52,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardImageAssertions HasAltMatching(string regex)
+        public ICardImageAssertions AltMatching(string regex)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
@@ -62,7 +62,7 @@ namespace KBrimble.DirectLineTester.Assertions.Cards.CardComponents
             return this;
         }
 
-        public ICardImageAssertions HasAltMatching(string regex, string groupMatchRegex, out IList<string> groupMatches)
+        public ICardImageAssertions AltMatching(string regex, string groupMatchRegex, out IList<string> groupMatches)
         {
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
