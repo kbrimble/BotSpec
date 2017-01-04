@@ -1,0 +1,168 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{BA597C6C-2E20-4C35-92DE-49941D37D771}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Expecto.Tests.Unit</RootNamespace>
+    <AssemblyName>Expecto.Tests.Unit</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NSubstitute, Version=1.10.0.0, Culture=neutral, PublicKeyToken=92dd2e9066daa5ca">
+      <HintPath>..\packages\NSubstitute.1.10.0.0\lib\net45\NSubstitute.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Rest.ClientRuntime">
+      <HintPath>..\packages\Microsoft.Rest.ClientRuntime.2.3.2\lib\net45\Microsoft.Rest.ClientRuntime.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.Bot.Connector.DirectLine">
+      <HintPath>..\packages\Microsoft.Bot.Connector.DirectLine.1.1.1\lib\net45\Microsoft.Bot.Connector.DirectLine.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions.Core">
+      <HintPath>..\packages\FluentAssertions.4.17.0\lib\net45\FluentAssertions.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentAssertions">
+      <HintPath>..\packages\FluentAssertions.4.17.0\lib\net45\FluentAssertions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AttachmentTests\AttachmentExtractorFactoryTests\When_getting_attachment_extractor.cs" />
+    <Compile Include="AttachmentTests\AttachmentRetrieverFactoryTests\When_getting_attachment_retriever.cs" />
+    <Compile Include="AttachmentTests\DefaultAttachmentExtractorTests\When_extracting_cards_of_any_other_type.cs" />
+    <Compile Include="AttachmentTests\DefaultAttachmentExtractorTests\When_extracting_hero_cards.cs" />
+    <Compile Include="AttachmentTests\DefaultAttachmentExtractorTests\When_extracting_signin_cards.cs" />
+    <Compile Include="AttachmentTests\DefaultAttachmentExtractorTests\When_extracting_thumbnail_cards.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_actions\For_an_image_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_actions\For_a_title_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_actions\For_a_type.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_actions\For_a_value_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_actions\When_creating_card_action_assertions.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_action_sets\For_an_image_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_action_sets\For_a_type_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_action_sets\For_a_value_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_action_sets\When_constructing_card_action_set_assertions.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_images\For_an_alt_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_images\For_a_url_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_images\When_creating_card_image_assertions.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_image_sets\When_creating_card_image_set_assertions.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_facts\For_a_value_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_facts\For_a_key_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_facts\When_constructing_fact_assertions.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_fact_sets\For_a_value_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_fact_sets\For_a_key_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_fact_sets\When_constructing_fact_set_assertions.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_items\For_card_components.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_items\For_subtitle_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_items\For_price_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_items\For_quantity_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_items\For_title_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_items\When_constructing_receipt_item_assertions.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_item_sets\For_a_quantity_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_item_sets\For_a_price_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_item_sets\For_card_components.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_item_sets\For_text_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_item_sets\For_a_subtitle_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_item_sets\For_a_title_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_item_sets\When_constructing_receipt_item_set_assertions.cs" />
+    <Compile Include="CardAssertionTests\When_testing_hero_cards\For_card_components.cs" />
+    <Compile Include="CardAssertionTests\When_testing_hero_card_sets\For_a_subtitle_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_hero_card_sets\For_a_title_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_hero_card_sets\For_card_components.cs" />
+    <Compile Include="CardAssertionTests\When_testing_hero_card_sets\For_text_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_receipt_items\For_text_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_cards\For_card_components.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_cards\For_vat_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_cards\For_tax_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_cards\For_a_total_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_cards\For_a_title_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_card_sets\For_card_components.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_card_sets\For_vat_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_card_sets\For_tax_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_card_sets\For_a_total_matching .cs" />
+    <Compile Include="CardAssertionTests\When_testing_receipt_card_sets\For_a_title_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_signin_cards\For_card_components.cs" />
+    <Compile Include="CardAssertionTests\When_testing_signin_cards\For_text_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_signin_card_sets\For_card_components.cs" />
+    <Compile Include="CardAssertionTests\When_testing_signin_card_sets\For_text_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_thumbnail_card_sets\For_card_components.cs" />
+    <Compile Include="MessageAssertionTests\When_testing_messages\For_attachments.cs" />
+    <Compile Include="MessageAssertionTests\When_testing_message_sets\For_attachments.cs" />
+    <Compile Include="MessageAttachmentAssertionTests\When_testing_message_attachments.cs" />
+    <Compile Include="MessageAttachmentAssertionTests\When_testing_message_set_attachments.cs" />
+    <Compile Include="TestData\CardImageTestData.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_image_sets\For_an_alt_matching.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_image_sets\For_a_url_matching.cs" />
+    <Compile Include="TestData\CardActionTestData.cs" />
+    <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_action_sets\For_a_title_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_hero_cards\For_a_subtitle_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_hero_cards\For_a_title_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_hero_cards\For_text_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_thumbnail_cards\For_a_subtitle_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_thumbnail_cards\For_a_title_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_thumbnail_cards\For_card_components.cs" />
+    <Compile Include="CardAssertionTests\When_testing_thumbnail_cards\For_text_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_thumbnail_card_sets\For_a_subtitle_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_thumbnail_card_sets\For_a_title_matching.cs" />
+    <Compile Include="CardAssertionTests\When_testing_thumbnail_card_sets\For_text_matching.cs" />
+    <Compile Include="TestData\FactTestData.cs" />
+    <Compile Include="TestData\HeroCardTestData.cs" />
+    <Compile Include="TestData\ReceiptCardTestData.cs" />
+    <Compile Include="TestData\ReceiptItemTestData.cs" />
+    <Compile Include="TestData\SigninCardTestData.cs" />
+    <Compile Include="TestData\ThumbnailCardTestData.cs" />
+    <Compile Include="MessageAssertionTests\When_testing_messages\For_from_matching.cs" />
+    <Compile Include="MessageAssertionTests\When_testing_messages\For_id_matching.cs" />
+    <Compile Include="MessageAssertionTests\When_testing_messages\For_text_matching.cs" />
+    <Compile Include="MessageAssertionTests\When_testing_message_sets\For_from_matching.cs" />
+    <Compile Include="MessageAssertionTests\When_testing_message_sets\For_id_matching.cs" />
+    <Compile Include="MessageAssertionTests\When_testing_message_sets\For_text_matching.cs" />
+    <Compile Include="TestData\MessageTestData.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="AttachmentTests\DefaultAttachmentExtractorTests\When_extracting_receipt_cards.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Expecto\Expecto.csproj">
+      <Project>{84927B23-C680-4859-B79A-9915481C2DD2}</Project>
+      <Name>Expecto</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
