@@ -23,8 +23,8 @@ namespace BotSpec
         public IMessageAssertions Message()
         {
             var messages = _fetchFromHighWatermark ?
-                _botClient.GetMessagesFromHigherWatermark().Result : 
-                _botClient.GetMessagesFromLowerWatermark().Result;
+                _botClient.GetMessagesFromHigherWatermark().ConfigureAwait(false).GetAwaiter().GetResult() : 
+                _botClient.GetMessagesFromLowerWatermark().ConfigureAwait(false).GetAwaiter().GetResult();
 
             _fetchFromHighWatermark = false;
 
