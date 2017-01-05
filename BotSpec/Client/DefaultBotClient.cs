@@ -22,13 +22,15 @@ namespace BotSpec.Client
             _conversation = await _directLineClient.Conversations.NewConversationAsync().ConfigureAwait(false);
         }
 
-        public async Task SendMessage(string messageText)
+        public async Task SendMessage(string messageText, object channelData = null)
         {
             var message = new Message
             {
                 Text = messageText,
                 ConversationId = _conversation.ConversationId
             };
+            if (channelData != null)
+                message.ChannelData = channelData;
             await SendMessage(message).ConfigureAwait(false);
         }
 

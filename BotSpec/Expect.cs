@@ -14,10 +14,10 @@ namespace BotSpec
             _botClient.StartConversation().RunSynchronously();
         }
 
-        public void SendMessage(string message)
+        public void SendMessage(string message, object channelData = null)
         {
             _fetchFromHighWatermark = true;
-            _botClient.SendMessage(message).RunSynchronously();
+            _botClient.SendMessage(message, channelData).RunSynchronously();
         }
 
         public IMessageAssertions Message()
