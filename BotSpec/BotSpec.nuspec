@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>BotSpec</id>
+    <version>$version$</version>
+    <authors>Kristian Brimble</authors>
+    <owners>Kristian Brimble</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>BDD-style testing framework for Microsoft Bot Framework bots</description>
+    <copyright>Copyright © Kristian Brimble 2017</copyright>
+    <tags>bots chatbot botframework bdd</tags>
+	<projectUrl>https://github.com/kbrimble/BotSpec</projectUrl>
+  </metadata>
+</package>
