@@ -1,6 +1,6 @@
 # BotSpec
 
-[![Build status](https://ci.appveyor.com/api/projects/status/bxxrxmg0ahgqv1jt?svg=true)](https://ci.appveyor.com/project/kbrimble/botspec)
+[![Build status](https://ci.appveyor.com/api/projects/status/bxxrxmg0ahgqv1jt?svg=true)](https://ci.appveyor.com/project/kbrimble/botspec) [![NuGet](https://img.shields.io/nuget/v/Nuget.Core.svg)](https://www.nuget.org/packages/BotSpec/)
 
 BotSpec is a BDD-style framework for testing chatbots created with the [Microsoft Bot Framework](https://dev.botframework.com/) inspired by [FluentAssertions](http://www.fluentassertions.com/).
 
