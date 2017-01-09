@@ -3,9 +3,9 @@ configuration: Release
 assembly_info:
   patch: true
   file: '**\*AssemblyInfo.*'
-  assembly_version: '$(appveyor_build_version)'
-  assembly_file_version: '$(appveyor_build_version)'
-  assembly_informational_version: '$(appveyor_build_version)'
+  assembly_version: '{version}'
+  assembly_file_version: '{version}'
+  assembly_informational_version: '{version}'
 before_build:
 - nuget restore
 build:
@@ -30,3 +30,6 @@ deploy:
 - provider: NuGet
   api_key:
     secure: rj0fcpqzN3MYvb6VjP5Ic8U5ecIs/TfJAcTo3bg6xf8QRfXLQiDHMLkxMMdMjhi8
+skipcommits:
+  files:
+    - '*.md'
