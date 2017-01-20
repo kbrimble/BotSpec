@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Assertions.Cards.CardComponents
 {
@@ -18,20 +18,20 @@ namespace BotSpec.Assertions.Cards.CardComponents
             Facts = facts.Where(fact => fact != null).ToList();
         }
 
-        public FactSetAssertions(IHaveFacts iHaveFacts)
+        public FactSetAssertions(ReceiptCard receiptCard)
         {
-            if (iHaveFacts?.Facts == null)
-                throw new ArgumentNullException(nameof(iHaveFacts.Facts));
+            if (receiptCard?.Facts == null)
+                throw new ArgumentNullException(nameof(receiptCard.Facts));
 
-            Facts = iHaveFacts.Facts.Where(fact => fact != null).ToList();
+            Facts = receiptCard.Facts.Where(fact => fact != null).ToList();
         }
 
-        public FactSetAssertions(IEnumerable<IHaveFacts> iHaveFacts) : this()
+        public FactSetAssertions(IEnumerable<ReceiptCard> receiptCards) : this()
         {
-            if (iHaveFacts == null)
-                throw new ArgumentNullException(nameof(iHaveFacts));
+            if (receiptCards == null)
+                throw new ArgumentNullException(nameof(receiptCards));
 
-            Facts = iHaveFacts.Where(x => x != null).SelectMany(x => x?.Facts).Where(x => x != null).ToList();
+            Facts = receiptCards.Where(x => x != null).SelectMany(x => x.Facts).Where(x => x != null).ToList();
         }
 
         private FactSetAssertions()

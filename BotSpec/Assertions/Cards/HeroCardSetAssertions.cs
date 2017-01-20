@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BotSpec.Assertions.Cards.CardComponents;
 using BotSpec.Attachments;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
-using Microsoft.Bot.Connector.DirectLine.Models;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Assertions.Cards
 {
@@ -13,16 +13,16 @@ namespace BotSpec.Assertions.Cards
         public readonly IEnumerable<HeroCard> HeroCards;
         private readonly SetHelpers<HeroCard, HeroCardAssertionFailedException> _setHelpers;
 
-        public HeroCardSetAssertions(IEnumerable<Message> messageSet) : this()
+        public HeroCardSetAssertions(IEnumerable<Activity> activitySet) : this()
         {
             var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
-            HeroCards = attachmentExtractor.ExtractCards<HeroCard>(messageSet);
+            HeroCards = attachmentExtractor.ExtractCards<HeroCard>(activitySet);
         }
 
-        public HeroCardSetAssertions(Message message) : this()
+        public HeroCardSetAssertions(Activity activity) : this()
         {
             var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
-            HeroCards = attachmentExtractor.ExtractCards<HeroCard>(message);
+            HeroCards = attachmentExtractor.ExtractCards<HeroCard>(activity);
         }
 
         public HeroCardSetAssertions(IEnumerable<HeroCard> heroCards) : this()
@@ -109,23 +109,26 @@ namespace BotSpec.Assertions.Cards
 
         public Func<HeroCardAssertionFailedException> CreateEx(string testedProperty, string regex)
         {
-            var message = $"Expected at least one hero card in set to have property {testedProperty} to match {regex} but none did.";
-            return () => new HeroCardAssertionFailedException(message);
+            var activity = $"Expected at least one hero card in set to have property {testedProperty} to match {regex} but none did.";
+            return () => new HeroCardAssertionFailedException(activity);
         }
 
         public ICardImageAssertions WithCardImage()
         {
-            return new CardImageSetAssertions(HeroCards);
+            var images = HeroCards.Where(card => card.Images != null && card.Images.Any()).SelectMany(card => card.Images).ToList();
+            return new CardImageSetAssertions(images);
         }
 
         public ICardActionAssertions WithButtons()
         {
-            return new CardActionSetAssertions(HeroCards as IEnumerable<IHaveButtons>);
+            var buttons = HeroCards.Where(card => card.Buttons != null).SelectMany(card => card.Buttons).ToList();
+            return new CardActionSetAssertions(buttons);
         }
 
         public ICardActionAssertions WithTapAction()
         {
-            return new CardActionSetAssertions(HeroCards as IEnumerable<IHaveTapAction>);
+            var tapActions = HeroCards.Select(card => card.Tap).Where(tap => tap != null).ToList();
+            return new CardActionSetAssertions(tapActions);
         }
     }
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Assertions.Cards.CardComponents
 {
@@ -27,12 +27,12 @@ namespace BotSpec.Assertions.Cards.CardComponents
             ReceiptItems = items.Where(x => x != null);
         }
 
-        public ReceiptItemSetAssertions(IEnumerable<IHaveReceiptItems> iHaveReceiptItemses) : this()
+        public ReceiptItemSetAssertions(IEnumerable<ReceiptCard> receiptCards) : this()
         {
-            if (iHaveReceiptItemses == null)
-                throw new ArgumentNullException(nameof(iHaveReceiptItemses));
+            if (receiptCards == null)
+                throw new ArgumentNullException(nameof(receiptCards));
 
-            ReceiptItems = iHaveReceiptItemses.SelectMany(x => x?.Items).Where(x => x != null);
+            ReceiptItems = receiptCards.SelectMany(x => x?.Items).Where(x => x != null);
         }
 
         private ReceiptItemSetAssertions()
@@ -162,12 +162,14 @@ namespace BotSpec.Assertions.Cards.CardComponents
 
         public ICardActionAssertions WithTapAction()
         {
-            return new CardActionSetAssertions(ReceiptItems);
+            var tapActions = ReceiptItems.Select(card => card.Tap).Where(tap => tap != null).ToList();
+            return new CardActionSetAssertions(tapActions);
         }
 
         public ICardImageAssertions WithCardImage()
         {
-            return new CardImageSetAssertions(ReceiptItems);
+            var images = ReceiptItems.Select(card => card.Image).Where(img => img != null).ToList();
+            return new CardImageSetAssertions(images);
         }
 
         public Func<ReceiptItemAssertionFailedException> CreateEx(string testedProperty, string regex)

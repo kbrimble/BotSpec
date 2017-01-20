@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using BotSpec.Models.Cards;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Tests.Unit.TestData
 {

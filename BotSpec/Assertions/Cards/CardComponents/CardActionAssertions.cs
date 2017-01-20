@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
+using BotSpec.Models;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Assertions.Cards.CardComponents
 {
@@ -46,7 +47,7 @@ namespace BotSpec.Assertions.Cards.CardComponents
             if (regex == null)
                 throw new ArgumentNullException(nameof(regex));
 
-            _stringHelpers.TestForMatch(_cardAction.Value, regex, CreateEx(nameof(_cardAction.Value), regex));
+            _stringHelpers.TestForMatch(_cardAction?.Value?.ToString(), regex, CreateEx(nameof(_cardAction.Value), regex));
 
             return this;
         }
@@ -58,7 +59,7 @@ namespace BotSpec.Assertions.Cards.CardComponents
             if (groupMatchingRegex == null)
                 throw new ArgumentNullException(nameof(groupMatchingRegex));
 
-            groupMatches = _stringHelpers.TestForMatchAndReturnGroups(_cardAction.Value, regex, groupMatchingRegex, CreateEx(nameof(_cardAction.Value), regex));
+            groupMatches = _stringHelpers.TestForMatchAndReturnGroups(_cardAction?.Value?.ToString(), regex, groupMatchingRegex, CreateEx(nameof(_cardAction.Value), regex));
 
             return this;
         }

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BotSpec.Models.Cards;
+using BotSpec.Models;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Tests.Unit.TestData
 {

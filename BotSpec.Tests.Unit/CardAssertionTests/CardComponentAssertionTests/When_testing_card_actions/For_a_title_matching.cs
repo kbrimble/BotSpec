@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using BotSpec.Assertions.Cards.CardComponents;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
 using FluentAssertions;
+using Microsoft.Bot.Connector.DirectLine;
 using NUnit.Framework;
 
 namespace BotSpec.Tests.Unit.CardAssertionTests.CardComponentAssertionTests.When_testing_card_actions

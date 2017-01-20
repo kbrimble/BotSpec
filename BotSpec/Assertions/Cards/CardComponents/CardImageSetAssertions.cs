@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Assertions.Cards.CardComponents
 {
@@ -10,16 +10,6 @@ namespace BotSpec.Assertions.Cards.CardComponents
     {
         public readonly IList<CardImage> CardImages;
         private readonly SetHelpers<CardImage, CardImageAssertionFailedException> _setHelpers;
-
-        public CardImageSetAssertions(IEnumerable<IHaveAnImage> hasAnImages)
-        {
-            CardImages = hasAnImages.Select(x => x?.Image).Where(x => x != null).ToList();
-        }
-
-        public CardImageSetAssertions(IEnumerable<IHaveImages> hasCardImages) : this()
-        {
-            CardImages = hasCardImages.Where(x => x?.Images != null).Select(x => x.Images).SelectMany(x => x).ToList();
-        }
 
         public CardImageSetAssertions(IList<CardImage> cardImages) : this()
         {

@@ -1,8 +1,9 @@
 ﻿using System;
 using BotSpec.Assertions.Cards.CardComponents;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
+using BotSpec.Models;
 using FluentAssertions;
+using Microsoft.Bot.Connector.DirectLine;
 using NUnit.Framework;
 
 namespace BotSpec.Tests.Unit.CardAssertionTests.CardComponentAssertionTests.When_testing_card_actions

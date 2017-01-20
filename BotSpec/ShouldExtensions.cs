@@ -1,14 +1,13 @@
+using BotSpec.Assertions.Activities;
 using BotSpec.Assertions.Cards;
 using BotSpec.Assertions.Cards.CardComponents;
-using BotSpec.Assertions.Messages;
-using BotSpec.Models.Cards;
-using Microsoft.Bot.Connector.DirectLine.Models;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec
 {
     internal static class ShouldExtensions
     {
-        public static IMessageAssertions Should(this Message message) => new MessageAssertions(message);
+        public static IActivityAssertions Should(this Activity message) => new ActivityAssertions(message);
         public static IThumbnailCardAssertions That(this ThumbnailCard thumbnailCard) => new ThumbnailCardAssertions(thumbnailCard);
         public static ISigninCardAssertions That(this SigninCard signinCard) => new SigninCardAssertions(signinCard);
         public static IReceiptCardAssertions That(this ReceiptCard receiptCard) => new ReceiptCardAssertions(receiptCard);

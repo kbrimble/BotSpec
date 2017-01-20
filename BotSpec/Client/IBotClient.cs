@@ -1,15 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Bot.Connector.DirectLine.Models;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Client
 {
     public interface IBotClient
     {
-        Task StartConversation();
-        Task SendMessage(string messageText, object channelData = null);
-        Task SendMessage(Message message);
-        Task<IEnumerable<Message>> GetMessagesFromHigherWatermark();
-        Task<IEnumerable<Message>> GetMessagesFromLowerWatermark();
+        void StartConversation();
+        void SendMessage(string messageText, object channelData = null);
+        void SendMessage(Activity message);
+        IList<Activity> GetActivitiesFromHigherWatermark(int expectedNumberofActivities);
+        IList<Activity> GetActivitiesFromLowerWatermark(int expectedNumberofActivities);
     }
 }

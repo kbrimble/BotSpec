@@ -27,8 +27,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Bot.Connector.DirectLine, Version=1.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bot.Connector.DirectLine.1.1.1\lib\net45\Microsoft.Bot.Connector.DirectLine.dll</HintPath>
+    <Reference Include="Microsoft.Bot.Connector.DirectLine, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bot.Connector.DirectLine.3.0.0\lib\net45\Microsoft.Bot.Connector.DirectLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -82,7 +82,7 @@
     <Compile Include="Assertions\Cards\IHeroCardAssertions.cs" />
     <Compile Include="Exceptions\ReceiptItemAssertionFailedException.cs" />
     <Compile Include="Assertions\Cards\CardComponents\ReceiptItemAssertions.cs" />
-    <Compile Include="Assertions\Messages\ICanAssertMessageAttachments.cs" />
+    <Compile Include="Assertions\Activities\ICanAssertMessageAttachments.cs" />
     <Compile Include="Attachments\DefaultAttachmentExtractor.cs" />
     <Compile Include="Attachments\DefaultAttachmentRetriever.cs" />
     <Compile Include="Attachments\AttachmentRetrieverFactory.cs" />
@@ -94,42 +94,28 @@
     <Compile Include="Assertions\IThrow.cs" />
     <Compile Include="Assertions\SetHelpers.cs" />
     <Compile Include="Assertions\StringHelpers.cs" />
-    <Compile Include="Assertions\Attachments\MessageAttachmentAssertions.cs" />
-    <Compile Include="Assertions\Attachments\MessageSetAttachmentAssertions.cs" />
+    <Compile Include="Assertions\Attachments\ActivityAttachmentAssertions.cs" />
+    <Compile Include="Assertions\Attachments\ActivitySetAttachmentAssertions.cs" />
     <Compile Include="Exceptions\BotAssertionFailedException.cs" />
     <Compile Include="Exceptions\HeroCardAssertionFailedException.cs" />
     <Compile Include="Expect.cs" />
     <Compile Include="Client\IBotClient.cs" />
-    <Compile Include="Models\Cards\CardActionType.cs" />
-    <Compile Include="Models\Cards\CardActionTypeMap.cs" />
-    <Compile Include="Models\Cards\Fact.cs" />
-    <Compile Include="Models\Cards\HeroCard.cs" />
-    <Compile Include="Models\Cards\IHaveAnImage.cs" />
-    <Compile Include="Models\Cards\IHaveButtons.cs" />
-    <Compile Include="Models\Cards\IHaveFacts.cs" />
-    <Compile Include="Models\Cards\IHaveImages.cs" />
-    <Compile Include="Models\Cards\IHaveReceiptItems.cs" />
-    <Compile Include="Models\Cards\IHaveTapAction.cs" />
     <Compile Include="Assertions\Cards\IReceiptCardAssertions.cs" />
-    <Compile Include="Models\Cards\ReceiptCard.cs" />
     <Compile Include="Assertions\Cards\ReceiptCardSetAssertions.cs" />
-    <Compile Include="Models\Cards\ReceiptItem.cs" />
-    <Compile Include="Models\Cards\SigninCard.cs" />
+    <Compile Include="Models\CardActionType.cs" />
+    <Compile Include="Models\CardActionTypeMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Client\DefaultBotClient.cs" />
     <Compile Include="ShouldExtensions.cs" />
-    <Compile Include="Models\Cards\ThumbnailCard.cs" />
-    <Compile Include="Models\Cards\CardAction.cs" />
-    <Compile Include="Assertions\Messages\IMessageAssertions.cs" />
-    <Compile Include="Assertions\Messages\MessageAssertions.cs" />
-    <Compile Include="Assertions\Messages\MessageSetAssertions.cs" />
+    <Compile Include="Assertions\Activities\IActivityAssertions.cs" />
+    <Compile Include="Assertions\Activities\ActivityAssertions.cs" />
+    <Compile Include="Assertions\Activities\ActivitySetAssertions.cs" />
     <Compile Include="Assertions\Cards\ThumbnailCardAssertions.cs" />
-    <Compile Include="Exceptions\MessageAssertionFailedException.cs" />
+    <Compile Include="Exceptions\ActivityAssertionFailedException.cs" />
     <Compile Include="Exceptions\ThumbnailCardAssertionFailedException.cs" />
     <Compile Include="Assertions\Cards\IThumbnailCardAssertions.cs" />
     <Compile Include="Assertions\Cards\ThumbnailCardSetAssertions.cs" />
-    <Compile Include="Assertions\Attachments\IMessageAttachmentAssertions.cs" />
-    <Compile Include="Models\Cards\CardImage.cs" />
+    <Compile Include="Assertions\Attachments\IActivityAttachmentAssertions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

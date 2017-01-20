@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
+using BotSpec.Models;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Assertions.Cards.CardComponents
 {
@@ -18,22 +19,6 @@ namespace BotSpec.Assertions.Cards.CardComponents
 
             CardActions = cardActions.Where(x => x != null).ToList();
             _setHelpers = new SetHelpers<CardAction, CardActionAssertionFailedException>();
-        }
-
-        public CardActionSetAssertions(IEnumerable<IHaveTapAction> hasTapActions)
-        {
-            if (hasTapActions == null)
-                throw new ArgumentNullException(nameof(hasTapActions));
-
-            CardActions = hasTapActions.Where(x => x?.Tap != null).Select(x => x.Tap).ToList();
-        }
-
-        public CardActionSetAssertions(IEnumerable<IHaveButtons> hasButtons)
-        {
-            if (hasButtons == null)
-                throw new ArgumentNullException(nameof(hasButtons));
-
-            CardActions = hasButtons.Where(x => x?.Buttons != null).Select(x => x.Buttons).SelectMany(x => x).ToList();
         }
 
         public ICardActionAssertions TitleMatching(string regex)

@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BotSpec.Assertions.Cards.CardComponents;
 using BotSpec.Attachments;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
-using Microsoft.Bot.Connector.DirectLine.Models;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Assertions.Cards
 {
@@ -13,16 +13,16 @@ namespace BotSpec.Assertions.Cards
         public readonly IEnumerable<SigninCard> SigninCards;
         private readonly SetHelpers<SigninCard, SigninCardAssertionFailedException> _setHelpers;
 
-        public SigninCardSetAssertions(Message message) : this()
+        public SigninCardSetAssertions(Activity activity) : this()
         {
             var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
-            SigninCards = attachmentExtractor.ExtractCards<SigninCard>(message);
+            SigninCards = attachmentExtractor.ExtractCards<SigninCard>(activity);
         }
 
-        public SigninCardSetAssertions(IEnumerable<Message> messageSet) : this()
+        public SigninCardSetAssertions(IEnumerable<Activity> activitySet) : this()
         {
             var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
-            SigninCards = attachmentExtractor.ExtractCards<SigninCard>(messageSet);
+            SigninCards = attachmentExtractor.ExtractCards<SigninCard>(activitySet);
         }
 
         public SigninCardSetAssertions(IEnumerable<SigninCard> signinCards) : this()
@@ -61,13 +61,14 @@ namespace BotSpec.Assertions.Cards
 
         public ICardActionAssertions WithButtons()
         {
-            return new CardActionSetAssertions(SigninCards);
+            var buttons = SigninCards.Where(card => card.Buttons != null && card.Buttons.Any()).SelectMany(card => card.Buttons).ToList();
+            return new CardActionSetAssertions(buttons);
         }
 
         public Func<SigninCardAssertionFailedException> CreateEx(string testedProperty, string regex)
         {
-            var message = $"Expected at least one sigin card in set to have property {testedProperty} to match {regex} but none did.";
-            return () => new SigninCardAssertionFailedException(message);
+            var activity = $"Expected at least one sigin card in set to have property {testedProperty} to match {regex} but none did.";
+            return () => new SigninCardAssertionFailedException(activity);
         }
     }
 }

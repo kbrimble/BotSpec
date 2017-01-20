@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using BotSpec.Assertions.Cards.CardComponents;
-using BotSpec.Models.Cards;
 using BotSpec.Tests.Unit.TestData;
 using FluentAssertions;
+using Microsoft.Bot.Connector.DirectLine;
 using NUnit.Framework;
 
 // ReSharper disable ObjectCreationAsStatement
@@ -24,13 +24,6 @@ namespace BotSpec.Tests.Unit.CardAssertionTests.CardComponentAssertionTests.When
         public void Constructor_should_throw_ArgumentNullException_when_ReceiptCard_list_is_null()
         {
             Action act = () => new ReceiptItemSetAssertions((ReceiptCard) null);
-            act.ShouldThrow<ArgumentNullException>();
-        }
-
-        [Test]
-        public void Constructor_should_throw_ArgumentNullException_when_IHaveReceiptItem_list_is_null()
-        {
-            Action act = () => new ReceiptItemSetAssertions((IEnumerable<IHaveReceiptItems>) null);
             act.ShouldThrow<ArgumentNullException>();
         }
 

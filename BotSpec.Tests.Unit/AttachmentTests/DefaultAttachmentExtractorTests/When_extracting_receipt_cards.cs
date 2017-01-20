@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using BotSpec.Attachments;
-using BotSpec.Models.Cards;
 using FluentAssertions;
-using Microsoft.Bot.Connector.DirectLine.Models;
+using Microsoft.Bot.Connector.DirectLine;
 using Newtonsoft.Json;
 using NSubstitute;
 using NUnit.Framework;
@@ -14,6 +14,7 @@ namespace BotSpec.Tests.Unit.AttachmentTests.DefaultAttachmentExtractorTests
     public class When_extracting_receipt_cards
     {
         private IAttachmentRetriever _retriever;
+        private static readonly string ValidContentType = DefaultAttachmentExtractor.ContentTypeMap.Map(typeof(ReceiptCard));
 
         [SetUp]
         public void SetUp()
@@ -24,42 +25,55 @@ namespace BotSpec.Tests.Unit.AttachmentTests.DefaultAttachmentExtractorTests
         }
 
         [Test]
-        public void Only_attachments_with_valid_content_type_should_be_extracted()
+        [SuppressMessage("ReSharper", "ArgumentsStyleLiteral")]
+        [SuppressMessage("ReSharper", "ArgumentsStyleNamedExpression")]
+        [SuppressMessage("ReSharper", "ReturnValueOfPureMethodIsNotUsed")]
+        public void Attachments_with_content_should_be_deserialized_without_being_retrieved()
         {
-            const string validContentType = ReceiptCard.ContentType;
-            var validReceiptCard = new ReceiptCard(title: "some text");
-            var validJson = JsonConvert.SerializeObject(validReceiptCard);
-            var validAttachment = new Attachment("validUrl1", validContentType);
-
-            const string invalidContentType = "invalidContentType";
-            var invalidAttachment = new Attachment("validUrl2", invalidContentType);
-
-            var attachments = new List<Attachment> { validAttachment, invalidAttachment };
-            var message = new Message(attachments: attachments);
-
-            _retriever.GetAttachmentsFromUrls(Arg.Is<string[]>(arr => arr.Length == 1)).Returns(new[] {validJson});
-            _retriever.GetAttachmentsFromUrls(Arg.Is<string[]>(arr => arr.Length == 2)).Returns(new[] {validJson, validJson});
+            var receiptCard = new ReceiptCard("some title");
+            var receiptCardJson = JsonConvert.SerializeObject(receiptCard);
+            var attachment = new Attachment(ValidContentType, contentUrl: null, content: receiptCardJson);
+            var activity = new Activity(attachments: new[] { attachment });
 
             var sut = new DefaultAttachmentExtractor();
+            sut.ExtractCards<ReceiptCard>(activity).ToList();
 
-            var returnedCards = sut.ExtractCards<ReceiptCard>(message).ToList();
+            _retriever.DidNotReceive().GetAttachmentFromUrl(Arg.Any<string>());
+            _retriever.DidNotReceiveWithAnyArgs().GetAttachmentsFromUrls(Arg.Any<string[]>());
+        }
 
-            returnedCards.Count.Should().Be(1);
+        [Test]
+        [SuppressMessage("ReSharper", "ArgumentsStyleNamedExpression")]
+        [SuppressMessage("ReSharper", "RedundantArgumentDefaultValue")]
+        [SuppressMessage("ReSharper", "ArgumentsStyleLiteral")]
+        [SuppressMessage("ReSharper", "ReturnValueOfPureMethodIsNotUsed")]
+        public void Attachments_with_content_url_should_be_retrieved_by_url()
+        {
+            const string contentUrl = "URL";
+            var receiptCard = new ReceiptCard("some title");
+            var receiptCardJson = JsonConvert.SerializeObject(receiptCard);
+            _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] { receiptCardJson });
+            var attachment = new Attachment(ValidContentType, contentUrl: contentUrl, content: null);
+            var activity = new Activity(attachments: new[] { attachment });
+
+            var sut = new DefaultAttachmentExtractor();
+            sut.ExtractCards<ReceiptCard>(activity).ToList();
+
+            _retriever.Received().GetAttachmentsFromUrls(Arg.Is<string[]>(x => x.Contains(contentUrl)));
         }
 
         [Test]
         public void Only_attachments_with_valid_json_should_be_extracted()
         {
             var validJson = JsonConvert.SerializeObject(new ReceiptCard(title: "valid"));
-            var inValidJson = validJson + "some extra text";
-            var attachment = new Attachment(contentType: ReceiptCard.ContentType);
-            var message = new Message(attachments: new[] {attachment, attachment});
-
-            _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] {validJson, inValidJson});
+            var invalidJson = validJson + "some extra text";
+            var validAttachment = new Attachment(ValidContentType, content: validJson);
+            var invalidAttachment = new Attachment(ValidContentType, content: invalidJson);
+            var activity = new Activity(attachments: new[] {validAttachment, invalidAttachment });
 
             var sut = new DefaultAttachmentExtractor();
 
-            var returnedCards = sut.ExtractCards<ReceiptCard>(message).ToList();
+            var returnedCards = sut.ExtractCards<ReceiptCard>(activity).ToList();
 
             returnedCards.Count.Should().Be(1);
         }
@@ -69,20 +83,20 @@ namespace BotSpec.Tests.Unit.AttachmentTests.DefaultAttachmentExtractorTests
         {
             var receiptCard = new ReceiptCard(title: "some text");
             var receiptJson = JsonConvert.SerializeObject(receiptCard);
-            var receiptAttachment = new Attachment("validUrl1", ReceiptCard.ContentType);
+            var receiptAttachment = new Attachment(ValidContentType, "validUrl1");
 
             var someOtherType = new {SomeField = "some text"};
             var someOtherTypeJson = JsonConvert.SerializeObject(someOtherType);
-            var someOtherTypeAttachment = new Attachment("validUrl2", ReceiptCard.ContentType);
+            var someOtherTypeAttachment = new Attachment(ValidContentType, "validUrl2");
 
             var attachments = new List<Attachment> { receiptAttachment, someOtherTypeAttachment };
-            var message = new Message(attachments: attachments);
+            var activity = new Activity(attachments: attachments);
 
             _retriever.GetAttachmentsFromUrls(Arg.Any<string[]>()).Returns(new[] {receiptJson, someOtherTypeJson});
 
             var sut = new DefaultAttachmentExtractor();
 
-            var returnedCards = sut.ExtractCards<ReceiptCard>(message).ToList();
+            var returnedCards = sut.ExtractCards<ReceiptCard>(activity).ToList();
 
             returnedCards.Count.Should().Be(2);
             returnedCards.Should().Contain(card => card.Title == null);

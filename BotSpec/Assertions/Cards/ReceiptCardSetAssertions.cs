@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BotSpec.Assertions.Cards.CardComponents;
 using BotSpec.Attachments;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
-using Microsoft.Bot.Connector.DirectLine.Models;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Assertions.Cards
 {
@@ -13,16 +13,16 @@ namespace BotSpec.Assertions.Cards
         public readonly IEnumerable<ReceiptCard> ReceiptCards;
         private readonly SetHelpers<ReceiptCard, ReceiptCardAssertionFailedException> _setHelpers;
 
-        public ReceiptCardSetAssertions(Message message) : this()
+        public ReceiptCardSetAssertions(Activity activity) : this()
         {
             var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
-            ReceiptCards = attachmentExtractor.ExtractCards<ReceiptCard>(message);
+            ReceiptCards = attachmentExtractor.ExtractCards<ReceiptCard>(activity);
         }
 
-        public ReceiptCardSetAssertions(IEnumerable<Message> messageSet) : this()
+        public ReceiptCardSetAssertions(IEnumerable<Activity> activitySet) : this()
         {
             var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
-            ReceiptCards = attachmentExtractor.ExtractCards<ReceiptCard>(messageSet);
+            ReceiptCards = attachmentExtractor.ExtractCards<ReceiptCard>(activitySet);
         }
 
         public ReceiptCardSetAssertions(IEnumerable<ReceiptCard> signinCards) : this()
@@ -133,12 +133,14 @@ namespace BotSpec.Assertions.Cards
 
         public ICardActionAssertions WithButtons()
         {
-            return new CardActionSetAssertions(ReceiptCards as IEnumerable<IHaveButtons>);
+            var buttons = ReceiptCards.Where(card => card.Buttons != null && card.Buttons.Any()).SelectMany(card => card.Buttons).ToList();
+            return new CardActionSetAssertions(buttons);
         }
 
         public ICardActionAssertions WithTapAction()
         {
-            return new CardActionSetAssertions(ReceiptCards as IEnumerable<IHaveTapAction>);
+            var tapActions = ReceiptCards.Select(card => card.Tap).Where(tap => tap != null).ToList();
+            return new CardActionSetAssertions(tapActions);
         }
 
         public IReceiptItemAssertions WithReceiptItem()
@@ -153,8 +155,8 @@ namespace BotSpec.Assertions.Cards
 
         public Func<ReceiptCardAssertionFailedException> CreateEx(string testedProperty, string regex)
         {
-            var message = $"Expected one receipt card to have property {testedProperty} to match regex {regex} but found none";
-            return () => new ReceiptCardAssertionFailedException(message);
+            var activity = $"Expected one receipt card to have property {testedProperty} to match regex {regex} but found none";
+            return () => new ReceiptCardAssertionFailedException(activity);
         }
     }
 }

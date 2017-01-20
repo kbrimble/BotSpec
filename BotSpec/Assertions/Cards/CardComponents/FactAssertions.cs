@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Assertions.Cards.CardComponents
 {

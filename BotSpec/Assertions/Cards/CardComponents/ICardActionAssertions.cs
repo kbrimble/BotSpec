@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using BotSpec.Models.Cards;
+using BotSpec.Models;
 
 namespace BotSpec.Assertions.Cards.CardComponents
 {

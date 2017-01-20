@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BotSpec.Assertions.Cards.CardComponents;
 using BotSpec.Attachments;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
-using Microsoft.Bot.Connector.DirectLine.Models;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Assertions.Cards
 {
@@ -13,22 +13,22 @@ namespace BotSpec.Assertions.Cards
         public readonly IEnumerable<ThumbnailCard> ThumbnailCards;
         private readonly SetHelpers<ThumbnailCard, ThumbnailCardAssertionFailedException> _setHelpers;
 
-        public ThumbnailCardSetAssertions(MessageSet messageSet) : this()
+        public ThumbnailCardSetAssertions(ActivitySet activitySet) : this()
         {
             var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
-            ThumbnailCards = attachmentExtractor.ExtractCards<ThumbnailCard>(messageSet);
+            ThumbnailCards = attachmentExtractor.ExtractCards<ThumbnailCard>(activitySet);
         }
 
-        public ThumbnailCardSetAssertions(IEnumerable<Message> messageSet) : this()
+        public ThumbnailCardSetAssertions(IEnumerable<Activity> activitySet) : this()
         {
             var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
-            ThumbnailCards = attachmentExtractor.ExtractCards<ThumbnailCard>(messageSet);
+            ThumbnailCards = attachmentExtractor.ExtractCards<ThumbnailCard>(activitySet);
         }
 
-        public ThumbnailCardSetAssertions(Message message) : this()
+        public ThumbnailCardSetAssertions(Activity activity) : this()
         {
             var attachmentExtractor = AttachmentExtractorFactory.GetAttachmentExtractor();
-            ThumbnailCards = attachmentExtractor.ExtractCards<ThumbnailCard>(message);
+            ThumbnailCards = attachmentExtractor.ExtractCards<ThumbnailCard>(activity);
         }
 
         public ThumbnailCardSetAssertions(IEnumerable<ThumbnailCard> thumbnailCards) : this()
@@ -115,23 +115,26 @@ namespace BotSpec.Assertions.Cards
 
         public Func<ThumbnailCardAssertionFailedException> CreateEx(string testedProperty, string regex)
         {
-            var message = $"Expected at least one thumbnail card in set to have property {testedProperty} to match {regex} but none did.";
-            return () => new ThumbnailCardAssertionFailedException(message);
+            var activity = $"Expected at least one thumbnail card in set to have property {testedProperty} to match {regex} but none did.";
+            return () => new ThumbnailCardAssertionFailedException(activity);
         }
 
         public ICardImageAssertions WithCardImage()
         {
-            return new CardImageSetAssertions(ThumbnailCards);
+            var images = ThumbnailCards.Where(card => card.Images != null && card.Images.Any()).SelectMany(card => card.Images).ToList();
+            return new CardImageSetAssertions(images);
         }
 
         public ICardActionAssertions WithButtons()
         {
-            return new CardActionSetAssertions(ThumbnailCards as IEnumerable<IHaveButtons>);
+            var buttons = ThumbnailCards.Where(card => card.Buttons != null && card.Buttons.Any()).SelectMany(card => card.Buttons).ToList();
+            return new CardActionSetAssertions(buttons);
         }
 
         public ICardActionAssertions WithTapAction()
         {
-            return new CardActionSetAssertions(ThumbnailCards as IEnumerable<IHaveTapAction>);
+            var tapActions = ThumbnailCards.Select(card => card.Tap).Where(tap => tap != null).ToList();
+            return new CardActionSetAssertions(tapActions);
         }
     }
 }

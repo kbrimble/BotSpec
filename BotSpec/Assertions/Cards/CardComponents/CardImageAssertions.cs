@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
+using Microsoft.Bot.Connector.DirectLine;
 
 namespace BotSpec.Assertions.Cards.CardComponents
 {
@@ -18,11 +18,11 @@ namespace BotSpec.Assertions.Cards.CardComponents
             _cardImage = cardImage;
         }
 
-        public CardImageAssertions(IHaveAnImage iHaveAnImage) : this()
+        public CardImageAssertions(ReceiptItem receiptItem) : this()
         {
-            if (iHaveAnImage == null)
-                throw new ArgumentNullException(nameof(iHaveAnImage));
-            _cardImage = iHaveAnImage.Image;
+            if (receiptItem == null)
+                throw new ArgumentNullException(nameof(receiptItem));
+            _cardImage = receiptItem.Image;
         }
 
         public CardImageAssertions()

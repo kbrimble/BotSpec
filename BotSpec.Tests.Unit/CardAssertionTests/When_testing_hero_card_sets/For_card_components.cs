@@ -1,8 +1,8 @@
 ﻿using BotSpec.Assertions.Cards;
 using BotSpec.Assertions.Cards.CardComponents;
-using BotSpec.Models.Cards;
 using BotSpec.Tests.Unit.TestData;
 using FluentAssertions;
+using Microsoft.Bot.Connector.DirectLine;
 using NUnit.Framework;
 
 namespace BotSpec.Tests.Unit.CardAssertionTests.When_testing_hero_card_sets
@@ -14,9 +14,9 @@ namespace BotSpec.Tests.Unit.CardAssertionTests.When_testing_hero_card_sets
         public void WithButtons_should_return_CardActionSetAssertions()
         {
             var buttons = CardActionTestData.CreateRandomCardActions();
-            var thumbnailCards = HeroCardTestData.CreateHeroCardSetWithOneCardThatHasSetProperties(buttons: buttons);
+            var heroCards = HeroCardTestData.CreateHeroCardSetWithOneCardThatHasSetProperties(buttons: buttons);
 
-            var sut = new HeroCardSetAssertions(thumbnailCards);
+            var sut = new HeroCardSetAssertions(heroCards);
 
             sut.WithButtons().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }
@@ -25,9 +25,9 @@ namespace BotSpec.Tests.Unit.CardAssertionTests.When_testing_hero_card_sets
         public void WithCardImage_should_return_CardImageAssertions()
         {
             var cardImages = CardImageTestData.CreateRandomCardImages();
-            var thumbnailCards = HeroCardTestData.CreateHeroCardSetWithOneCardThatHasSetProperties(images: cardImages);
+            var heroCards = HeroCardTestData.CreateHeroCardSetWithOneCardThatHasSetProperties(images: cardImages);
 
-            var sut = new HeroCardSetAssertions(thumbnailCards);
+            var sut = new HeroCardSetAssertions(heroCards);
 
             sut.WithCardImage().Should().BeAssignableTo<CardImageSetAssertions>().And.NotBeNull();
         }
@@ -36,9 +36,9 @@ namespace BotSpec.Tests.Unit.CardAssertionTests.When_testing_hero_card_sets
         public void WithTapAction_should_return_CardActionAssertions()
         {
             var tap = new CardAction();
-            var thumbnailCards = HeroCardTestData.CreateHeroCardSetWithOneCardThatHasSetProperties(tap: tap);
+            var heroCards = HeroCardTestData.CreateHeroCardSetWithOneCardThatHasSetProperties(tap: tap);
 
-            var sut = new HeroCardSetAssertions(thumbnailCards);
+            var sut = new HeroCardSetAssertions(heroCards);
 
             sut.WithTapAction().Should().BeAssignableTo<CardActionSetAssertions>().And.NotBeNull();
         }

@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using BotSpec.Assertions.Cards.CardComponents;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
+using BotSpec.Models;
 using BotSpec.Tests.Unit.TestData;
 using FluentAssertions;
 using NUnit.Framework;

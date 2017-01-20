@@ -1,4 +1,4 @@
-﻿using BotSpec.Assertions.Messages;
+﻿using BotSpec.Assertions.Activities;
 using BotSpec.Client;
 
 namespace BotSpec
@@ -11,24 +11,24 @@ namespace BotSpec
         public Expect(string secretOrToken)
         {
             _botClient = BotClientFactory.GetBotClient(secretOrToken);
-            _botClient.StartConversation().Wait();
+            _botClient.StartConversation();
         }
 
-        public void SendMessage(string message, object channelData = null)
+        public void SendActivity(string message, object channelData = null)
         {
+            _botClient.SendMessage(message, channelData);
             _fetchFromHighWatermark = true;
-            _botClient.SendMessage(message, channelData).Wait();
         }
 
-        public IMessageAssertions Message()
+        public IActivityAssertions Activity(int expectedNumberofActivities = 0)
         {
             var messages = _fetchFromHighWatermark ?
-                _botClient.GetMessagesFromHigherWatermark().ConfigureAwait(false).GetAwaiter().GetResult() : 
-                _botClient.GetMessagesFromLowerWatermark().ConfigureAwait(false).GetAwaiter().GetResult();
+                _botClient.GetActivitiesFromHigherWatermark(expectedNumberofActivities) : 
+                _botClient.GetActivitiesFromLowerWatermark(expectedNumberofActivities);
 
             _fetchFromHighWatermark = false;
 
-            return new MessageSetAssertions(messages);
+            return new ActivitySetAssertions(messages);
         }
     }
 }

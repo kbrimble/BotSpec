@@ -35,8 +35,8 @@
       <HintPath>..\packages\FluentAssertions.4.18.0\lib\net45\FluentAssertions.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Microsoft.Bot.Connector.DirectLine, Version=1.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Bot.Connector.DirectLine.1.1.1\lib\net45\Microsoft.Bot.Connector.DirectLine.dll</HintPath>
+    <Reference Include="Microsoft.Bot.Connector.DirectLine, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Bot.Connector.DirectLine.3.0.0\lib\net45\Microsoft.Bot.Connector.DirectLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Rest.ClientRuntime, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="AttachmentTests\AttachmentExtractorFactoryTests\When_getting_attachment_extractor.cs" />
     <Compile Include="AttachmentTests\AttachmentRetrieverFactoryTests\When_getting_attachment_retriever.cs" />
-    <Compile Include="AttachmentTests\DefaultAttachmentExtractorTests\When_extracting_cards_of_any_other_type.cs" />
     <Compile Include="AttachmentTests\DefaultAttachmentExtractorTests\When_extracting_hero_cards.cs" />
     <Compile Include="AttachmentTests\DefaultAttachmentExtractorTests\When_extracting_signin_cards.cs" />
     <Compile Include="AttachmentTests\DefaultAttachmentExtractorTests\When_extracting_thumbnail_cards.cs" />
@@ -124,10 +123,10 @@
     <Compile Include="CardAssertionTests\When_testing_signin_card_sets\For_card_components.cs" />
     <Compile Include="CardAssertionTests\When_testing_signin_card_sets\For_text_matching.cs" />
     <Compile Include="CardAssertionTests\When_testing_thumbnail_card_sets\For_card_components.cs" />
-    <Compile Include="MessageAssertionTests\When_testing_messages\For_attachments.cs" />
-    <Compile Include="MessageAssertionTests\When_testing_message_sets\For_attachments.cs" />
-    <Compile Include="MessageAttachmentAssertionTests\When_testing_message_attachments.cs" />
-    <Compile Include="MessageAttachmentAssertionTests\When_testing_message_set_attachments.cs" />
+    <Compile Include="ActivityAssertionTests\When_testing_activities\For_attachments.cs" />
+    <Compile Include="ActivityAssertionTests\When_testing_activity_sets\For_attachments.cs" />
+    <Compile Include="ActivityAttachmentAssertionTests\When_testing_activity_attachments.cs" />
+    <Compile Include="ActivityAttachmentAssertionTests\When_testing_activity_set_attachments.cs" />
     <Compile Include="TestData\CardImageTestData.cs" />
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_image_sets\For_an_alt_matching.cs" />
     <Compile Include="CardAssertionTests\CardComponentAssertionTests\When_testing_card_image_sets\For_a_url_matching.cs" />
@@ -149,12 +148,12 @@
     <Compile Include="TestData\ReceiptItemTestData.cs" />
     <Compile Include="TestData\SigninCardTestData.cs" />
     <Compile Include="TestData\ThumbnailCardTestData.cs" />
-    <Compile Include="MessageAssertionTests\When_testing_messages\For_from_matching.cs" />
-    <Compile Include="MessageAssertionTests\When_testing_messages\For_id_matching.cs" />
-    <Compile Include="MessageAssertionTests\When_testing_messages\For_text_matching.cs" />
-    <Compile Include="MessageAssertionTests\When_testing_message_sets\For_from_matching.cs" />
-    <Compile Include="MessageAssertionTests\When_testing_message_sets\For_id_matching.cs" />
-    <Compile Include="MessageAssertionTests\When_testing_message_sets\For_text_matching.cs" />
+    <Compile Include="ActivityAssertionTests\When_testing_activities\For_from_matching.cs" />
+    <Compile Include="ActivityAssertionTests\When_testing_activities\For_id_matching.cs" />
+    <Compile Include="ActivityAssertionTests\When_testing_activities\For_text_matching.cs" />
+    <Compile Include="ActivityAssertionTests\When_testing_activity_sets\For_from_matching.cs" />
+    <Compile Include="ActivityAssertionTests\When_testing_activity_sets\For_id_matching.cs" />
+    <Compile Include="ActivityAssertionTests\When_testing_activity_sets\For_text_matching.cs" />
     <Compile Include="TestData\MessageTestData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AttachmentTests\DefaultAttachmentExtractorTests\When_extracting_receipt_cards.cs" />

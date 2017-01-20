@@ -1,14 +1,17 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Threading;
 using Microsoft.Bot.Connector.DirectLine;
-using Microsoft.Bot.Connector.DirectLine.Models;
 
 namespace BotSpec.Client
 {
     internal class DefaultBotClient : IBotClient
     {
+        private const int RetryTimes = 10;
+        private const int WaitTimeMs = 1000;
+
         private readonly IDirectLineClient _directLineClient;
         private Conversation _conversation;
+        private ChannelAccount _channelAccount;
         private string _higherWatermark;
         private string _lowerWatermark;
 
@@ -17,45 +20,85 @@ namespace BotSpec.Client
             _directLineClient = new DirectLineClient(secretOrToken);
         }
 
-        public async Task StartConversation()
+        public void StartConversation()
         {
-            _conversation = await _directLineClient.Conversations.NewConversationAsync().ConfigureAwait(false);
+            _conversation = _directLineClient.Conversations.StartConversation();
+            _channelAccount = new ChannelAccount($"BotSpec{_conversation.ConversationId.Substring(0, 8)}");
         }
 
-        public async Task SendMessage(string messageText, object channelData = null)
+        public void SendMessage(string messageText, object channelData = null)
         {
-            var message = new Message
+            var message = new Activity
             {
                 Text = messageText,
-                ConversationId = _conversation.ConversationId
+                From = _channelAccount,
+                Type = "message"
             };
             if (channelData != null)
                 message.ChannelData = channelData;
-            await SendMessage(message).ConfigureAwait(false);
+            SendMessage(message);
         }
 
-        public async Task SendMessage(Message message)
+        public void SendMessage(Activity activity)
         {
-            await _directLineClient.Conversations.PostMessageAsync(_conversation.ConversationId, message).ConfigureAwait(false);
+            _directLineClient.Conversations.PostActivity(_conversation.ConversationId, activity);
         }
 
-        public async Task<IEnumerable<Message>> GetMessagesFromHigherWatermark()
+        public IList<Activity> GetActivitiesFromHigherWatermark(int expectedNumberofActivities)
         {
-            var messageSet = await GetMessageSet(_higherWatermark).ConfigureAwait(false);
+            var activities = GetActivitiesWithRetry(expectedNumberofActivities, _higherWatermark);
+
+            if (activities?.Watermark == null)
+                return activities?.Activities;
+
             _lowerWatermark = _higherWatermark;
-            _higherWatermark = messageSet.Watermark;
-            return messageSet.Messages;
+            _higherWatermark = activities.Watermark;
+
+            return activities.Activities;
         }
 
-        public async Task<IEnumerable<Message>> GetMessagesFromLowerWatermark()
+        public IList<Activity> GetActivitiesFromLowerWatermark(int expectedNumberofActivities)
         {
-            var messageSet = await GetMessageSet(_lowerWatermark).ConfigureAwait(false);
-            return messageSet.Messages;
+            var activitySet = GetActivitiesWithRetry(expectedNumberofActivities, _lowerWatermark);
+            return activitySet.Activities;
         }
 
-        private async Task<MessageSet> GetMessageSet(string watermark)
+        private ActivitySet GetActivitiesWithRetry(int expectedNumberofActivities, string watermark)
         {
-            return await _directLineClient.Conversations.GetMessagesAsync(_conversation.ConversationId, watermark).ConfigureAwait(false);
+            var noOfRetries = RetryTimes;
+            ActivitySet activitySet = null;
+            var retry = true;
+            while (noOfRetries > 0 && retry)
+            {
+                var latestSet = GetActivitySet(watermark);
+                var newActivities = NumberOfNewActivities(latestSet, watermark);
+
+                if (expectedNumberofActivities > 0 && newActivities < expectedNumberofActivities)
+                {
+                    noOfRetries -= 1;
+                    Thread.Sleep(WaitTimeMs);
+                    continue;
+                }
+
+                activitySet = latestSet;
+
+                retry = false;
+            }
+            return activitySet;
+        }
+
+        private ActivitySet GetActivitySet(string watermark)
+        {
+            return watermark == null
+                ? _directLineClient.Conversations.GetActivities(_conversation.ConversationId)
+                : _directLineClient.Conversations.GetActivities(_conversation.ConversationId, watermark);
+        }
+
+        private static int NumberOfNewActivities(ActivitySet activitySet, string watermark)
+        {
+            if (activitySet?.Watermark == null)
+                return 0;
+            return int.Parse(activitySet.Watermark ?? "0") - int.Parse(watermark ?? "0");
         }
     }
 }

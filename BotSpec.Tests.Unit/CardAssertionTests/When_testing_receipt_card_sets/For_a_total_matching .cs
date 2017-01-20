@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using BotSpec.Assertions.Cards;
 using BotSpec.Exceptions;
-using BotSpec.Models.Cards;
 using BotSpec.Tests.Unit.TestData;
 using FluentAssertions;
+using Microsoft.Bot.Connector.DirectLine;
 using NUnit.Framework;
 
 namespace BotSpec.Tests.Unit.CardAssertionTests.When_testing_receipt_card_sets
