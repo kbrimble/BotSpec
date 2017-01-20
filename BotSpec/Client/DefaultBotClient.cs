@@ -49,7 +49,8 @@ namespace BotSpec.Client
 
         public async Task<IEnumerable<Message>> GetMessagesFromLowerWatermark()
         {
-            return (await GetMessageSet(_lowerWatermark).ConfigureAwait(false)).Messages;
+            var messageSet = await GetMessageSet(_lowerWatermark).ConfigureAwait(false);
+            return messageSet.Messages;
         }
 
         private async Task<MessageSet> GetMessageSet(string watermark)

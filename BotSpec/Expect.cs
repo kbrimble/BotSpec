@@ -11,13 +11,13 @@ namespace BotSpec
         public Expect(string secretOrToken)
         {
             _botClient = BotClientFactory.GetBotClient(secretOrToken);
-            _botClient.StartConversation().RunSynchronously();
+            _botClient.StartConversation().Wait();
         }
 
         public void SendMessage(string message, object channelData = null)
         {
             _fetchFromHighWatermark = true;
-            _botClient.SendMessage(message, channelData).RunSynchronously();
+            _botClient.SendMessage(message, channelData).Wait();
         }
 
         public IMessageAssertions Message()
