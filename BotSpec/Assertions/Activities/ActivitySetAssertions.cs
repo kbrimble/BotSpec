@@ -46,6 +46,11 @@ namespace BotSpec.Assertions.Activities
 
         }
 
+        public IActivityAssertions TextMatchingStrings(string[] strings)
+        {
+            throw new NotImplementedException();
+        }
+
         public IActivityAssertions TextMatching(string regex)
         {
             if (regex == null)

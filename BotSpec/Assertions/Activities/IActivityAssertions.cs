@@ -10,5 +10,6 @@ namespace BotSpec.Assertions.Activities
         IActivityAssertions IdMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);
         IActivityAssertions FromMatching(string regex);
         IActivityAssertions FromMatching(string regex, string groupMatchRegex, out IList<string> matchedGroups);
+        IActivityAssertions TextMatchingStrings(string[] strings);
     }
 }

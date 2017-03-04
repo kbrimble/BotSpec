@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using BotSpec.Assertions.Attachments;
 using BotSpec.Exceptions;
 using Microsoft.Bot.Connector.DirectLine;
@@ -76,6 +77,13 @@ namespace BotSpec.Assertions.Activities
 
             matchedGroups = _stringHelpers.TestForMatchAndReturnGroups(_activity?.From?.Name, regex, groupMatchRegex, CreateEx(nameof(_activity.From), regex));
             return this;
+        }
+
+        public IActivityAssertions TextMatchingStrings(string[] strings)
+        {
+            if (strings == null)
+                throw new ArgumentNullException(nameof(strings));
+            throw new NotImplementedException();
         }
 
         public IActivityAttachmentAssertions WithAttachment()
