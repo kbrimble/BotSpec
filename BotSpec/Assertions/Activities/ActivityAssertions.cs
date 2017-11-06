@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BotSpec.Assertions.Attachments;
 using BotSpec.Exceptions;
 using Microsoft.Bot.Connector.DirectLine;
+using BotSpec.Assertions.Cards.CardComponents;
 
 namespace BotSpec.Assertions.Activities
 {
@@ -81,6 +82,12 @@ namespace BotSpec.Assertions.Activities
         public IActivityAttachmentAssertions WithAttachment()
         {
             return new ActivityAttachmentAssertions(_activity);
+        }
+
+        public ICardActionAssertions WithSuggestedActions()
+        {
+            var actions = _activity.SuggestedActions?.Actions;
+            return new CardActionSetAssertions(actions);
         }
 
         public Func<ActivityAssertionFailedException> CreateEx(string testedProperty, string regex)
