@@ -4,6 +4,7 @@ using System.Linq;
 using BotSpec.Assertions.Attachments;
 using BotSpec.Exceptions;
 using Microsoft.Bot.Connector.DirectLine;
+using BotSpec.Assertions.Cards.CardComponents;
 
 namespace BotSpec.Assertions.Activities
 {
@@ -97,6 +98,12 @@ namespace BotSpec.Assertions.Activities
         public IActivityAttachmentAssertions WithAttachment()
         {
             return new ActivitySetAttachmentAssertions(_messageSet);
+        }
+
+        public ICardActionAssertions WithSuggestedActions()
+        {
+            var actions = _messageSet.Where(message => message.SuggestedActions?.Actions != null).SelectMany(message => message.SuggestedActions.Actions).ToList();
+            return new CardActionSetAssertions(actions);
         }
 
         public Func<ActivityAssertionFailedException> CreateEx(string testedProperty, string regex)
